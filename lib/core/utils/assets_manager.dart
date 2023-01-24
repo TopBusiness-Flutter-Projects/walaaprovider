@@ -20,7 +20,7 @@ class ImageAssets {
   // icons
   static const String rewriteIcon = '$iconsPath/rewrite.svg';
   static const String accountPersonIcon = '$iconsPath/account_person.svg';
-  static const String emailIcon = '$iconsPath/email.svg';
+  static const String phoneIcon = '$iconsPath/phone.svg';
   static const String lockIcon = '$iconsPath/lock.svg';
   static const String deleteAccountIcon = '$iconsPath/delete_account.svg';
   static const String languageIcon = '$iconsPath/language_icon.svg';

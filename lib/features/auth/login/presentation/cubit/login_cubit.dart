@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,24 +12,21 @@ import '../../../../../core/utils/toast_message_method.dart';
 import '../../models/login_model.dart';
 import 'login_state.dart';
 
-
 class LoginCubit extends Cubit<LoginState> {
   LoginModel loginModel = LoginModel();
   bool isLoginValid = false;
 
   String? message;
+
   LoginCubit(this.serviceApi) : super(LoginInitial()) {
     checkValidLoginData();
   }
 
   final ServiceApi serviceApi;
 
-
-
   List<String> countriesListData = [];
 
 /////////////// Methods /////////////////
- 
 
 //////////////////////////////////////
 
@@ -57,16 +53,15 @@ class LoginCubit extends Cubit<LoginState> {
     // }
   }
 
-  void checkValidLoginData() {
-    if (loginModel.isDataValid()) {
+  Future<void> checkValidLoginData() async {
+    bool vaild = await loginModel.isDataValid();
+    if (vaild) {
       isLoginValid = true;
       emit(OnLoginVaild());
     } else {
       isLoginValid = false;
-    
+
       emit(OnLoginVaildFaild());
     }
   }
-
-
 }

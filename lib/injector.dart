@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:walaaprovider/features/navigation_bottom/cubit/navigator_bottom_cubit.dart';
 
 import 'core/remote/service.dart';
 import 'features/auth/login/presentation/cubit/Login_cubit.dart';
@@ -47,6 +48,7 @@ Future<void> setup() async {
       serviceLocator(),
     ),
   );
+  serviceLocator.registerFactory(() => NavigatorBottomCubit());
   //! External
   // Shared Preferences
   final sharedPreferences = await SharedPreferences.getInstance();

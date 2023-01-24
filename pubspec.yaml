@@ -45,8 +45,9 @@ dependencies:
   whatsapp_unilink: ^2.1.0
   permission_handler: ^10.2.0
   image_picker: ^0.8.6
+  custom_navigation_bar: ^0.8.2
   circular_reveal_animation: ^2.0.1
-  email_validator: ^2.1.17
+  phone_number: ^1.0.0
   flutter_svg: ^1.1.6
   shared_preferences: ^2.0.15
   page_transition: "^2.0.9"
@@ -66,7 +67,7 @@ dependencies:
   rflutter_alert: ^2.0.4
   clickable_list_wheel_view: ^0.2.0
   syncfusion_flutter_charts: ^20.4.38
-
+  intl_phone_number_input: ^0.7.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

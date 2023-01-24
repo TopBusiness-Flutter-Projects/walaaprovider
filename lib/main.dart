@@ -11,17 +11,17 @@ main() async {
   await EasyLocalization.ensureInitialized();
   await injector.setup();
   BlocOverrides.runZoned(
-    () => runApp(
-      EasyLocalization(
-        supportedLocales: const [Locale('ar', ''), Locale('en', '')],
-        path: 'assets/lang',
-        saveLocale: false,
-        startLocale: const Locale('en', ''),
-        fallbackLocale: const Locale('en', ''),
-
-        child: Cofee(),
-      ),
-    ),
+        () =>
+        runApp(
+          EasyLocalization(
+            supportedLocales: const [Locale('ar', ''), Locale('en', '')],
+            path: 'assets/lang',
+            saveLocale: false,
+            startLocale: const Locale('ar', ''),
+            fallbackLocale: const Locale('ar', ''),
+            child: Cofee(),
+          ),
+        ),
     blocObserver: AppBlocObserver(),
   );
 }

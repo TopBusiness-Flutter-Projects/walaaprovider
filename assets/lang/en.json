@@ -1,4 +1,5 @@
 {
-
-
+  "phone": "Phone Number",
+  "password": "Password",
+  "invaild phone": "invaild phone Number"
 }
