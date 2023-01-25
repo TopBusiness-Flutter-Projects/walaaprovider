@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:walaaprovider/features/navigation_bottom/screens/navigation_bottom.dart';
 
-import '../../core/utils/app_strings.dart';
 import '../../features/auth/login/presentation/screens/login.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 
@@ -38,7 +37,7 @@ class AppRoutes {
     return MaterialPageRoute(
       builder: (context) => const Scaffold(
         body: Center(
-          child: Text(AppStrings.noRouteFound),
+          child: Text(''),
         ),
       ),
     );

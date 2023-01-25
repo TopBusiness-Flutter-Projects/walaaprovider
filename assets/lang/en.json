@@ -1,5 +1,15 @@
 {
   "phone": "Phone Number",
   "password": "Password",
-  "invaild phone": "invaild phone Number"
+  "invaild phone": "invaild phone Number",
+  "invaild pass": "Invaild Password",
+  "home": "Home",
+  "order": "Orders",
+  "menu": "Menu",
+  "profile": "Profile",
+  "cart": "Cart",
+  "forgot_password": "Forgot Your Password ?",
+  "signin": "Sign In",
+  "dont_have": "Don't Have An Account?",
+  "sign_up": "Sign Up"
 }

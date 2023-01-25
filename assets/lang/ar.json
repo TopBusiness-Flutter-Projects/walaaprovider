@@ -1,5 +1,15 @@
 {
   "phone": "رقم الجوال",
   "password": "كلمة المرور",
-  "invaild phone": "رقم جوال خاطئ"
+  "invaild phone": "رقم جوال خاطئ",
+  "invaild pass": "كلمة مرور خاطئة",
+  "home": "الرئيسية",
+  "order": "الطلبات",
+  "menu": "القائمة",
+  "profile": "الملف الشخصى",
+  "cart": "السلة",
+  "forgot_password": "نسيت كلمة المرور ؟",
+  "signin": "دخول",
+  "dont_have": "هل لديك حساب ؟",
+  "sign_up": "تسجيل جديد"
 }

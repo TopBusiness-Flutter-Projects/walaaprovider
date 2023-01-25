@@ -6,7 +6,6 @@ import 'package:walaaprovider/features/navigation_bottom/cubit/navigator_bottom_
 import 'package:walaaprovider/injector.dart' as injector;
 
 import 'core/utils/app_routes.dart';
-import 'core/utils/app_strings.dart';
 import 'features/auth/login/presentation/cubit/Login_cubit.dart';
 
 class Cofee extends StatefulWidget {
@@ -38,7 +37,7 @@ class _CofeeState extends State<Cofee> {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,
-        title: AppStrings.appName,
+        title: 'appName'.tr(),
         onGenerateRoute: AppRoutes.onGenerateRoute,
 
     ));

@@ -11,11 +11,11 @@ import '../../../../../core/utils/toast_message_method.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/my_svg_widget.dart';
 import '../../../../../core/widgets/show_loading_indicator.dart';
-import '../cubit/Login_cubit.dart';
-import '../cubit/login_state.dart';
+import '../cubit/register_cubit.dart';
+import '../cubit/register_state.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({Key? key}) : super(key: key);
 
   GlobalKey<FormState> formKey = GlobalKey();
 
@@ -25,30 +25,30 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
         backgroundColor: AppColors.grey8,
-        body: BlocListener<LoginCubit, LoginState>(
+        body: BlocListener<RegisterCubit, RegisterState>(
           listener: (context, state) {
-            if (state is LoginErrorMessages) {
+            if (state is RegisterErrorMessages) {
               toastMessage(
-                context.read<LoginCubit>().message,
+                context.read<RegisterCubit>().message,
                 context,
                 color: AppColors.error,
               );
             }
-            if (state is LoginError) {
+            if (state is RegisterError) {
               toastMessage(
-                context.read<LoginCubit>().message,
+                context.read<RegisterCubit>().message,
                 context,
                 color: AppColors.error,
               );
             }
-            if (state is OnLoginVaildFaild) {
+            if (state is OnRegisterVaildFaild) {
               formKey.currentState!.validate();
             }
-            if (state is OnLoginVaild) {
+            if (state is OnRegisterVaild) {
               formKey.currentState!.validate();
             }
           },
-          child: BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
+          child: BlocBuilder<RegisterCubit, RegisterState>(builder: (context, state) {
             return SafeArea(
               child: Form(
                 key: formKey,
@@ -83,29 +83,29 @@ class LoginScreen extends StatelessWidget {
                                   locale: lang,
 
                                   errorMessage: context
-                                      .read<LoginCubit>()
-                                      .loginModel
+                                      .read<RegisterCubit>()
+                                      .RegisterModel
                                       .error_phone,
                                   isEnabled: true,
 
                                   onInputChanged: (PhoneNumber number) {
                                     print("sssss${number.phoneNumber}");
                                     context
-                                            .read<LoginCubit>()
-                                            .loginModel
+                                            .read<RegisterCubit>()
+                                            .RegisterModel
                                             .phone =
                                         number.phoneNumber!
                                             .replaceAll(number.dialCode!, "")!;
                                     context
-                                      ..read<LoginCubit>().loginModel.code =
+                                      ..read<RegisterCubit>().RegisterModel.code =
                                           number.isoCode!;
                                     context
-                                        .read<LoginCubit>()
-                                        .loginModel
+                                        .read<RegisterCubit>()
+                                        .RegisterModel
                                         .phone_code = number.dialCode!;
                                     context
-                                        .read<LoginCubit>()
-                                        .checkValidLoginData();
+                                        .read<RegisterCubit>()
+                                        .checkValidRegisterData();
                                   },
 
                                   onInputValidated: (bool value) {
@@ -115,15 +115,15 @@ class LoginScreen extends StatelessWidget {
 
                                   initialValue: PhoneNumber(
                                       isoCode: context
-                                              .read<LoginCubit>()
-                                              .loginModel
+                                              .read<RegisterCubit>()
+                                              .RegisterModel
                                               .code
                                               .isNotEmpty
                                           ? context
-                                              .read<LoginCubit>()
-                                              .loginModel
+                                              .read<RegisterCubit>()
+                                              .RegisterModel
                                               .code
-                                          : "SA"),
+                                          : "+966"),
                                   selectorConfig: SelectorConfig(
                                     selectorType:
                                         PhoneInputSelectorType.BOTTOM_SHEET,
@@ -186,22 +186,22 @@ class LoginScreen extends StatelessWidget {
                                   textInputAction: TextInputAction.next,
                                   onChanged: (data) {
                                     context
-                                        .read<LoginCubit>()
-                                        .loginModel
+                                        .read<RegisterCubit>()
+                                        .RegisterModel
                                         .password = data;
                                     context
-                                        .read<LoginCubit>()
-                                        .checkValidLoginData();
+                                        .read<RegisterCubit>()
+                                        .checkValidRegisterData();
                                   },
                                   validator: (value) {
                                     return context
-                                            .read<LoginCubit>()
-                                            .loginModel
+                                            .read<RegisterCubit>()
+                                            .RegisterModel
                                             .error_password
                                             .isNotEmpty
                                         ? context
-                                            .read<LoginCubit>()
-                                            .loginModel
+                                            .read<RegisterCubit>()
+                                            .RegisterModel
                                             .error_password
                                         : null;
                                   },
@@ -238,12 +238,12 @@ class LoginScreen extends StatelessWidget {
                         CustomButton(
                           textcolor: AppColors.color1,
                           text: 'signin'.tr(),
-                          color: context.read<LoginCubit>().isLoginValid
+                          color: context.read<RegisterCubit>().isRegisterValid
                               ? AppColors.primary
                               : AppColors.gray,
                           onClick: () {
                             if (formKey.currentState!.validate()) {
-                              context.read<LoginCubit>().userLogin(context);
+                              context.read<RegisterCubit>().userRegister(context);
                               print('all is well !!');
                             }
                           },

@@ -9,7 +9,8 @@ class NavigatorBottomCubit extends Cubit<NavigatorBottomState> {
   NavigatorBottomCubit() : super(NavigatorBottomInitial()){
     onUserDataSuccess();
   }
-  int page = 2;
+  int page = 0;
+  String title='home'.tr();
   //UserModel? user;
   String lan ='ff';
   getLan(context) {
@@ -20,8 +21,9 @@ class NavigatorBottomCubit extends Cubit<NavigatorBottomState> {
  //   user = await Preferences.instance.getUserModel().whenComplete(() => null);
   }
 
-  changePage(int index) {
+  changePage(int index,String title) {
     page = index;
+    this.title=title;
     emit(NavigatorBottomChangePage());
   }
 }

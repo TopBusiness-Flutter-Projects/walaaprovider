@@ -11,10 +11,8 @@ import '../cubit/navigator_bottom_cubit.dart';
 class NavigatorBottomWidget extends StatelessWidget {
   NavigatorBottomWidget({Key? key}) : super(key: key);
   late int _page = 2;
+  List<String> titles=['home'.tr(),'order'.tr(),'menu'.tr(),'profile'.tr(),'cart'.tr()];
 
-  List<int> _badgeCounts = List<int>.generate(5, (index) => index);
-
-  List<bool> _badgeShows = List<bool>.generate(5, (index) => true);
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NavigatorBottomCubit, NavigatorBottomState>(
@@ -22,41 +20,39 @@ class NavigatorBottomWidget extends StatelessWidget {
         _page = context.read<NavigatorBottomCubit>().page;
         return CustomNavigationBar(
           iconSize: 30.0,
-          selectedColor: AppColors.color2,
-          strokeColor: Color(0x30040307),
-          unSelectedColor: AppColors.white,
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.color1,
+          strokeColor:AppColors.color2,
           currentIndex: _page,
+
           items: [
             CustomNavigationBarItem(
-              icon: Image.asset(ImageAssets.phoneIcon),
+              icon: Image.asset(ImageAssets.homeImage,color: _page==0?AppColors.color2:AppColors.white),
 
-              showBadge: _badgeShows[0],
             ),
             CustomNavigationBarItem(
-              icon: Image.asset(ImageAssets.phoneIcon),
+              icon: Image.asset(ImageAssets.orderImage,color: _page==1?AppColors.color2:AppColors.white),
 
-              showBadge: _badgeShows[1],
+
             ),
             CustomNavigationBarItem(
-              icon: Image.asset(ImageAssets.phoneIcon),
+              icon: Image.asset(ImageAssets.spoonImage,color: _page==2?AppColors.color2:AppColors.white),
 
-              showBadge: _badgeShows[2],
+
             ),
             CustomNavigationBarItem(
-              icon: Image.asset(ImageAssets.phoneIcon),
-
-              showBadge: _badgeShows[3],
+              icon: Image.asset(ImageAssets.profileImage,color: _page==3?AppColors.color2:AppColors.white),
             ),
             CustomNavigationBarItem(
-              icon: Image.asset(ImageAssets.phoneIcon),
-              badgeCount: _badgeCounts[4],
-              showBadge: _badgeShows[4],
+              icon: Image.asset(ImageAssets.cartImage,color: _page==4?AppColors.color2:AppColors.white),
+              // badgeCount: _badgeCounts[4],
+              //  showBadge: _badgeShows[4],
+
+
             )
 
           ],
           onTap: (index) {
-            context.read<NavigatorBottomCubit>().changePage(index);
+            context.read<NavigatorBottomCubit>().changePage(index,titles.elementAt(index));
           },
         );
       },
