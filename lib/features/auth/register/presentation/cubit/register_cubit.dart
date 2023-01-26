@@ -20,7 +20,7 @@ import '../../../../../core/utils/toast_message_method.dart';
 import 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterModel RegisterModel = RegisterModel();
+  RegisterModel registerModel = RegisterModel();
   bool isRegisterValid = false;
 
   String? message;
@@ -38,58 +38,56 @@ class RegisterCubit extends Cubit<RegisterState> {
 //////////////////////////////////////
 
   userRegister(BuildContext context) async {
-    // AppWidget.createProgressDialog(context, 'wait'.tr());
-    //
-    // try {
-    //   final response = await serviceApi.userRegister(RegisterModel);
-    //
-    //   if (response.status.code == 200) {
-    //     Navigator.pop(context);
-    //     storeUser(response);
-    //
-    //     Future.delayed(Duration(milliseconds: 400), () {
-    //
-    //       Navigator.pushNamedAndRemoveUntil(
-    //         context,
-    //         Routes.NavigationBottomRoute,
-    //         ModalRoute.withName(Routes.RegisterRoute),
-    //       );
-    //     });
-    //
-    //   } else if (response.status.code == 406) {
-    //     Navigator.pop(context);
-    //     Fluttertoast.showToast(
-    //         msg: "invaild pass".tr(),  // message
-    //         toastLength: Toast.LENGTH_SHORT, // length
-    //         gravity: ToastGravity.BOTTOM,    // location
-    //         timeInSecForIosWeb: 1               // duration
-    //     );
-    //   }
-    //
-    //   else if (response.status.code == 422) {
-    //     Navigator.pop(context);
-    //     Fluttertoast.showToast(
-    //         msg: "invaild phone".tr(),  // message
-    //         toastLength: Toast.LENGTH_SHORT, // length
-    //         gravity: ToastGravity.BOTTOM,    // location
-    //         timeInSecForIosWeb: 1               // duration
-    //     );
-    //   }
-    // } on DioError catch (e) {
-    //   Navigator.pop(context);
-    //   print(" Error : ${e}");
-    //   final errorMessage = DioExceptions.fromDioError(e).toString();
-    //   emit(RegisterError());
-    //   throw errorMessage;
-    // }
+    AppWidget.createProgressDialog(context, 'wait'.tr());
+
+    try {
+      final response = await serviceApi.userRegister(registerModel);
+
+      if (response.status.code == 200) {
+        Navigator.pop(context);
+        storeUser(response);
+
+        Future.delayed(Duration(milliseconds: 400), () {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            Routes.NavigationBottomRoute,
+            ModalRoute.withName(Routes.registerRoute),
+          );
+        });
+      } else if (response.status.code == 406) {
+        Navigator.pop(context);
+        Fluttertoast.showToast(
+            msg: "invaild pass".tr(), // message
+            toastLength: Toast.LENGTH_SHORT, // length
+            gravity: ToastGravity.BOTTOM, // location
+            timeInSecForIosWeb: 1 // duration
+            );
+      } else if (response.status.code == 422) {
+        Navigator.pop(context);
+        Fluttertoast.showToast(
+            msg: "invaild phone".tr(), // message
+            toastLength: Toast.LENGTH_SHORT, // length
+            gravity: ToastGravity.BOTTOM, // location
+            timeInSecForIosWeb: 1 // duration
+            );
+      }
+    } on DioError catch (e) {
+      Navigator.pop(context);
+      print(" Error : ${e}");
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      emit(RegisterError());
+      throw errorMessage;
+    }
   }
+
   Future<void> storeUser(UserDataModel userDataModel) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('user', jsonEncode(RegisterModel));
     print('Successfully Saved User');
   }
+
   Future<void> checkValidRegisterData() async {
-    bool vaild = await RegisterModel.isDataValid();
+    bool vaild = await registerModel.isDataValid();
     if (vaild) {
       isRegisterValid = true;
       emit(OnRegisterVaild());

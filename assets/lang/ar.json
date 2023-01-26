@@ -1,6 +1,7 @@
 {
   "phone": "رقم الجوال",
   "password": "كلمة المرور",
+  "confirm_password": "تأكيد كلمة المرور",
   "invaild phone": "رقم جوال خاطئ",
   "invaild pass": "كلمة مرور خاطئة",
   "home": "الرئيسية",
@@ -9,7 +10,13 @@
   "profile": "الملف الشخصى",
   "cart": "السلة",
   "forgot_password": "نسيت كلمة المرور ؟",
+  "first_name": "الاسم الاول",
+  "last_name": "الاسم الاخير",
+  "location": "العنوان",
   "signin": "دخول",
   "dont_have": "هل لديك حساب ؟",
-  "sign_up": "تسجيل جديد"
+  "sign_up": "تسجيل جديد",
+  "field_required": "الحقل مطلوب",
+  "welcom_coffee": "مرحبًا بكم في المقهى",
+  "get_wide_range": "احصل على مجموعة واسعة من القهوة المتخصصة"
 }

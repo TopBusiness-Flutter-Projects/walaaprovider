@@ -1,6 +1,7 @@
 {
   "phone": "Phone Number",
   "password": "Password",
+  "confirm_password": "Confirm Password",
   "invaild phone": "invaild phone Number",
   "invaild pass": "Invaild Password",
   "home": "Home",
@@ -9,7 +10,13 @@
   "profile": "Profile",
   "cart": "Cart",
   "forgot_password": "Forgot Your Password ?",
+  "first_name": "First Name",
+  "last_name": "Last Name",
+  "location": "Location",
   "signin": "Sign In",
   "dont_have": "Don't Have An Account?",
-  "sign_up": "Sign Up"
+  "sign_up": "Sign Up",
+  "field_required": "Field Required",
+  "welcom_coffee": "Welcome to coffee shop",
+  "get_wide_range": "get wide range of speciality coffee"
 }

@@ -48,7 +48,8 @@ class RegisterScreen extends StatelessWidget {
               formKey.currentState!.validate();
             }
           },
-          child: BlocBuilder<RegisterCubit, RegisterState>(builder: (context, state) {
+          child: BlocBuilder<RegisterCubit, RegisterState>(
+              builder: (context, state) {
             return SafeArea(
               child: Form(
                 key: formKey,
@@ -60,31 +61,143 @@ class RegisterScreen extends StatelessWidget {
                         SizedBox(
                           height: 50,
                         ),
-                        Center(
-                          child: Image.asset(
-                            ImageAssets.loginImage,
-                            fit: BoxFit.fitWidth,
-                          ),
+                        Text("welcom_coffee".tr(),
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primary)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "get_wide_range".tr(),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primary),
                         ),
                         SizedBox(
                           height: 23,
                         ),
                         Container(
+                          
                           child: Row(
                             children: [
-                              MySvgWidget(
-                                path: ImageAssets.phoneIcon,
-                                color: AppColors.primary,
-                                width: 16,
-                                height: 16,
+
+                              SizedBox(width: 25),
+                              Expanded(
+                                child: TextFormField(
+                                  maxLines: 1,
+                                  cursorColor: AppColors.primary,
+                                  keyboardType: TextInputType.text,
+                                  obscureText: true,
+                                  textInputAction: TextInputAction.next,
+                                  onChanged: (data) {
+                                    context
+                                        .read<RegisterCubit>()
+                                        .registerModel
+                                        .first_name = data;
+                                    context
+                                        .read<RegisterCubit>()
+                                        .checkValidRegisterData();
+                                  },
+                                  validator: (value) {
+                                    return context
+                                        .read<RegisterCubit>()
+                                        .registerModel
+                                        .error_first_name
+                                        .isNotEmpty
+                                        ? context
+                                        .read<RegisterCubit>()
+                                        .registerModel
+                                        .error_first_name
+                                        : null;
+                                  },
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'first_name'.tr(),
+                                      hintStyle: TextStyle(
+                                          color: AppColors.primary,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold)),
+                                ),
                               ),
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          color: AppColors.color2,
+                          height: 3,
+                          thickness: 3,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          
+                          child: Row(
+                            children: [
+
+                              SizedBox(width: 25),
+                              Expanded(
+                                child: TextFormField(
+                                  maxLines: 1,
+                                  cursorColor: AppColors.primary,
+                                  keyboardType: TextInputType.text,
+                                  obscureText: true,
+                                  textInputAction: TextInputAction.next,
+                                  onChanged: (data) {
+                                    context
+                                        .read<RegisterCubit>()
+                                        .registerModel
+                                        .last_name = data;
+                                    context
+                                        .read<RegisterCubit>()
+                                        .checkValidRegisterData();
+                                  },
+                                  validator: (value) {
+                                    return context
+                                        .read<RegisterCubit>()
+                                        .registerModel
+                                        .error_last_name
+                                        .isNotEmpty
+                                        ? context
+                                        .read<RegisterCubit>()
+                                        .registerModel
+                                        .error_last_name
+                                        : null;
+                                  },
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'last_name'.tr(),
+                                      hintStyle: TextStyle(
+                                          color: AppColors.primary,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          color: AppColors.color2,
+                          height: 3,
+                          thickness: 3,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          child: Row(
+                            children: [
+
                               Expanded(
                                 child: InternationalPhoneNumberInput(
                                   locale: lang,
 
                                   errorMessage: context
                                       .read<RegisterCubit>()
-                                      .RegisterModel
+                                      .registerModel
                                       .error_phone,
                                   isEnabled: true,
 
@@ -92,16 +205,17 @@ class RegisterScreen extends StatelessWidget {
                                     print("sssss${number.phoneNumber}");
                                     context
                                             .read<RegisterCubit>()
-                                            .RegisterModel
+                                            .registerModel
                                             .phone =
                                         number.phoneNumber!
                                             .replaceAll(number.dialCode!, "")!;
                                     context
-                                      ..read<RegisterCubit>().RegisterModel.code =
-                                          number.isoCode!;
+                                      ..read<RegisterCubit>()
+                                          .registerModel
+                                          .code = number.isoCode!;
                                     context
                                         .read<RegisterCubit>()
-                                        .RegisterModel
+                                        .registerModel
                                         .phone_code = number.dialCode!;
                                     context
                                         .read<RegisterCubit>()
@@ -116,12 +230,12 @@ class RegisterScreen extends StatelessWidget {
                                   initialValue: PhoneNumber(
                                       isoCode: context
                                               .read<RegisterCubit>()
-                                              .RegisterModel
+                                              .registerModel
                                               .code
                                               .isNotEmpty
                                           ? context
                                               .read<RegisterCubit>()
-                                              .RegisterModel
+                                              .registerModel
                                               .code
                                           : "+966"),
                                   selectorConfig: SelectorConfig(
@@ -166,15 +280,64 @@ class RegisterScreen extends StatelessWidget {
                           height: 20,
                         ),
                         Container(
-                          height: 40,
+                          
                           child: Row(
                             children: [
-                              MySvgWidget(
-                                path: ImageAssets.lockIcon,
-                                color: AppColors.primary,
-                                width: 16,
-                                height: 16,
+
+                              SizedBox(width: 25),
+                              Expanded(
+                                child: TextFormField(
+                                  maxLines: 1,
+                                  cursorColor: AppColors.primary,
+                                  keyboardType: TextInputType.text,
+                                  obscureText: true,
+                                  textInputAction: TextInputAction.next,
+                                  onChanged: (data) {
+                                    context
+                                        .read<RegisterCubit>()
+                                        .registerModel
+                                        .location = data;
+                                    context
+                                        .read<RegisterCubit>()
+                                        .checkValidRegisterData();
+                                  },
+                                  validator: (value) {
+                                    return context
+                                        .read<RegisterCubit>()
+                                        .registerModel
+                                        .error_location
+                                        .isNotEmpty
+                                        ? context
+                                        .read<RegisterCubit>()
+                                        .registerModel
+                                        .error_location
+                                        : null;
+                                  },
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'location'.tr(),
+                                      hintStyle: TextStyle(
+                                          color: AppColors.primary,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold)),
+                                ),
                               ),
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          color: AppColors.color2,
+                          height: 3,
+                          thickness: 3,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          
+                          child: Row(
+                            children: [
+
                               SizedBox(width: 25),
                               Expanded(
                                 child: TextFormField(
@@ -187,7 +350,7 @@ class RegisterScreen extends StatelessWidget {
                                   onChanged: (data) {
                                     context
                                         .read<RegisterCubit>()
-                                        .RegisterModel
+                                        .registerModel
                                         .password = data;
                                     context
                                         .read<RegisterCubit>()
@@ -196,12 +359,12 @@ class RegisterScreen extends StatelessWidget {
                                   validator: (value) {
                                     return context
                                             .read<RegisterCubit>()
-                                            .RegisterModel
+                                            .registerModel
                                             .error_password
                                             .isNotEmpty
                                         ? context
                                             .read<RegisterCubit>()
-                                            .RegisterModel
+                                            .registerModel
                                             .error_password
                                         : null;
                                   },
@@ -224,58 +387,78 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         SizedBox(
                           height: 20,
+                        ),  Container(
+                          
+                          child: Row(
+                            children: [
+
+                              SizedBox(width: 25),
+                              Expanded(
+                                child: TextFormField(
+                                  maxLines: 1,
+                                  autofocus: false,
+                                  cursorColor: AppColors.primary,
+                                  keyboardType: TextInputType.visiblePassword,
+                                  obscureText: true,
+                                  textInputAction: TextInputAction.next,
+                                  onChanged: (data) {
+                                    context
+                                        .read<RegisterCubit>()
+                                        .registerModel
+                                        .confirm_password = data;
+                                    context
+                                        .read<RegisterCubit>()
+                                        .checkValidRegisterData();
+                                  },
+                                  validator: (value) {
+                                    return context
+                                            .read<RegisterCubit>()
+                                            .registerModel
+                                            .error_confirm_password
+                                            .isNotEmpty
+                                        ? context
+                                            .read<RegisterCubit>()
+                                            .registerModel
+                                            .error_confirm_password
+                                        : null;
+                                  },
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'confirm_password'.tr(),
+                                      hintStyle: TextStyle(
+                                          color: AppColors.primary,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        Text(
-                          'forgot_password'.tr(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: AppColors.primary),
+                        Divider(
+                          color: AppColors.color2,
+                          height: 3,
+                          thickness: 3,
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         CustomButton(
                           textcolor: AppColors.color1,
-                          text: 'signin'.tr(),
+                          text: 'sign_up'.tr(),
                           color: context.read<RegisterCubit>().isRegisterValid
                               ? AppColors.primary
                               : AppColors.gray,
                           onClick: () {
                             if (formKey.currentState!.validate()) {
-                              context.read<RegisterCubit>().userRegister(context);
+                              context
+                                  .read<RegisterCubit>()
+                                  .userRegister(context);
                               print('all is well !!');
                             }
                           },
                           paddingHorizontal: 60,
                           borderRadius: 80,
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        RichText(
-                            text: new TextSpan(
-                          // Note: Styles for TextSpans must be explicitly defined.
-                          // Child text spans will inherit styles from parent
-                          style: new TextStyle(
-                            fontSize: 14.0,
-                            color: Colors.black,
-                          ),
-                          children: <TextSpan>[
-                            new TextSpan(
-                                text: 'dont_have'.tr(),
-                                style: new TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.color2,
-                                    fontSize: 16)),
-                            new TextSpan(
-                                text: 'sign_up'.tr(),
-                                style: new TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.primary,
-                                    fontSize: 16)),
-                          ],
-                        )),
                       ],
                     ),
                   ),

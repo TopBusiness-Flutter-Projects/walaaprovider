@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:walaaprovider/features/auth/register/presentation/screens/register.dart';
 import 'package:walaaprovider/features/navigation_bottom/screens/navigation_bottom.dart';
 
 import '../../features/auth/login/presentation/screens/login.dart';
@@ -8,6 +9,7 @@ import '../../features/splash/presentation/screens/splash_screen.dart';
 class Routes {
   static const String initialRoute = '/';
   static const String loginRoute = '/loginPage';
+  static const String registerRoute = '/registerPage';
   static const NavigationBottomRoute = '/NavigationBottom';
 }
 
@@ -23,6 +25,10 @@ class AppRoutes {
         case Routes.loginRoute:
         return MaterialPageRoute(
           builder: (context) =>  LoginScreen(),
+        );
+        case Routes.registerRoute:
+        return MaterialPageRoute(
+          builder: (context) =>  RegisterScreen(),
         );
       case Routes.NavigationBottomRoute:
         return MaterialPageRoute(

@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -269,6 +270,10 @@ class LoginScreen extends StatelessWidget {
                                     color: AppColors.color2,
                                     fontSize: 16)),
                             new TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                  Navigator.pushNamed(context, Routes.registerRoute);
+                                  },
                                 text: 'sign_up'.tr(),
                                 style: new TextStyle(
                                     fontWeight: FontWeight.bold,
