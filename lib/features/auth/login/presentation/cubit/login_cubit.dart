@@ -85,7 +85,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
   Future<void> storeUser(UserDataModel userDataModel) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user', jsonEncode(loginModel));
+    await prefs.setString('user', jsonEncode(userDataModel));
     print('Successfully Saved User');
   }
   Future<void> checkValidLoginData() async {
