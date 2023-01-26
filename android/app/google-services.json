@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "1044862267047",
+    "project_id": "walaa-29e31",
+    "storage_bucket": "walaa-29e31.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044862267047:android:48e7173bf168987e3b7582",
+        "android_client_info": {
+          "package_name": "com.topbusiness.walaaprovider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044862267047-lfnqe7k2pgra4pk9rh3av93oo68knk52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAugRQj4O4XkMtu3v8ENpDj2s_wQ3--_lc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044862267047-lfnqe7k2pgra4pk9rh3av93oo68knk52.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1044862267047-v1hghm2mjao1fsg3te4pbp1jfl9bfeic.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.walaaCustomer.walaaCustomer"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044862267047:android:38af2b7612dc68f33b7582",
+        "android_client_info": {
+          "package_name": "com.walaaCustomer.walaa_customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044862267047-eta6rtm1gisgcp78l8nenjg1e7f4ngah.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walaaCustomer.walaa_customer",
+            "certificate_hash": "ef10d39f28ab4ea23e970b3015653d974b4aff8a"
+          }
+        },
+        {
+          "client_id": "1044862267047-lfnqe7k2pgra4pk9rh3av93oo68knk52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAugRQj4O4XkMtu3v8ENpDj2s_wQ3--_lc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044862267047-lfnqe7k2pgra4pk9rh3av93oo68knk52.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1044862267047-v1hghm2mjao1fsg3te4pbp1jfl9bfeic.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.walaaCustomer.walaaCustomer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
