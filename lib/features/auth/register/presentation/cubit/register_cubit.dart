@@ -46,19 +46,19 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       if (response.status.code == 200) {
         Navigator.pop(context);
-        storeUser(response);
-
-        Future.delayed(Duration(milliseconds: 400), () {
+        storeUser(response).then((value) =>  Future.delayed(Duration(milliseconds: 400), () {
           context.read<VerficationCubit>().phoneController.text=registerModel.phone_code+registerModel.phone;
           context.read<VerficationCubit>().sendSmsCode();
 
         }).then((value) =>
             Navigator.pushNamedAndRemoveUntil(
-            context,
-            Routes.verficationRoute,
-            ModalRoute.withName(Routes.registerRoute),
-            arguments: registerModel.phone_code+registerModel.phone
-        ));
+                context,
+                Routes.verficationRoute,
+                ModalRoute.withName(Routes.registerRoute),
+                arguments: registerModel.phone_code+registerModel.phone
+            )));
+
+
       }
 
       else if (response.status.code == 409) {
