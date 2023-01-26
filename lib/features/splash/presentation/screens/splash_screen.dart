@@ -1,15 +1,14 @@
 import 'dart:async';
-import 'dart:convert';
-
-import 'package:walaaprovider/core/utils/app_colors.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:walaaprovider/core/utils/app_routes.dart';
 
-import '../../../../core/utils/app_routes.dart';
+import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
+
+import 'onbording_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,87 +19,75 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late Timer _timer;
-  bool isupdate = false;
+  // LoginDataModel loginDataModel = const LoginDataModel();
 
-  bool isbig = false;
+  _goNext() {
+    _getStoreUser();
+  }
 
   _startDelay() async {
-    // if (await Permission.location.request().isDenied) {
-    //   Map<Permission, PermissionStatus> statuses = await [
-    //     Permission.location,
-    //   ].request();
-    //   print(statuses[Permission.location]);
-    // }
-    // if (await Permission.storage.request().isDenied) {
-    //   Map<Permission, PermissionStatus> statuses = await [
-    //     Permission.storage,
-    //   ].request();
-    //   print(statuses[Permission.storage]);
-    // }
-    await Future.delayed(const Duration(milliseconds: 300), () => _updateSize())
-        .then((value) => setState(() {
-              Future.delayed(
-                  const Duration(milliseconds: 2000),
-                  () => setState(() {
-                        isbig = true;
-                      }));
-            }))
-        .then((value) => Navigator.pushNamedAndRemoveUntil(
-            context, Routes.loginRoute, (route) => false));
+
+    _timer = Timer(const Duration(milliseconds: 3000), () => _goNext());
+  }
+
+  Future<void> _getStoreUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('onBoarding') != null) {
+
+      if (prefs.getString('user') != null) {
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            Routes.NavigationBottomRoute,
+            ModalRoute.withName(Routes.initialRoute)
+        );
+
+      }else{
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            Routes.loginRoute,
+            ModalRoute.withName(Routes.initialRoute),
+        );
+      }
+    }else{
+      Navigator.pushReplacement(
+        context,
+        PageTransition(
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 1300),
+          child:  OnBoardingScreen(),
+        ),
+      );
+
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    _startDelay();
-  }
-
-  void _updateSize() {
-    print("lllll");
-    setState(() {
-      isupdate = true;
-    });
+     _startDelay();
   }
 
   @override
   void dispose() {
+    _timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
-      body: Center(
-          child: AnimatedSize(
-        curve: Curves.easeIn,
-        duration: const Duration(seconds: 4),
-        child: Container(
-          width: isupdate ? double.maxFinite : 200,
-          height: isupdate ? double.maxFinite : 200,
-          decoration: BoxDecoration(
-              color: AppColors.primary,
-              shape: isbig ? BoxShape.rectangle : BoxShape.circle),
-          child: Center(
-            child: Column(
-              children: [
-                Expanded(
-                  // child: Image.asset(
-                  //   height: 90,
-                  //   width: 90,
-                  //   ImageAssets.cofeeLogo,
-                  // ),
-                  child: Center(
-                      child: Text(
-                    'Wala Coffee',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                  )),
-                ),
-              ],
+      backgroundColor: AppColors.scaffoldBackground,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Image.asset(
+              ImageAssets.walaaLogo,
             ),
           ),
-        ),
-      )),
+        ],
+      ),
     );
   }
 }

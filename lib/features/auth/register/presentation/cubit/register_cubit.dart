@@ -12,6 +12,7 @@ import 'package:walaaprovider/core/remote/handle_exeption.dart';
 import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/appwidget.dart';
 import 'package:walaaprovider/features/auth/register/models/register_model.dart';
+import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
 
 import '../../../../../core/remote/service.dart';
 import '../../../../../core/utils/app_colors.dart';
@@ -48,21 +49,19 @@ class RegisterCubit extends Cubit<RegisterState> {
         storeUser(response);
 
         Future.delayed(Duration(milliseconds: 400), () {
-          Navigator.pushNamedAndRemoveUntil(
+          context.read<VerficationCubit>().phoneController.text=registerModel.phone_code+registerModel.phone;
+          context.read<VerficationCubit>().sendSmsCode();
+
+        }).then((value) =>
+            Navigator.pushNamedAndRemoveUntil(
             context,
-            Routes.NavigationBottomRoute,
+            Routes.verficationRoute,
             ModalRoute.withName(Routes.registerRoute),
-          );
-        });
-      } else if (response.status.code == 406) {
-        Navigator.pop(context);
-        Fluttertoast.showToast(
-            msg: "invaild pass".tr(), // message
-            toastLength: Toast.LENGTH_SHORT, // length
-            gravity: ToastGravity.BOTTOM, // location
-            timeInSecForIosWeb: 1 // duration
-            );
-      } else if (response.status.code == 422) {
+            arguments: registerModel.phone_code+registerModel.phone
+        ));
+      }
+
+      else if (response.status.code == 409) {
         Navigator.pop(context);
         Fluttertoast.showToast(
             msg: "invaild phone".tr(), // message
@@ -82,7 +81,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> storeUser(UserDataModel userDataModel) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user', jsonEncode(RegisterModel));
+    await prefs.setString('user', jsonEncode(userDataModel));
     print('Successfully Saved User');
   }
 

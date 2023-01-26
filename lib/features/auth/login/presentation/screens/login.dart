@@ -167,7 +167,6 @@ class LoginScreen extends StatelessWidget {
                           height: 20,
                         ),
                         Container(
-                          height: 40,
                           child: Row(
                             children: [
                               MySvgWidget(
@@ -240,7 +239,7 @@ class LoginScreen extends StatelessWidget {
                           textcolor: AppColors.color1,
                           text: 'signin'.tr(),
                           color: context.read<LoginCubit>().isLoginValid
-                              ? AppColors.primary
+                              ? AppColors.buttonBackground
                               : AppColors.gray,
                           onClick: () {
                             if (formKey.currentState!.validate()) {
@@ -272,7 +271,8 @@ class LoginScreen extends StatelessWidget {
                             new TextSpan(
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                  Navigator.pushNamed(context, Routes.registerRoute);
+                                    Navigator.pushNamed(
+                                        context, Routes.registerRoute);
                                   },
                                 text: 'sign_up'.tr(),
                                 style: new TextStyle(

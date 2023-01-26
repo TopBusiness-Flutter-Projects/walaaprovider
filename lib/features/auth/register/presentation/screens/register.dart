@@ -90,7 +90,7 @@ class RegisterScreen extends StatelessWidget {
                                   maxLines: 1,
                                   cursorColor: AppColors.primary,
                                   keyboardType: TextInputType.text,
-                                  obscureText: true,
+
                                   textInputAction: TextInputAction.next,
                                   onChanged: (data) {
                                     context
@@ -144,7 +144,7 @@ class RegisterScreen extends StatelessWidget {
                                   maxLines: 1,
                                   cursorColor: AppColors.primary,
                                   keyboardType: TextInputType.text,
-                                  obscureText: true,
+
                                   textInputAction: TextInputAction.next,
                                   onChanged: (data) {
                                     context
@@ -290,7 +290,7 @@ class RegisterScreen extends StatelessWidget {
                                   maxLines: 1,
                                   cursorColor: AppColors.primary,
                                   keyboardType: TextInputType.text,
-                                  obscureText: true,
+
                                   textInputAction: TextInputAction.next,
                                   onChanged: (data) {
                                     context
@@ -446,7 +446,7 @@ class RegisterScreen extends StatelessWidget {
                           textcolor: AppColors.color1,
                           text: 'sign_up'.tr(),
                           color: context.read<RegisterCubit>().isRegisterValid
-                              ? AppColors.primary
+                              ? AppColors.buttonBackground
                               : AppColors.gray,
                           onClick: () {
                             if (formKey.currentState!.validate()) {

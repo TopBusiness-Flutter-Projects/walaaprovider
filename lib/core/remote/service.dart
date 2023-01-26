@@ -1,16 +1,21 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/models/user_data_model.dart';
 import 'package:walaaprovider/features/auth/login/models/login_model.dart';
 import 'package:walaaprovider/features/auth/register/models/register_model.dart';
 
 import '../utils/end_points.dart';
-import 'handle_exeption.dart';
+import 'package:walaaprovider/injector.dart' as injector;
 
 class ServiceApi {
   final Dio dio;
 
-  ServiceApi(this.dio);
+  ServiceApi(this.dio){
+    if (kDebugMode) {
+      dio.interceptors.add(injector.serviceLocator<LogInterceptor>());
+    }
+  }
   Future<UserDataModel> userLogin(LoginModel model) async {
     Response response = await dio.post(
       EndPoints.loginUrl,

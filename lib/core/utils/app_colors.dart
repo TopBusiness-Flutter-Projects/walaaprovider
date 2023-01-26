@@ -5,10 +5,12 @@ import 'hex_color.dart';
 class AppColors {
   static Color primary = HexColor('#92603F');
   static Color scaffoldBackground = HexColor('#F5F5F5');
-  static Color buttonBackground = HexColor('#D9D9D9');
+  static Color buttonBackground = HexColor('#594339');
   static Color whatsappButtonBackground = HexColor('#40E15D');
   static Color callButtonBackground = HexColor('#007EC4');
   static Color genderBackgroundColor = HexColor('#448AFF');
+  static Color onBoardingColor = HexColor('#DC8068');
+
   static Color hint = Colors.grey;
   static Color blackLite = Colors.black12;
   static Color error = Colors.red;

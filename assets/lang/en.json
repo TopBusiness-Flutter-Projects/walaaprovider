@@ -18,5 +18,10 @@
   "sign_up": "Sign Up",
   "field_required": "Field Required",
   "welcom_coffee": "Welcome to coffee shop",
-  "get_wide_range": "get wide range of speciality coffee"
+  "get_wide_range": "get wide range of speciality coffee",
+  "verification_title_text": "Please enter your verification code",
+  "verification_desc_text": "you have sent a verification code to your registered phone number",
+  "verification_validator_message": "Please fill up all the cells properly",
+  "done_btn": "Done",
+  "back_btn": "Back"
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:walaaprovider/features/auth/register/presentation/screens/register.dart';
+import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
+import 'package:walaaprovider/features/auth/verification/presentation/screens/verfiication_screen.dart';
 import 'package:walaaprovider/features/navigation_bottom/screens/navigation_bottom.dart';
 
 import '../../features/auth/login/presentation/screens/login.dart';
@@ -10,6 +12,7 @@ class Routes {
   static const String initialRoute = '/';
   static const String loginRoute = '/loginPage';
   static const String registerRoute = '/registerPage';
+  static const String verficationRoute = '/verficationPage';
   static const NavigationBottomRoute = '/NavigationBottom';
 }
 
@@ -29,6 +32,12 @@ class AppRoutes {
         case Routes.registerRoute:
         return MaterialPageRoute(
           builder: (context) =>  RegisterScreen(),
+        );
+        case Routes.verficationRoute:
+          String phone = settings.arguments as String;
+
+          return MaterialPageRoute(
+          builder: (context) =>  VerificationScreen(phone: phone,),
         );
       case Routes.NavigationBottomRoute:
         return MaterialPageRoute(

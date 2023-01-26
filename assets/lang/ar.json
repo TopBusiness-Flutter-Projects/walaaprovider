@@ -18,5 +18,10 @@
   "sign_up": "تسجيل جديد",
   "field_required": "الحقل مطلوب",
   "welcom_coffee": "مرحبًا بكم في المقهى",
-  "get_wide_range": "احصل على مجموعة واسعة من القهوة المتخصصة"
+  "get_wide_range": "احصل على مجموعة واسعة من القهوة المتخصصة",
+  "verification_title_text": "الرجاء إدخال رمز التحقق الخاص بك",
+  "verification_desc_text": "لقد أرسلنا رمز التحقق إلى رقم هاتفك المسجل",
+  "verification_validator_message": "يرجى ملء جميع الخلايا بشكل صحيح",
+  "done_btn": "تـم",
+  "back_btn": "رجوع"
 }
