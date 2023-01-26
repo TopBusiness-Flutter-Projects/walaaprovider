@@ -237,7 +237,7 @@ class RegisterScreen extends StatelessWidget {
                                               .read<RegisterCubit>()
                                               .registerModel
                                               .code
-                                          : "+966"),
+                                          : "SA"),
                                   selectorConfig: SelectorConfig(
                                     selectorType:
                                         PhoneInputSelectorType.BOTTOM_SHEET,
