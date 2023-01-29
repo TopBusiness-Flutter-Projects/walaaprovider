@@ -81,7 +81,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> storeUser(UserDataModel userDataModel) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user', jsonEncode(userDataModel.userModel));
+    await prefs.setString('user', jsonEncode(userDataModel));
     print('Successfully Saved User');
   }
 
