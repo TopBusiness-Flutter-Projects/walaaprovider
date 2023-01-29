@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/utils/app_routes.dart';
+import 'package:walaaprovider/features/splash/presentation/cubit/splash_cubit.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
@@ -18,65 +20,63 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late Timer _timer;
+
   // LoginDataModel loginDataModel = const LoginDataModel();
 
-  _goNext() {
-    _getStoreUser();
-  }
 
-  _startDelay() async {
 
-    _timer = Timer(const Duration(milliseconds: 3000), () => _goNext());
-  }
 
-  Future<void> _getStoreUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('onBoarding') != null) {
 
-      if (prefs.getString('user') != null) {
-        Navigator.pushNamedAndRemoveUntil(
-            context,
-            Routes.NavigationBottomRoute,
-            ModalRoute.withName(Routes.initialRoute)
-        );
 
-      }else{
-        Navigator.pushNamedAndRemoveUntil(
-            context,
-            Routes.loginRoute,
-            ModalRoute.withName(Routes.initialRoute),
-        );
-      }
-    }else{
-      Navigator.pushReplacement(
-        context,
-        PageTransition(
-          type: PageTransitionType.fade,
-          alignment: Alignment.center,
-          duration: const Duration(milliseconds: 1300),
-          child:  OnBoardingScreen(),
-        ),
-      );
-
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-     _startDelay();
-  }
 
   @override
   void dispose() {
-    _timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocConsumer<SplashCubit, SplashState>(
+      listener: (context, state) {
+        if (state is OnUserModelGet) {
+          print("state.userModel.user.userType");
+          print(state.userModel.user.userType);
+          Future.delayed(const Duration(seconds: 2)).then(
+                (value) => {
+
+                    Navigator.of(context)
+                        .pushReplacementNamed(Routes.NavigationBottomRoute)
+                  }
+
+          );
+        }
+        else if (state is NoUserFound) {
+          Future.delayed(const Duration(seconds: 2)).then(
+                (value) => {
+              Navigator.of(context)
+                  .pushReplacementNamed(Routes.loginRoute)
+            },
+          );
+        }
+        else if (state is UserFrst) {
+          Future.delayed(const Duration(seconds: 2)).then(
+                (value) => {
+                  Navigator.pushReplacement(
+                context,
+                PageTransition(
+                type: PageTransitionType.fade,
+                alignment: Alignment.center,
+                duration: const Duration(milliseconds: 1300),
+                child:  OnBoardingScreen(),
+                ),
+                )
+            },
+          );
+        }
+
+      },
+    builder: (context, state) {
+     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -89,5 +89,6 @@ class _SplashScreenState extends State<SplashScreen> {
         ],
       ),
     );
+      });
   }
 }

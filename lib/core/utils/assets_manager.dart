@@ -15,6 +15,7 @@ class ImageAssets {
 
   // icons
   static const String phoneIcon = '$iconsPath/phone.svg';
+  static const String removeIcon = '$iconsPath/remove.svg';
   static const String lockIcon = '$iconsPath/lock.svg';
   static const String arrowIcon = '$iconsPath/left_arrow.svg';
   static const String closeIcon = '$iconsPath/close.svg';

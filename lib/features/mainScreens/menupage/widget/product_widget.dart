@@ -1,0 +1,76 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:walaaprovider/core/models/product_model.dart';
+import 'package:walaaprovider/core/utils/app_colors.dart';
+import 'package:walaaprovider/core/utils/assets_manager.dart';
+import 'package:walaaprovider/core/widgets/my_svg_widget.dart';
+
+class ProductWidget extends StatelessWidget {
+  const ProductWidget({Key? key, required this.model}) : super(key: key);
+  final ProductModel model;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 120,
+      child: Stack(
+        children: [
+          Positioned(
+              top: 0,
+              bottom: 40,
+              right: 0,
+              left: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                    shape: BoxShape.rectangle,
+                    color: Colors.white),
+                child: Center(
+                    child: CachedNetworkImage(
+                  imageUrl: model.image,
+                  imageBuilder: (context, imageProvider) {
+                    return CircleAvatar(
+                      backgroundImage: imageProvider,
+                    );
+                  },
+                  width: 60.0,
+                  height: 60.0,
+                  fit: BoxFit.cover,
+                )),
+              )),
+          Positioned(
+              top: 80,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: Container(
+                decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(15),),
+                    shape: BoxShape.rectangle,
+                    color: AppColors.color2
+                ),
+                child:
+                Center(
+                    child:
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [Text(
+                        model.name,
+                        style: TextStyle(color: AppColors.white,fontWeight: FontWeight.bold,fontSize: 20,),),
+                        MySvgWidget(
+                          path: ImageAssets.removeIcon,
+                          color: AppColors.primary,
+                          width: 16,
+                          height: 16,
+                        )
+
+                      ],
+
+                    )),
+              ))
+        ],
+      ),
+    );
+  }
+}

@@ -6,7 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/api/app_interceptors.dart';
 import 'package:walaaprovider/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
+import 'package:walaaprovider/features/mainScreens/menupage/cubit/menu_cubit.dart';
 import 'package:walaaprovider/features/navigation_bottom/cubit/navigator_bottom_cubit.dart';
+import 'package:walaaprovider/features/splash/presentation/cubit/splash_cubit.dart';
 
 import 'core/remote/service.dart';
 import 'features/auth/login/presentation/cubit/Login_cubit.dart';
@@ -47,10 +49,21 @@ Future<void> setup() async {
   // Api Consumer
   serviceLocator.registerLazySingleton(() => ServiceApi(serviceLocator()));
   serviceLocator.registerFactory(
+        () => SplashCubit(
+
+    ),
+  );
+  serviceLocator.registerFactory(
         () => LoginCubit(
       serviceLocator(),
     ),
   );
+  serviceLocator.registerFactory(
+        () => MenuCubit(
+      serviceLocator(),
+    ),
+  );
+
   serviceLocator.registerFactory(
         () => RegisterCubit(
       serviceLocator(),

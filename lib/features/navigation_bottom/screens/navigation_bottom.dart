@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/widgets/my_svg_widget.dart';
+import 'package:walaaprovider/features/mainScreens/menupage/menu_screen.dart';
 
 import '../cubit/navigator_bottom_cubit.dart';
 import '../widget/navigator_bottom_widget.dart';
@@ -88,7 +89,7 @@ class _NavigationBottomState extends State<NavigationBottom> {
           body: BlocBuilder<NavigatorBottomCubit, NavigatorBottomState>(
             builder: (context, state) {
               if (context.read<NavigatorBottomCubit>().page == 2) {
-                return Container();
+                return MenuScreen();
               } else if (context.read<NavigatorBottomCubit>().page == 1) {
                 return Container();
               } else if (context.read<NavigatorBottomCubit>().page == 3) {

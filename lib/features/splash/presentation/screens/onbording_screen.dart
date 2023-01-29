@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:walaaprovider/core/preferences/preferences.dart';
 import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 
@@ -17,14 +18,7 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen>
     with SingleTickerProviderStateMixin {
-  setFirstInstall() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('onBoarding', 'Done').then(
-          (value) => Navigator.pushNamedAndRemoveUntil(
-              context, Routes.loginRoute, (route) => false)
-          )
-        ;
-  }
+
 
   @override
   void initState() {
@@ -88,5 +82,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
         ),
 
     );
+  }
+
+  setFirstInstall() async {
+
+    await Preferences.instance.setFirstInstall().then(
+    (value) => Navigator.pushNamedAndRemoveUntil(
+    context, Routes.loginRoute, (route) => false));
+
   }
 }

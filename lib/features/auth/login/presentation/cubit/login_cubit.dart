@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/models/user_data_model.dart';
+import 'package:walaaprovider/core/preferences/preferences.dart';
 import 'package:walaaprovider/core/remote/handle_exeption.dart';
 import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/appwidget.dart';
@@ -45,16 +46,16 @@ class LoginCubit extends Cubit<LoginState> {
 
       if (response.status.code == 200) {
         Navigator.pop(context);
-        storeUser(response);
-
-        Future.delayed(Duration(milliseconds: 400), () {
+        Preferences.instance.setUser(response.userModel).then((value) =>  Future.delayed(Duration(milliseconds: 100), () {
 
           Navigator.pushNamedAndRemoveUntil(
             context,
             Routes.NavigationBottomRoute,
             ModalRoute.withName(Routes.loginRoute),
           );
-        });
+        }));
+
+
 
       } else if (response.status.code == 406) {
         Navigator.pop(context);
@@ -83,11 +84,7 @@ class LoginCubit extends Cubit<LoginState> {
       throw errorMessage;
     }
   }
-  Future<void> storeUser(UserDataModel userDataModel) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user', jsonEncode(userDataModel));
-    print('Successfully Saved User');
-  }
+
   Future<void> checkValidLoginData() async {
     bool vaild = await loginModel.isDataValid();
     if (vaild) {

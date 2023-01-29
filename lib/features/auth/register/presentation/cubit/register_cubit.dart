@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/models/user_data_model.dart';
+import 'package:walaaprovider/core/preferences/preferences.dart';
 import 'package:walaaprovider/core/remote/handle_exeption.dart';
 import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/appwidget.dart';
@@ -46,17 +47,19 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       if (response.status.code == 200) {
         Navigator.pop(context);
-        storeUser(response).then((value) =>  Future.delayed(Duration(milliseconds: 400), () {
-          context.read<VerficationCubit>().phoneController.text=registerModel.phone_code+registerModel.phone;
-          context.read<VerficationCubit>().sendSmsCode();
+        Preferences.instance.setUser(response.userModel).then((value) =>
+            Future.delayed(Duration(milliseconds: 400), () {
+              context.read<VerficationCubit>().phoneController.text=registerModel.phone_code+registerModel.phone;
+              context.read<VerficationCubit>().sendSmsCode();
 
-        }).then((value) =>
-            Navigator.pushNamedAndRemoveUntil(
-                context,
-                Routes.verficationRoute,
-                ModalRoute.withName(Routes.registerRoute),
-                arguments: registerModel.phone_code+registerModel.phone
-            )));
+            }).then((value) =>
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    Routes.verficationRoute,
+                    ModalRoute.withName(Routes.registerRoute),
+                    arguments: registerModel.phone_code+registerModel.phone
+                )));
+
 
 
       }
@@ -79,11 +82,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  Future<void> storeUser(UserDataModel userDataModel) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user', jsonEncode(userDataModel));
-    print('Successfully Saved User');
-  }
+
 
   Future<void> checkValidRegisterData() async {
     bool vaild = await registerModel.isDataValid();
