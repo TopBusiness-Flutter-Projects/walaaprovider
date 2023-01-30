@@ -17,7 +17,9 @@ class NavigatorBottomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NavigatorBottomCubit, NavigatorBottomState>(
       builder: (context, state) {
-        _page = context.read<NavigatorBottomCubit>().page;
+        NavigatorBottomCubit bottomCubit=  context.read<NavigatorBottomCubit>();
+
+        _page = bottomCubit.page;
         return CustomNavigationBar(
           iconSize: 30.0,
           backgroundColor: AppColors.color1,
@@ -52,7 +54,7 @@ class NavigatorBottomWidget extends StatelessWidget {
 
           ],
           onTap: (index) {
-            context.read<NavigatorBottomCubit>().changePage(index,titles.elementAt(index));
+            bottomCubit.changePage(index,titles.elementAt(index));
           },
         );
       },

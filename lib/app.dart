@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
+import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/menupage/cubit/menu_cubit.dart';
+import 'package:walaaprovider/features/mainScreens/profilepage/presentation/cubit/profile_cubit.dart';
 import 'package:walaaprovider/features/navigation_bottom/cubit/navigator_bottom_cubit.dart';
+import 'package:walaaprovider/features/privacy_terms/presentation/cubit/settings_cubit.dart';
 import 'package:walaaprovider/features/splash/presentation/cubit/splash_cubit.dart';
 import 'package:walaaprovider/injector.dart' as injector;
 
@@ -50,6 +53,18 @@ class _CofeeState extends State<Cofee> {
         BlocProvider(
           create: (_) =>
               injector.serviceLocator<MenuCubit>(),
+        )  ,
+        BlocProvider(
+          create: (_) =>
+              injector.serviceLocator<HomeCubit>(),
+        ),
+        BlocProvider(
+          create: (_) =>
+              injector.serviceLocator<ProfileCubit>(),
+        ),
+        BlocProvider(
+          create: (_) =>
+              injector.serviceLocator<SettingsCubit>(),
         ),
       ],
       child:  MaterialApp(

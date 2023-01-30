@@ -1,4 +1,5 @@
 {
+  "appname": "Walaa",
   "phone": "Phone Number",
   "password": "Password",
   "confirm_password": "Confirm Password",
@@ -19,9 +20,25 @@
   "field_required": "Field Required",
   "welcom_coffee": "Welcome to coffee shop",
   "get_wide_range": "get wide range of speciality coffee",
-  "verification_title_text": "Please enter your verification code",
-  "verification_desc_text": "you have sent a verification code to your registered phone number",
+  "verification_title": "Please enter your verification code",
+  "verification_desc": "you have sent a verification code to your registered phone number",
   "verification_validator_message": "Please fill up all the cells properly",
   "done_btn": "Done",
-  "back_btn": "Back"
+  "back_btn": "Back",
+  "welcome": "Welcome back",
+  "logout": "Logout",
+  "contact_us": "Contact Us",
+  "terms": "Terms And Conditions",
+  "privacy": "Privacy",
+  "delete_account": "Delete Profile",
+  "edit_profile": "Edit Profile",
+  "prefect_way": "Prefect Way to Start Your Day",
+  "choose_cofe": "Choose Your Coffee",
+  "balance": "Balance",
+  "sr": "SR",
+  "addcategory": "Add Category",
+  "pass_equal": "Must Equal Password"
+
+
+
 }

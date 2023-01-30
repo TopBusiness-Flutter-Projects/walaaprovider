@@ -16,6 +16,8 @@ class MenuCubit extends Cubit<MenuState> {
   final ServiceApi serviceApi;
   late String lang;
 
+  late UserModel userModel;
+
   MenuCubit(this.serviceApi) : super(MenuInitial()) {
     getUserData().then((value) => getcategory(value));
   }
@@ -25,7 +27,7 @@ class MenuCubit extends Cubit<MenuState> {
   }
 
   Future<UserModel?> getUserData() async {
-    UserModel userModel = await Preferences.instance.getUserModel();
+     userModel = await Preferences.instance.getUserModel();
     return userModel;
   }
 
@@ -39,9 +41,9 @@ class MenuCubit extends Cubit<MenuState> {
       categorLength=response.data.length;
       categoryList = response.data!;
       emit(AllCategoryLoaded(categoryList));
-      if(categoryList.length!=0){
-      getProduct(usermodel, categoryList.elementAt(0).id);
-    } }else {
+      if(categoryList.length>0){
+      getProduct(usermodel, categoryList.elementAt(0).id);}
+     }else {
       print(response.status.message);
       emit(AllCategoryError());
     }
@@ -53,8 +55,7 @@ class MenuCubit extends Cubit<MenuState> {
     await serviceApi.getProduct(usermodel!.access_token, lang,category_id);
     if (response.status.code == 200) {
       print(response.data);
-      productLength
-      =response.data.length;
+      productLength =response.data.length;
       productList = response.data!;
       emit(AllProductLoaded(productList));
     } else {

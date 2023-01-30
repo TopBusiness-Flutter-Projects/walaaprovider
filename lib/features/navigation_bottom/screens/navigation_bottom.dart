@@ -6,7 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/widgets/my_svg_widget.dart';
+import 'package:walaaprovider/features/mainScreens/homepage/home_screen.dart';
 import 'package:walaaprovider/features/mainScreens/menupage/menu_screen.dart';
+import 'package:walaaprovider/features/mainScreens/profilepage/presentation/screens/profile.dart';
 
 import '../cubit/navigator_bottom_cubit.dart';
 import '../widget/navigator_bottom_widget.dart';
@@ -37,21 +39,21 @@ class _NavigationBottomState extends State<NavigationBottom> {
     return BlocBuilder<NavigatorBottomCubit, NavigatorBottomState>(
         builder: (context, state) {
       String lang = EasyLocalization.of(context)!.locale.languageCode;
-
+      NavigatorBottomCubit bottomCubit=  context.read<NavigatorBottomCubit>();
       return Scaffold(
           appBar: AppBar(
-              backgroundColor: context.read<NavigatorBottomCubit>().page == 0 ||
-                      context.read<NavigatorBottomCubit>().page == 2
+              backgroundColor: bottomCubit.page == 0 ||
+                      bottomCubit.page == 2
                   ? AppColors.color1
-                  : context.read<NavigatorBottomCubit>().page == 3
+                  : bottomCubit.page == 3
                       ? AppColors.white
                       : AppColors.grey8,
               elevation: 0,
-              title: context.read<NavigatorBottomCubit>().page == 0 ||
-                      context.read<NavigatorBottomCubit>().page == 2
+              title: bottomCubit.page == 0 ||
+                      bottomCubit.page == 2
                   ? Center(
                       child: Text(
-                      context.read<NavigatorBottomCubit>().title,
+                      bottomCubit.title,
                       style: TextStyle(
                           color: AppColors.primary,
                           fontSize: 16,
@@ -59,27 +61,42 @@ class _NavigationBottomState extends State<NavigationBottom> {
                     ))
                   : Row(
                       children: [
-                        Transform.rotate(
-                            angle: lang == 'en'
-                                ? (180 * (3.14 / 180))
-                                : (0 * (3.14 / 180)),
-                            child: MySvgWidget(
-                              path:
-                                  context.read<NavigatorBottomCubit>().page == 3
-                                      ? ImageAssets.closeIcon
-                                      : ImageAssets.arrowIcon,
-                              color: context.read<NavigatorBottomCubit>().page != 3?AppColors.primary:null,
-                              width: 24,
-                              height: 24,
-                            )),
-                        Expanded(
-                          child: Container(),
-                        ),
-                        Text(context.read<NavigatorBottomCubit>().title,
+                        Text(bottomCubit.title,
                             style: TextStyle(
                                 color: AppColors.primary,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold)),
+                        Expanded(
+                          child: Container(),
+                        ),
+
+                        Visibility(
+                          visible: bottomCubit.page == 3?true:false,
+                          child: Padding(
+                            padding: const EdgeInsets.all(25.0),
+                            child: InkWell(
+                              onTap: () {
+                                bottomCubit.changePage(0,'home'.tr());;
+                              },
+                              child: Transform.rotate(
+                                  angle: lang == 'en'
+                                      ? (180 * (3.14 / 180))
+                                      : (0 * (3.14 / 180)),
+                                  child: MySvgWidget(
+                                    path:
+                                        bottomCubit.page == 3
+                                            ? ImageAssets.closeIcon
+                                            : ImageAssets.arrowIcon,
+                                    color: bottomCubit.page != 3?AppColors.primary:null,
+                                    width: bottomCubit.page == 3
+                                        ?40: 24,
+                                    height: bottomCubit.page == 3?
+                                        40: 24,
+                                  )),
+                            ),
+                          ),
+                        ),
+
                       ],
                     )),
           bottomNavigationBar: SizedBox(
@@ -88,20 +105,20 @@ class _NavigationBottomState extends State<NavigationBottom> {
           ),
           body: BlocBuilder<NavigatorBottomCubit, NavigatorBottomState>(
             builder: (context, state) {
-              if (context.read<NavigatorBottomCubit>().page == 2) {
+              if (bottomCubit.page == 2) {
                 return MenuScreen();
-              } else if (context.read<NavigatorBottomCubit>().page == 1) {
+              } else if (bottomCubit.page == 1) {
                 return Container();
-              } else if (context.read<NavigatorBottomCubit>().page == 3) {
-                return Container();
-              } else if (context.read<NavigatorBottomCubit>().page == 4) {
+              } else if (bottomCubit.page == 3) {
+                return ProfileScreen();
+              } else if (bottomCubit.page == 4) {
                 return Container();
               } else {
-                return Container();
+                return HomeScreen();
               }
-              // else if (context.read<NavigatorBottomCubit>().page == 1) {
+              // else if (bottomCubit.page == 1) {
               //   return CalenderScreen();
-              //  } else if (context.read<NavigatorBottomCubit>().page == 2) {
+              //  } else if (bottomCubit.page == 2) {
               //    return Container(color: AppColors.color1,);
               //  } else {
               //    return DrawerWidget();

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/core/models/product_model.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
-import 'package:walaaprovider/features/mainScreens/menupage/cubit/menu_cubit.dart';
-import 'package:walaaprovider/features/mainScreens/menupage/widget/category_widget.dart';
-import 'package:walaaprovider/features/mainScreens/menupage/widget/product_widget.dart';
+import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
+import 'package:walaaprovider/features/mainScreens/homepage/widget/product_widget.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({Key? key}) : super(key: key);
@@ -16,12 +15,13 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MenuCubit, MenuState>(builder: (context, state) {
-      MenuCubit menuCubit =context.read<MenuCubit>();
-      print(menuCubit.productLength);
+    return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+      HomeCubit homeCubit =context.read<HomeCubit>();
+
+      print(homeCubit.productLength);
       List<ProductModel> list=[];
-      if(menuCubit.productList.isNotEmpty){
-      list = menuCubit.productList;}
+      if(homeCubit.productList.isNotEmpty){
+      list = homeCubit.productList;}
 print("ssss${list.length}");
 
       return GridView.builder(
@@ -33,7 +33,7 @@ print("ssss${list.length}");
             mainAxisSpacing: 1,
 
             crossAxisCount: 2),
-        itemCount: list.length>0?list.length:menuCubit.productLength,
+        itemCount: list.length>0?list.length:homeCubit.productLength,
         itemBuilder: (BuildContext context, int index) {
           return Container(
               child: state is AllProductLoading
@@ -49,12 +49,12 @@ print("ssss${list.length}");
                             icon: Icon(Icons.refresh),
                           ),
                         )
-                      : menuCubit.productList.isNotEmpty
+                      : homeCubit.productList.isNotEmpty
                           ? Padding(
                               padding: EdgeInsets.all(25.0),
                               child: ProductWidget(
                                   model: context
-                                      .read<MenuCubit>()
+                                      .read<HomeCubit>()
                                       .productList
                                       .elementAt(index)),
                             )

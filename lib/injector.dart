@@ -6,8 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/api/app_interceptors.dart';
 import 'package:walaaprovider/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
+import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/menupage/cubit/menu_cubit.dart';
+import 'package:walaaprovider/features/mainScreens/profilepage/presentation/cubit/profile_cubit.dart';
 import 'package:walaaprovider/features/navigation_bottom/cubit/navigator_bottom_cubit.dart';
+import 'package:walaaprovider/features/privacy_terms/presentation/cubit/settings_cubit.dart';
 import 'package:walaaprovider/features/splash/presentation/cubit/splash_cubit.dart';
 
 import 'core/remote/service.dart';
@@ -61,6 +64,22 @@ Future<void> setup() async {
   serviceLocator.registerFactory(
         () => MenuCubit(
       serviceLocator(),
+    ),
+  );
+  serviceLocator.registerFactory(
+        () => HomeCubit(
+      serviceLocator(),
+    ),
+  );
+  serviceLocator.registerFactory(
+        () => ProfileCubit(
+
+    ),
+  );
+  serviceLocator.registerFactory(
+        () => SettingsCubit(
+            serviceLocator()
+
     ),
   );
 

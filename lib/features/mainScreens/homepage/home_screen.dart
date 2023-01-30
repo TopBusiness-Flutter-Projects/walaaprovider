@@ -1,6 +1,11 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
+import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
+import 'package:walaaprovider/features/mainScreens/homepage/widget/category_list.dart';
+import 'package:walaaprovider/features/mainScreens/homepage/widget/product_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    String lang = EasyLocalization.of(context)!.locale.languageCode;
+    context.read<HomeCubit>().setlang(lang);
     return  Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: () {  },
       child: Icon(Icons.add),
@@ -20,7 +27,23 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body:
       ListView(
-
+children: [  Text(
+  "prefect_way".tr(),
+  style: TextStyle(
+      color: AppColors.color2,
+      fontSize: 16,
+      fontWeight: FontWeight.bold),
+),
+  CategoryList(),
+  Text(
+    "choose_cofe".tr(),
+    style: TextStyle(
+        color: AppColors.color2,
+        fontSize: 16,
+        fontWeight: FontWeight.bold),
+  ),
+  ProductList()
+],
       ),
     );
   }

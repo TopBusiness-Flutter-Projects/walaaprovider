@@ -11,10 +11,14 @@ class CategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ManageCircleNetworkImage(
-          imageUrl: model.image,
-          height: 120,
-          width: 120,
+        Container(
+          width: 100,
+          height: 100,
+          child: ManageCircleNetworkImage(
+            imageUrl: model.image,
+            height: 120,
+            width: 120,
+          ),
         ),
         Text(
           model.name,

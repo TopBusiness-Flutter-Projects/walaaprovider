@@ -7,6 +7,8 @@ class ImageAssets {
   static const String homeImage = '$imagePath/home.png';
   static const String orderImage = '$imagePath/terms.png';
   static const String spoonImage = '$imagePath/spoon.png';
+  static const String whatsappImage = '$imagePath/whatsapp.png';
+  static const String instagramImage = '$imagePath/instagram.png';
   static const String profileImage = '$imagePath/user.png';
   static const String cartImage = '$imagePath/cart.png';
   static const String loginImage = '$imagePath/login_image.png';
@@ -16,9 +18,14 @@ class ImageAssets {
   // icons
   static const String phoneIcon = '$iconsPath/phone.svg';
   static const String removeIcon = '$iconsPath/remove.svg';
+  static const String cartIcon = '$iconsPath/cart.svg';
   static const String lockIcon = '$iconsPath/lock.svg';
   static const String arrowIcon = '$iconsPath/left_arrow.svg';
   static const String closeIcon = '$iconsPath/close.svg';
+  static const String privacyIcon = '$iconsPath/privacy.svg';
+  static const String addIcon = '$iconsPath/add.svg';
+  static const String walletIcon = '$iconsPath/wallet.svg';
+
 
 //Lottie
 //  static const String noLogin = '$lottiePath/login.json';

@@ -16,7 +16,7 @@ class HeaderTitleWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22,color: AppColors.primary),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: AppColors.primary),
             textAlign: TextAlign.center,
           ),
           Text(

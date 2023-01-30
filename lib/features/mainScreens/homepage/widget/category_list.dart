@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
-import 'package:walaaprovider/features/mainScreens/menupage/cubit/menu_cubit.dart';
-import 'package:walaaprovider/features/mainScreens/menupage/widget/category_widget.dart';
+import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
+import 'package:walaaprovider/features/mainScreens/homepage/widget/category_widget.dart';
 
 class CategoryList extends StatefulWidget {
   const CategoryList({Key? key}) : super(key: key);
@@ -14,20 +14,22 @@ class CategoryList extends StatefulWidget {
 class _CategoryListState extends State<CategoryList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MenuCubit, MenuState>(builder: (context, state) {
-      MenuCubit menuCubit =context.read<MenuCubit>();
+    return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+      HomeCubit homeCubit =context.read<HomeCubit>();
 
-      // if(context.read<MenuCubit>().categoryList.length>0){
+      // if(homeCubit.categoryList.length>0){
       //
-      //  menuCubit().getProduct(context.read<MenuCubit>().userModel,menuCubit().categoryList.elementAt(0).id);
+      //   homeCubit.getProduct(homeCubit.userModel, homeCubit.categoryList.elementAt(0).id);
       //
       // }
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: Row(children: [
+        child: Row(
+
+            children: [
           ...List.generate(
 
-           menuCubit.categorLength,
+            homeCubit.categorLength,
               (index) => state is AllCategoryLoading
                   ? SizedBox(
                 width: MediaQuery.of(context).size.width-70,
@@ -44,15 +46,15 @@ class _CategoryListState extends State<CategoryList> {
                             icon: Icon(Icons.refresh),
                           ),
                         )
-                      :menuCubit.categoryList.isNotEmpty
+                      : homeCubit.categoryList.isNotEmpty
 
                           ?
 
 
               InkWell(
                 onTap: () {
-                 menuCubit.getProduct(context.read<MenuCubit>().userModel, context
-                      .read<MenuCubit>()
+                  homeCubit.getProduct(homeCubit.userModel, context
+                      .read<HomeCubit>()
                       .categoryList
                       .elementAt(index).id);
                 },
@@ -60,7 +62,7 @@ class _CategoryListState extends State<CategoryList> {
                                 padding: EdgeInsets.all(10.0),
                                 child: CategoryWidget(
                                     model: context
-                                        .read<MenuCubit>()
+                                        .read<HomeCubit>()
                                         .categoryList
                                         .elementAt(index)),
                               ),

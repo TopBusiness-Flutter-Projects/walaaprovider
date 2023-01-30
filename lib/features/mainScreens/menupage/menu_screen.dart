@@ -21,11 +21,12 @@ class _MenuScreenState extends State<MenuScreen> {
     return Scaffold(
 
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
+        padding: const EdgeInsets.all(5.0),
+        child: ListView(
+          shrinkWrap: true,
           children: [
             Text(
-              "Perfect way to start your day",
+              "prefect_way".tr(),
               style: TextStyle(
                   color: AppColors.color2,
                   fontSize: 16,
@@ -33,7 +34,7 @@ class _MenuScreenState extends State<MenuScreen> {
             ),
             CategoryList(),
             Text(
-              "Perfect way to start your day",
+              "choose_cofe".tr(),
               style: TextStyle(
                   color: AppColors.color2,
                   fontSize: 16,

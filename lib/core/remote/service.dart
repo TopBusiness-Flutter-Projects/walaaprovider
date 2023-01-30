@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/models/category_data_model.dart';
 import 'package:walaaprovider/core/models/product_data_model.dart';
+import 'package:walaaprovider/core/models/settings.dart';
 import 'package:walaaprovider/core/models/user_data_model.dart';
 import 'package:walaaprovider/features/auth/login/models/login_model.dart';
 import 'package:walaaprovider/features/auth/register/models/register_model.dart';
@@ -68,11 +69,8 @@ class ServiceApi {
   }
   Future<ProductDataModel> getProduct(String token, String lan,int category_id) async {
     final response = await dio.get(
-      EndPoints.productUrl,
-      queryParameters: {
-        'category_id':category_id
+      EndPoints.productUrl+"/${category_id}",
 
-      },
       options: Options(
         headers: {
           'Authorization': token,
@@ -83,5 +81,20 @@ class ServiceApi {
     print('Url : ${EndPoints.productUrl}');
     print('Response : \n ${response.data}');
     return ProductDataModel.fromJson(response.data);
+  }
+  Future<SettingModel> getsetting() async {
+    final response = await dio.get(
+      EndPoints.settingUrl,
+
+      // options: Options(
+      //   headers: {
+      //     'Authorization': token,
+      //     'Accept-Language': lan,
+      //   },
+      // ),
+    );
+    print('Url : ${EndPoints.productUrl}');
+    print('Response : \n ${response.data}');
+    return SettingModel.fromJson(response.data);
   }
 }

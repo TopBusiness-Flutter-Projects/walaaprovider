@@ -3,6 +3,7 @@ import 'package:walaaprovider/features/auth/register/presentation/screens/regist
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/screens/verfiication_screen.dart';
 import 'package:walaaprovider/features/navigation_bottom/screens/navigation_bottom.dart';
+import 'package:walaaprovider/features/privacy_terms/presentation/screen/privacy&terms.dart';
 
 import '../../features/auth/login/presentation/screens/login.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
@@ -13,6 +14,7 @@ class Routes {
   static const String loginRoute = '/loginPage';
   static const String registerRoute = '/registerPage';
   static const String verficationRoute = '/verficationPage';
+  static const String termsprivacyRoute = '/termsprivacyPage';
   static const NavigationBottomRoute = '/NavigationBottom';
 }
 
@@ -42,6 +44,12 @@ class AppRoutes {
       case Routes.NavigationBottomRoute:
         return MaterialPageRoute(
           builder: (context) =>  NavigationBottom(),
+        );
+        case Routes.termsprivacyRoute:
+          String title = settings.arguments as String;
+        return MaterialPageRoute(
+
+          builder: (context) =>  PrivacyAndTermsScreen(title: title),
         );
       default:
         return undefinedRoute();
