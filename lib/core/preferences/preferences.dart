@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/models/user.dart';
 import 'package:walaaprovider/core/models/user_model.dart';
@@ -16,14 +15,11 @@ class Preferences {
   Future<void> setFirstInstall() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString('onBoarding', 'Done');
-
-    ;
   }
+
   Future<String?> getFirstInstall() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? jsonData = prefs.getString('onBoarding');
-
-    ;
     return jsonData;
   }
 
@@ -52,6 +48,6 @@ class Preferences {
 
   clearUserData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.clear();
+    preferences.remove('user');
   }
 }
