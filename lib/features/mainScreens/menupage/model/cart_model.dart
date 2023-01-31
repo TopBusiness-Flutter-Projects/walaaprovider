@@ -1,9 +1,19 @@
-class CartModel {
-  String phone='';
-  int totalPrice=0;
-  String note='';
-  List<OrderDetails> orderDetails=[];
+import '../../../../core/models/product_model.dart';
 
+class CartModel {
+  String? phone = '';
+  int? totalPrice = 0;
+  String? note = '';
+  List<OrderDetails>? orderDetails = [];
+  List<ProductModel>? productModel = [];
+
+  CartModel({
+    this.phone,
+    this.totalPrice,
+    this.note,
+    this.orderDetails,
+    this.productModel,
+  });
 
   CartModel.fromJson(Map<String, dynamic> json) {
     phone = json['phone'];
@@ -12,27 +22,38 @@ class CartModel {
     if (json['order_details'] != null) {
       orderDetails = [];
       json['order_details'].forEach((v) {
-        orderDetails.add(new OrderDetails.fromJson(v));
+        orderDetails!.add(new OrderDetails.fromJson(v));
+      });
+    }
+    if (json['product_model'] != null) {
+      productModel = [];
+      json['product_model'].forEach((v) {
+        productModel!.add(new ProductModel.fromJson(v));
       });
     }
   }
 
-  Map<String, dynamic> toJson() {
+static  Map<String, dynamic> toJson(CartModel cartModel) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['phone'] = this.phone;
-    data['total_price'] = this.totalPrice;
-    data['note'] = this.note;
-    if (this.orderDetails != null) {
-      data['order_details'] = this.orderDetails.map((v) => v.toJson()).toList();
+    data['phone'] = cartModel.phone;
+    data['total_price'] = cartModel.totalPrice;
+    data['note'] = cartModel.note;
+    if (cartModel.orderDetails != null) {
+      data['order_details'] = cartModel.orderDetails!.map((v) => v.toJson()).toList();
+    }
+    if (cartModel.productModel != null) {
+      data['product_model'] = cartModel.productModel!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class OrderDetails {
-  int productId=0;
-  int qty=0;
+  int productId = 0;
+  int qty = 0;
 
+
+  OrderDetails({required this.productId, required this.qty});
 
   OrderDetails.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];

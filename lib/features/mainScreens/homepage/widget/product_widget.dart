@@ -33,7 +33,7 @@ class ProductWidget extends StatelessWidget {
                     color: Colors.white),
                 child: Center(
                     child: CachedNetworkImage(
-                      imageUrl: model.image,
+                      imageUrl: model.image!,
                       imageBuilder: (context, imageProvider) {
                         return CircleAvatar(
                           backgroundImage: imageProvider,
@@ -63,7 +63,7 @@ class ProductWidget extends StatelessWidget {
                       child:
                       Column(
                         children: [Text(
-                          model.name,
+                          model.name!,
                           style: TextStyle(color: AppColors.white,fontWeight: FontWeight.bold,fontSize: 20,),),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

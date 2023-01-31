@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,31 +18,31 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     String lang = EasyLocalization.of(context)!.locale.languageCode;
     context.read<HomeCubit>().setlang(lang);
-    return  Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {  },
-      child: Icon(Icons.add),
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
         backgroundColor: AppColors.primary,
-
       ),
-      body:
-      ListView(
-children: [  Text(
-  "prefect_way".tr(),
-  style: TextStyle(
-      color: AppColors.color2,
-      fontSize: 16,
-      fontWeight: FontWeight.bold),
-),
-  CategoryList(),
-  Text(
-    "choose_cofe".tr(),
-    style: TextStyle(
-        color: AppColors.color2,
-        fontSize: 16,
-        fontWeight: FontWeight.bold),
-  ),
-  ProductList()
-],
+      body: ListView(
+        children: [
+          Text(
+            "prefect_way".tr(),
+            style: TextStyle(
+                color: AppColors.color2,
+                fontSize: 16,
+                fontWeight: FontWeight.bold),
+          ),
+          CategoryList(),
+          Text(
+            "choose_cofe".tr(),
+            style: TextStyle(
+                color: AppColors.color2,
+                fontSize: 16,
+                fontWeight: FontWeight.bold),
+          ),
+          ProductList()
+        ],
       ),
     );
   }

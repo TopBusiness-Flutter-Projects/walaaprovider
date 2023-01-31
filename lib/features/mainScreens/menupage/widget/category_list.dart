@@ -14,64 +14,69 @@ class CategoryList extends StatefulWidget {
 class _CategoryListState extends State<CategoryList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MenuCubit, MenuState>(builder: (context, state) {
-      MenuCubit menuCubit =context.read<MenuCubit>();
+    return BlocBuilder<MenuCubit, MenuState>(
+      builder: (context, state) {
+        MenuCubit menuCubit = context.read<MenuCubit>();
 
-      // if(context.read<MenuCubit>().categoryList.length>0){
-      //
-      //  menuCubit().getProduct(context.read<MenuCubit>().userModel,menuCubit().categoryList.elementAt(0).id);
-      //
-      // }
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(children: [
-          ...List.generate(
-
-           menuCubit.categorLength,
-              (index) => state is AllCategoryLoading
-                  ? SizedBox(
-                width: MediaQuery.of(context).size.width-70,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    )
-                  : state is AllCategoryError
-                      ? Center(
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.refresh),
+        // if(context.read<MenuCubit>().categoryList.length>0){
+        //
+        //  menuCubit().getProduct(context.read<MenuCubit>().userModel,menuCubit().categoryList.elementAt(0).id);
+        //
+        // }
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              ...List.generate(
+                menuCubit.categorLength,
+                (index) => state is AllCategoryLoading
+                    ? SizedBox(
+                        width: MediaQuery.of(context).size.width - 70,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.primary,
                           ),
-                        )
-                      :menuCubit.categoryList.isNotEmpty
-
-                          ?
-
-
-              InkWell(
-                onTap: () {
-                 menuCubit.getProduct(context.read<MenuCubit>().userModel, context
-                      .read<MenuCubit>()
-                      .categoryList
-                      .elementAt(index).id);
-                },
-                child: Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: CategoryWidget(
+                        ),
+                      )
+                    : state is AllCategoryError
+                        ? Center(
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.refresh),
+                            ),
+                          )
+                        : menuCubit.categoryList.isNotEmpty
+                            ? InkWell(
+                                onTap: () {
+                                  menuCubit.getProduct(
+                                    context.read<MenuCubit>().userModel,
+                                    context
+                                        .read<MenuCubit>()
+                                        .categoryList
+                                        .elementAt(index)
+                                        .id,
+                                  );
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: CategoryWidget(
                                     model: context
                                         .read<MenuCubit>()
                                         .categoryList
-                                        .elementAt(index)),
+                                        .elementAt(index),
+                                  ),
+                                ),
+                              )
+                            : Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColors.primary,
+                                ),
                               ),
-              )
-                          : Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.primary,
-                              ),
-                            )),
-        ]),
-      );
-    });
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

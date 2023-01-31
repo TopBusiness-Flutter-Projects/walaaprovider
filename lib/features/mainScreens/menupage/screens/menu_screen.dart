@@ -23,7 +23,6 @@ class _MenuScreenState extends State<MenuScreen> {
       body: Padding(
         padding: const EdgeInsets.all(5.0),
         child: ListView(
-          shrinkWrap: true,
           children: [
             Text(
               "prefect_way".tr(),

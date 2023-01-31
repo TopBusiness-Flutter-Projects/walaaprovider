@@ -4,6 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/models/user.dart';
 import 'package:walaaprovider/core/models/user_model.dart';
 
+import '../../features/mainScreens/menupage/model/cart_model.dart';
+import '../models/product_model.dart';
+
 class Preferences {
   static final Preferences instance = Preferences._internal();
 
@@ -42,7 +45,6 @@ class Preferences {
       userModel.user.isLoggedIn = false;
 
     }
-
     return userModel;
   }
 
@@ -50,4 +52,53 @@ class Preferences {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.remove('user');
   }
+  clearCartData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.remove('cart');
+  }
+
+
+  Future<CartModel> getCart() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? jsonData = preferences.getString('cart');
+    CartModel cartModel;
+    if (jsonData != null) {
+      cartModel = CartModel.fromJson(jsonDecode(jsonData));
+    }else{
+      cartModel = CartModel(orderDetails: [],productModel: [],phone:'',note: '',totalPrice: 0,);
+    }
+    return cartModel;
+  }
+  Future<void> setCart(CartModel cartModel) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('cart', jsonEncode(CartModel.toJson(cartModel)));
+  }
+
+  addItemToCart(ProductModel model) async {
+    CartModel cartModel = await getCart();
+    bool isNew =true;
+    cartModel.orderDetails!.forEach(
+          (element) {
+        if (element.productId == model.id) {
+          int index = cartModel.orderDetails!.indexOf(element);
+          cartModel.orderDetails![index].qty++;
+          cartModel.productModel![index].quantity++;
+          setCart(cartModel);
+          isNew=false;
+        }
+      },
+    );
+    if(isNew){
+      cartModel.productModel!.add(model);
+      cartModel.orderDetails!.add(
+        OrderDetails(
+          productId: model.id!,
+          qty: model.quantity,
+        ),
+      );
+      setCart(cartModel);
+    }
+
+  }
+
 }

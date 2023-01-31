@@ -7,7 +7,7 @@ import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/widgets/my_svg_widget.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/home_screen.dart';
-import 'package:walaaprovider/features/mainScreens/menupage/menu_screen.dart';
+import 'package:walaaprovider/features/mainScreens/menupage/screens/menu_screen.dart';
 import 'package:walaaprovider/features/mainScreens/profilepage/presentation/screens/profile.dart';
 
 import '../cubit/navigator_bottom_cubit.dart';

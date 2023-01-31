@@ -16,26 +16,27 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MenuCubit, MenuState>(builder: (context, state) {
-      MenuCubit menuCubit =context.read<MenuCubit>();
-      print(menuCubit.productLength);
-      List<ProductModel> list=[];
-      if(menuCubit.productList.isNotEmpty){
-      list = menuCubit.productList;}
-print("ssss${list.length}");
+    return BlocBuilder<MenuCubit, MenuState>(
+      builder: (context, state) {
+        MenuCubit menuCubit = context.read<MenuCubit>();
+        print(menuCubit.productLength);
+        List<ProductModel> list = [];
+        if (menuCubit.productList.isNotEmpty) {
+          list = menuCubit.productList;
+        }
+        print("ssss${list.length}");
 
-      return GridView.builder(
-
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        return GridView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: .8,
             mainAxisSpacing: 1,
-
-            crossAxisCount: 2),
-        itemCount: list.length>0?list.length:menuCubit.productLength,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
+            crossAxisCount: 2,
+          ),
+          itemCount: list.length > 0 ? list.length : menuCubit.productLength,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
               child: state is AllProductLoading
                   ? Center(
                       child: CircularProgressIndicator(
@@ -53,18 +54,21 @@ print("ssss${list.length}");
                           ? Padding(
                               padding: EdgeInsets.all(25.0),
                               child: ProductWidget(
-                                  model: context
-                                      .read<MenuCubit>()
-                                      .productList
-                                      .elementAt(index)),
+                                model: context
+                                    .read<MenuCubit>()
+                                    .productList
+                                    .elementAt(index),
+                              ),
                             )
                           : Center(
                               child: CircularProgressIndicator(
                                 color: AppColors.primary,
                               ),
-                            ));
-        },
-      );
-    });
+                            ),
+            );
+          },
+        );
+      },
+    );
   }
 }
