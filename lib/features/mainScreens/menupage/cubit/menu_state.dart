@@ -20,3 +20,5 @@ class AllProductLoaded extends MenuState {
   AllProductLoaded(this.productList);
 
 }
+
+class ChangeItemCount extends MenuState {}

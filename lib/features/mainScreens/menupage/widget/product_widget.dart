@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/models/product_model.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
@@ -9,6 +10,7 @@ import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/widgets/my_svg_widget.dart';
 
 import '../../../../core/preferences/preferences.dart';
+import '../cubit/menu_cubit.dart';
 import '../model/cart_model.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -88,8 +90,8 @@ class ProductWidget extends StatelessWidget {
                         onTap: () async {
                           print(model.toJson());
                           print('============================');
-
-                           Preferences.instance.addItemToCart(model);
+                          openDialog(model, context);
+                          // Preferences.instance.addItemToCart(model);
                         },
                         child: SizedBox(
                           width: 32,
@@ -138,6 +140,170 @@ class ProductWidget extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  openDialog(ProductModel model, BuildContext context) {
+    MenuCubit cubit = context.read<MenuCubit>();
+    cubit.itemPrice = model.price!;
+    cubit.itemCount = 1;
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        titlePadding: EdgeInsets.zero,
+        content: BlocBuilder<MenuCubit, MenuState>(
+          builder: (context, state) {
+            return Directionality(
+              textDirection: TextDirection.ltr,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width - 40,
+                height: null,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: CachedNetworkImage(
+                            imageUrl: model.image!,
+                            imageBuilder: (context, imageProvider) {
+                              return CircleAvatar(
+                                  backgroundImage: imageProvider);
+                            },
+                            width: 60.0,
+                            height: 60.0,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        SizedBox(width: 12),
+                        Expanded(
+                          flex: 4,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 8),
+                              Text(
+                                model.name!,
+                                style: TextStyle(
+                                  color: AppColors.primary,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                '${cubit.itemPrice} SAR',
+                                style: TextStyle(color: AppColors.primary),
+                              ),
+                              SizedBox(height: 16),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: null,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primary,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 2,
+                                      horizontal: 4,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () => cubit.changeItemCount(
+                                              '+', model.price!),
+                                          child: Icon(
+                                            Icons.add,
+                                            color: AppColors.white,
+                                          ),
+                                        ),
+                                        SizedBox(width: 16),
+                                        Text(
+                                          '${cubit.itemCount}',
+                                          style:
+                                              TextStyle(color: AppColors.white),
+                                        ),
+                                        SizedBox(width: 16),
+                                        InkWell(
+                                          onTap: () => cubit.changeItemCount(
+                                            '-',
+                                            model.price!,
+                                          ),
+                                          child: Icon(
+                                            Icons.remove,
+                                            color: AppColors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                            Preferences.instance.addItemToCart(
+                              model,
+                              cubit.itemCount,
+                            );
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: AppColors.success,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text('Confirm'),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: AppColors.error,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text('Cancel'),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

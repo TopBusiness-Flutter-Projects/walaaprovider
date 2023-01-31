@@ -74,21 +74,22 @@ class Preferences {
     preferences.setString('cart', jsonEncode(CartModel.toJson(cartModel)));
   }
 
-  addItemToCart(ProductModel model) async {
+  addItemToCart(ProductModel model,int qty) async {
     CartModel cartModel = await getCart();
     bool isNew =true;
     cartModel.orderDetails!.forEach(
           (element) {
         if (element.productId == model.id) {
           int index = cartModel.orderDetails!.indexOf(element);
-          cartModel.orderDetails![index].qty++;
-          cartModel.productModel![index].quantity++;
+          cartModel.orderDetails![index].qty= cartModel.orderDetails![index].qty+qty;
+          cartModel.productModel![index].quantity=cartModel.productModel![index].quantity+qty;
           setCart(cartModel);
           isNew=false;
         }
       },
     );
     if(isNew){
+      model.quantity=qty;
       cartModel.productModel!.add(model);
       cartModel.orderDetails!.add(
         OrderDetails(
