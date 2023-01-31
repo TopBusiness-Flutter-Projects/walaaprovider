@@ -1,11 +1,18 @@
 class CategoryModel {
-  late int id;
-  late String name;
-  late String image;
+  int id=0;
+  String name='';
+  String name_ar='';
+  String name_en='';
+  String image='';
+
+
+  CategoryModel.name(this.id, this.name, this.image);
 
   CategoryModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
+    name = json['name']??"";
+    name = json['name_ar']??"";
+    name = json['name_en']??"";
     image = json['image'];
   }
 
@@ -13,6 +20,8 @@ class CategoryModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['name_ar'] = this.name_ar;
+    data['name_en'] = this.name_en;
     data['image'] = this.image;
     return data;
   }

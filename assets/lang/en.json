@@ -37,8 +37,7 @@
   "balance": "Balance",
   "sr": "SR",
   "addcategory": "Add Category",
-  "pass_equal": "Must Equal Password"
-
-
-
+  "pass_equal": "Must Equal Password",
+  "name_ar": "Arabic name",
+  "name_en": "English Name"
 }

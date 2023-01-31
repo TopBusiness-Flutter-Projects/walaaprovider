@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/api/app_interceptors.dart';
+import 'package:walaaprovider/features/addcategorypage/cubit/addcategory_cubit.dart';
 import 'package:walaaprovider/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
@@ -52,46 +53,61 @@ Future<void> setup() async {
   // Api Consumer
   serviceLocator.registerLazySingleton(() => ServiceApi(serviceLocator()));
   serviceLocator.registerFactory(
-        () => SplashCubit(
+        () =>
+        SplashCubit(
 
-    ),
+        ),
   );
   serviceLocator.registerFactory(
-        () => LoginCubit(
-      serviceLocator(),
-    ),
+        () =>
+        LoginCubit(
+          serviceLocator(),
+        ),
   );
   serviceLocator.registerFactory(
-        () => MenuCubit(
-      serviceLocator(),
-    ),
+        () =>
+        MenuCubit(
+          serviceLocator(),
+        ),
   );
   serviceLocator.registerFactory(
-        () => HomeCubit(
-      serviceLocator(),
-    ),
+        () =>
+        HomeCubit(
+          serviceLocator(),
+        ),
   );
   serviceLocator.registerFactory(
-        () => ProfileCubit(
+        () =>
+        ProfileCubit(
 
-    ),
+        ),
   );
   serviceLocator.registerFactory(
-        () => SettingsCubit(
+        () =>
+        AddcategoryCubit(
             serviceLocator()
 
-    ),
+        ),
+  );
+  serviceLocator.registerFactory(
+        () =>
+        SettingsCubit(
+            serviceLocator()
+
+        ),
   );
 
   serviceLocator.registerFactory(
-        () => RegisterCubit(
-      serviceLocator(),
-    ),
+        () =>
+        RegisterCubit(
+          serviceLocator(),
+        ),
   );
   serviceLocator.registerFactory(
-        () => VerficationCubit(
-      // serviceLocator(),
-    ),
+        () =>
+        VerficationCubit(
+          // serviceLocator(),
+        ),
   );
   serviceLocator.registerFactory(() => NavigatorBottomCubit());
   //! External
@@ -106,25 +122,27 @@ Future<void> setup() async {
   serviceLocator.registerLazySingleton(() => AppInterceptors());
 
   serviceLocator.registerLazySingleton(
-    () => Dio(
-      BaseOptions(
-        contentType: "application/x-www-form-urlencoded",
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      ),
-    ),
+        () =>
+        Dio(
+          BaseOptions(
+            contentType: "application/x-www-form-urlencoded",
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+          ),
+        ),
   );
   // serviceLocator.registerLazySingleton(() => AppInterceptors());
   serviceLocator.registerLazySingleton(
-    () => LogInterceptor(
-      request: true,
-      requestBody: true,
-      requestHeader: true,
-      responseBody: true,
-      responseHeader: true,
-      error: true,
-    ),
+        () =>
+        LogInterceptor(
+          request: true,
+          requestBody: true,
+          requestHeader: true,
+          responseBody: true,
+          responseHeader: true,
+          error: true,
+        ),
   );
 
   // Internet Connection Checker

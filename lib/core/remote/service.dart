@@ -4,7 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/models/category_data_model.dart';
 import 'package:walaaprovider/core/models/product_data_model.dart';
 import 'package:walaaprovider/core/models/settings.dart';
+import 'package:walaaprovider/core/models/single_category_data_model.dart';
+import 'package:walaaprovider/core/models/status_resspons.dart';
 import 'package:walaaprovider/core/models/user_data_model.dart';
+import 'package:walaaprovider/features/addcategorypage/model/add_category_model.dart';
 import 'package:walaaprovider/features/auth/login/models/login_model.dart';
 import 'package:walaaprovider/features/auth/register/models/register_model.dart';
 
@@ -97,4 +100,46 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return SettingModel.fromJson(response.data);
   }
+  Future<StatusResponse> addCategory(AddCategoryModel addCategoryModel,String token) async {
+    var fields = FormData.fromMap({});
+    fields = FormData.fromMap({
+      "name_ar":addCategoryModel.name_ar,
+      "name_en":addCategoryModel.name_en,
+      "image": await MultipartFile.fromFile(addCategoryModel.image)
+
+    });
+    Response response = await dio.post(
+      EndPoints.addcategoryUrl,
+
+      options: Options(
+        headers: {
+          'Authorization': token
+        },
+      ),
+      data: fields,
+    );
+
+    print('Url : ${fields.files}');
+
+    print('Url : ${EndPoints.loginUrl}');
+    print('Url : ${addCategoryModel.image}');
+    print('Response : \n ${response.data}');
+    return StatusResponse.fromJson(response.data);
+  }
+  Future<SingleCategoryDataModel> getsingleCategory(int id) async {
+    final response = await dio.get(
+      EndPoints.singlecategoryUrl+"/${id}",
+
+      // options: Options(
+      //   headers: {
+      //     'Authorization': token,
+      //     'Accept-Language': lan,
+      //   },
+      // ),
+    );
+    print('Url : ${EndPoints.productUrl}');
+    print('Response : \n ${response.data}');
+    return SingleCategoryDataModel.fromJson(response.data);
+  }
+
 }

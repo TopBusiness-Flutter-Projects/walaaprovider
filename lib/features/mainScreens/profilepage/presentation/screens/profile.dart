@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:walaaprovider/core/models/category_model.dart';
 import 'package:walaaprovider/core/preferences/preferences.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/app_routes.dart';
@@ -26,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
         centerTitle: false,
         automaticallyImplyLeading: false,
         title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -181,7 +182,9 @@ class ProfileScreen extends StatelessWidget {
                         title: 'addcategory'.tr(),
                         image: ImageAssets.addIcon,
                         imageColor: AppColors.buttonBackground,
-                        onclick: () {},
+                        onclick: () {
+                          Navigator.pushNamed(context, Routes.addCategoryRoute,arguments: CategoryModel.name(0, '', ''));
+                        },
 
                         //     Navigator.push(
                         //   context,

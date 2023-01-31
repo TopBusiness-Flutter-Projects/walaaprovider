@@ -5,6 +5,7 @@ const String lottiePath = 'assets/lottie';
 class ImageAssets {
   static const String walaaLogo = '$imagePath/walaa_logo.png';
   static const String homeImage = '$imagePath/home.png';
+  static const String mugImage = '$imagePath/mug.png';
   static const String orderImage = '$imagePath/terms.png';
   static const String spoonImage = '$imagePath/spoon.png';
   static const String whatsappImage = '$imagePath/whatsapp.png';

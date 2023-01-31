@@ -4,3 +4,19 @@ part of 'addcategory_cubit.dart';
 abstract class AddcategoryState {}
 
 class AddcategoryInitial extends AddcategoryState {}
+class AddcategoryPickImageSuccess extends AddcategoryState {}
+class OnAddcategoryVaild extends AddcategoryState {
+}
+class OnAddcategoryVaildFaild extends AddcategoryState {
+
+}
+class OnAddcategoryError extends AddcategoryState {
+}
+class OncategoryLoaded extends AddcategoryState {
+ final CategoryModel data;
+  OncategoryLoaded(this.data);
+}
+class OncategoryError extends AddcategoryState {
+}
+
+
