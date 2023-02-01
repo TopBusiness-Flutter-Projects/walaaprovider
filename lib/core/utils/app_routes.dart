@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:walaaprovider/core/models/category_model.dart';
+import 'package:walaaprovider/core/models/product_model.dart';
 import 'package:walaaprovider/features/addcategorypage/addcategory_screen.dart';
+import 'package:walaaprovider/features/addproduct/presentation/screens/addproduct_screen.dart';
 import 'package:walaaprovider/features/auth/register/presentation/screens/register.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/screens/verfiication_screen.dart';
@@ -18,6 +20,7 @@ class Routes {
   static const String verficationRoute = '/verficationPage';
   static const String termsprivacyRoute = '/termsprivacyPage';
   static const String addCategoryRoute = '/addCategoryRoute';
+  static const String addProductRoute = '/addProductRoute';
   static const NavigationBottomRoute = '/NavigationBottom';
 }
 
@@ -59,6 +62,12 @@ class AppRoutes {
         return MaterialPageRoute(
 
           builder: (context) =>  AddCategory(categoryModel: categoryModel),
+        );
+        case Routes.addProductRoute:
+          ProductModel productModel = settings.arguments as ProductModel;
+        return MaterialPageRoute(
+
+          builder: (context) =>  AddProduct(productModel: productModel),
         );
       default:
         return undefinedRoute();

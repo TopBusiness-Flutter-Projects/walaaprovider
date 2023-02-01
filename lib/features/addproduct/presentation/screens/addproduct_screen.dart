@@ -3,24 +3,32 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:walaaprovider/core/models/category_model.dart';
+import 'package:walaaprovider/core/models/product_model.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/utils/toast_message_method.dart';
 import 'package:walaaprovider/core/widgets/custom_button.dart';
 import 'package:walaaprovider/core/widgets/network_image.dart';
-import 'package:walaaprovider/features/addcategorypage/cubit/addcategory_cubit.dart';
+import 'package:walaaprovider/features/addproduct/presentation/cubit/add_product_cubit.dart';
+import 'package:walaaprovider/features/addproduct/presentation/widgets/dropdowncategory.dart';
 
-class AddCategory extends StatelessWidget {
-  final CategoryModel categoryModel;
+class AddProduct extends StatefulWidget {
+  final ProductModel productModel;
+
+  AddProduct({Key? key, required this.productModel}) : super(key: key);
+
+  @override
+  State<AddProduct> createState() => _AddProductState();
+}
+
+class _AddProductState extends State<AddProduct> {
   GlobalKey<FormState> formKey = GlobalKey();
-
-  AddCategory({Key? key, required this.categoryModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print("sssss${categoryModel.id}");
-
+    print("sssss${widget.productModel.id}");
+    String lang = EasyLocalization.of(context)!.locale.languageCode;
+context.read<AddProductCubit>().setlang(lang);
     return Scaffold(
         backgroundColor: AppColors.white,
         appBar: AppBar(
@@ -40,7 +48,9 @@ class AddCategory extends StatelessWidget {
           title: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
             child: Text(
-              categoryModel.id==0?'addcategory'.tr():"editcategory".tr(),
+              widget.productModel.id == 0
+                  ? 'addProduct'.tr()
+                  : "editProduct".tr(),
               style: TextStyle(
                 color: AppColors.primary,
                 fontWeight: FontWeight.bold,
@@ -50,39 +60,52 @@ class AddCategory extends StatelessWidget {
           elevation: 0,
           backgroundColor: AppColors.color1,
         ),
-        body: BlocListener<AddcategoryCubit, AddcategoryState>(
+        body: BlocListener<AddProductCubit, AddProductState>(
             listener: (context, state) {
-              if(state is OnUserDataVaild){
-                context.read<AddcategoryCubit>().getSingleCategory(categoryModel.id,context,context.read<AddcategoryCubit>().userModel!.access_token);
+          if (state is OnUserDataVaild) {
+            print("ssss${widget.productModel.id}");
+            if (widget.productModel.id!= 0) {
 
-              }
-          if (state is OnAddcategoryError) {
+              context.read<AddProductCubit>().getSingleProduct(
+                  widget.productModel.id!,
+                  context,
+                  context.read<AddProductCubit>().userModel!.access_token);
+            } else {
+              print("ddkdkssssssk");
+              context
+                .read<AddProductCubit>()
+                    .getcategory(context.read<AddProductCubit>().userModel);
+            }
+          }
+          if (state is OnAddProductError) {
             toastMessage(
-              context.read<AddcategoryCubit>().message,
+              context.read<AddProductCubit>().message,
               context,
               color: AppColors.error,
             );
           }
 
-          if (state is OnAddcategoryVaildFaild) {
+          if (state is OnAddProductVaildFaild) {
             formKey.currentState!.validate();
           }
-          if (state is OnAddcategoryVaild) {
+          if (state is OnAddProductVaild) {
             formKey.currentState!.validate();
           }
-
-        }, child: BlocBuilder<AddcategoryCubit, AddcategoryState>(
+        }, child: BlocBuilder<AddProductCubit, AddProductState>(
                 builder: (context, state) {
-          AddcategoryCubit cubit = context.read<AddcategoryCubit>();
-          if(state is OncategoryLoaded){
-            CategoryModel categoryModel=state.data;
-            print("object${categoryModel.name_en}");
-            cubit.addCategoryModel.image=categoryModel.image;
-            cubit.addCategoryModel.name_ar=categoryModel.name_ar;
-            cubit.addCategoryModel.name_en=categoryModel.name_en;
-            cubit.controllerName_ar.text=categoryModel.name_ar;
-            cubit.controllerName_en.text=categoryModel.name_en;
-           cubit.checkValidData();
+          AddProductCubit cubit = context.read<AddProductCubit>();
+          if (state is OnProductLoaded) {
+            ProductModel productModel = state.data;
+            cubit.addProductModel.image = productModel.image!;
+            cubit.addProductModel.name_ar = productModel.name_ar!;
+            cubit.addProductModel.name_en = productModel.name_en!;
+            cubit.addProductModel.cat_id = productModel.category_id!;
+            cubit.addProductModel.price = productModel.price.toString();
+            cubit.controllerName_ar.text = productModel.name_ar!;
+            cubit.controllerprice.text = productModel.price.toString();
+            cubit.controllerName_en.text = productModel.name_en!;
+            cubit.checkValidData();
+            cubit.getcategory(cubit.userModel);
           }
           return SafeArea(
               child: Form(
@@ -101,11 +124,11 @@ class AddCategory extends StatelessWidget {
                                 child: CircleAvatar(
                                   backgroundColor: AppColors.white,
                                   child: ClipOval(
-                                    child: categoryModel.id != 0
+                                    child: widget.productModel.id != 0
                                         ? cubit.imagePath.isEmpty
                                             ? ManageNetworkImage(
-                                                imageUrl: cubit
-                                                    .addCategoryModel.image,
+                                                imageUrl:
+                                                    cubit.addProductModel.image,
                                                 width: 140,
                                                 height: 140,
                                                 borderRadius: 140,
@@ -157,7 +180,7 @@ class AddCategory extends StatelessWidget {
                                               InkWell(
                                                 onTap: () {
                                                   context
-                                                      .read<AddcategoryCubit>()
+                                                      .read<AddProductCubit>()
                                                       .pickImage(
                                                         type: 'camera',
                                                       );
@@ -184,7 +207,7 @@ class AddCategory extends StatelessWidget {
                                               InkWell(
                                                 onTap: () {
                                                   context
-                                                      .read<AddcategoryCubit>()
+                                                      .read<AddProductCubit>()
                                                       .pickImage(
                                                         type: 'photo',
                                                       );
@@ -241,6 +264,23 @@ class AddCategory extends StatelessWidget {
                           SizedBox(
                             height: 40,
                           ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Container(
+                              child: DropDownCategory(
+                                items: cubit.categoryList,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Divider(
+                              color: AppColors.color2,
+                              height: 3,
+                              thickness: 3,
+                            ),
+                          ),
                           Container(
                             width: MediaQuery.of(context).size.width - 50,
                             child: TextFormField(
@@ -250,13 +290,13 @@ class AddCategory extends StatelessWidget {
                               keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.next,
                               onChanged: (data) {
-                                cubit.addCategoryModel.name_ar = data;
+                                cubit.addProductModel.name_ar = data;
                                 cubit.checkValidData();
                               },
                               validator: (value) {
-                                return cubit.addCategoryModel.error_name_ar
+                                return cubit.addProductModel.error_name_ar
                                         .isNotEmpty
-                                    ? cubit.addCategoryModel.error_name_en
+                                    ? cubit.addProductModel.error_name_en
                                     : null;
                               },
                               decoration: InputDecoration(
@@ -286,13 +326,13 @@ class AddCategory extends StatelessWidget {
                               keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.next,
                               onChanged: (data) {
-                                cubit.addCategoryModel.name_en = data;
+                                cubit.addProductModel.name_en = data;
                                 cubit.checkValidData();
                               },
                               validator: (value) {
-                                return cubit.addCategoryModel.error_name_en
+                                return cubit.addProductModel.error_name_en
                                         .isNotEmpty
-                                    ? cubit.addCategoryModel.error_name_en
+                                    ? cubit.addProductModel.error_name_en
                                     : null;
                               },
                               decoration: InputDecoration(
@@ -313,26 +353,63 @@ class AddCategory extends StatelessWidget {
                               thickness: 3,
                             ),
                           ),
+                          Container(
+                            width: MediaQuery.of(context).size.width - 50,
+                            child: TextFormField(
+                              maxLines: 1,
+                              controller: cubit.controllerprice,
+                              cursorColor: AppColors.primary,
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              onChanged: (data) {
+                                cubit.addProductModel.price = data;
+                                cubit.checkValidData();
+                              },
+                              validator: (value) {
+                                return cubit
+                                        .addProductModel.error_price.isNotEmpty
+                                    ? cubit.addProductModel.error_price
+                                    : null;
+                              },
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'price'.tr(),
+                                  hintStyle: TextStyle(
+                                      color: AppColors.primary,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Divider(
+                              color: AppColors.color2,
+                              height: 3,
+                              thickness: 3,
+                            ),
+                          ),
                           SizedBox(
                             height: 100,
                           ),
                           CustomButton(
                             textcolor: AppColors.color1,
-                            text:categoryModel.id==0?'addcategory'.tr():"editcategory".tr(),
-
-                            color: context.read<AddcategoryCubit>().isValid
+                            text: widget.productModel.id == 0
+                                ? 'addProduct'.tr()
+                                : "editProduct".tr(),
+                            color: context.read<AddProductCubit>().isValid
                                 ? AppColors.buttonBackground
                                 : AppColors.gray,
                             onClick: () {
                               if (formKey.currentState!.validate()) {
-                               if(categoryModel.id
-                               ==0){
-                                cubit.addcategory(context);}
-                               else {
-                                 cubit.editcategory(context,categoryModel.id);
-                               }
+                                if (widget.productModel.id == 0) {
+                                  cubit.addProduct(context);
+                                } else {
+                                  cubit.editProduct(
+                                      context, widget.productModel.id!);
+                                }
                                 // context
-                                //     .read<AddcategoryCubit>()
+                                //     .read<AddProductCubit>()
                                 //     .userRegister(context);
                                 print('all is well !!');
                               }

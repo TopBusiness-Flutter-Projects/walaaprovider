@@ -64,7 +64,7 @@ class _CategoryListState extends State<CategoryList> {
                                     model: context
                                         .read<HomeCubit>()
                                         .categoryList
-                                        .elementAt(index)),
+                                        .elementAt(index),index: index,),
                               ),
               )
                           : Center(

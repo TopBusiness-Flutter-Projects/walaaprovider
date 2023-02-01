@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/api/app_interceptors.dart';
 import 'package:walaaprovider/features/addcategorypage/cubit/addcategory_cubit.dart';
+import 'package:walaaprovider/features/addproduct/presentation/cubit/add_product_cubit.dart';
 import 'package:walaaprovider/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
@@ -92,6 +93,13 @@ Future<void> setup() async {
   serviceLocator.registerFactory(
         () =>
         SettingsCubit(
+            serviceLocator()
+
+        ),
+  );
+  serviceLocator.registerFactory(
+        () =>
+        AddProductCubit(
             serviceLocator()
 
         ),

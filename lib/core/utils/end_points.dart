@@ -5,9 +5,15 @@ class EndPoints {
   static const String loginUrl = '${baseUrl}provider/auth/login';
   static const String registerUrl = '${baseUrl}provider/auth/register';
   static const String addcategoryUrl = '${baseUrl}provider/categories/store';
+  static const String editcategoryUrl = '${baseUrl}provider/categories/update';
+  static const String deletecategoryUrl = '${baseUrl}provider/categories/delete';
+  static const String addproductUrl = '${baseUrl}provider/products/store';
+  static const String editproductUrl = '${baseUrl}provider/products/update';
+  static const String deleteproductUrl = '${baseUrl}provider/products/delete';
   static const String categoryUrl = '${baseUrl}provider/categories/list';
   static const String productUrl = '${baseUrl}provider/products/list';
   static const String singlecategoryUrl = '${baseUrl}provider/categories/find';
+  static const String singleproductUrl = '${baseUrl}provider/products/find';
   static const String settingUrl = '${baseUrl}setting';
   static const String checkCodeUrl = '${baseUrl}auth/password/code/check';
   static const String resetPasswordUrl = '${baseUrl}auth/password/reset';

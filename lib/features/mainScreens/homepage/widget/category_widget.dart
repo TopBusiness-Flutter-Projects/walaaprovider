@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/core/models/category_model.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/utils/circle_network_image.dart';
 import 'package:walaaprovider/core/widgets/my_svg_widget.dart';
+import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
 
 class CategoryWidget extends StatelessWidget {
-  const CategoryWidget({Key? key, required this.model}) : super(key: key);
+  const CategoryWidget({Key? key, required this.model, required this.index}) : super(key: key);
   final CategoryModel model;
-
+final int index;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -53,11 +55,16 @@ class CategoryWidget extends StatelessWidget {
 
                     },
                   ),
-                  MySvgWidget(
-                    path: ImageAssets.removeIcon,
-                    color: AppColors.onBoardingColor,
-                    width: 16,
-                    height: 16,
+                  InkWell(
+                    onTap: () {
+                      context.read<HomeCubit>().deleteCategory(model,index);
+                    },
+                    child: MySvgWidget(
+                      path: ImageAssets.removeIcon,
+                      color: AppColors.onBoardingColor,
+                      width: 16,
+                      height: 16,
+                    ),
                   ),
                 ],
               ),

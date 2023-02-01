@@ -11,8 +11,8 @@ class CategoryModel {
   CategoryModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name']??"";
-    name = json['name_ar']??"";
-    name = json['name_en']??"";
+    name_ar = json['name_ar']??"";
+    name_en = json['name_en']??"";
     image = json['image'];
   }
 

@@ -23,7 +23,7 @@ class _ProductListState extends State<ProductList> {
       if(homeCubit.productList.isNotEmpty){
       list = homeCubit.productList;}
 print("ssss${list.length}");
-
+if(homeCubit.productLength>0){
       return GridView.builder(
 
         physics: NeverScrollableScrollPhysics(),
@@ -56,15 +56,20 @@ print("ssss${list.length}");
                                   model: context
                                       .read<HomeCubit>()
                                       .productList
-                                      .elementAt(index)),
+                                      .elementAt(index),index: index,),
                             )
-                          : Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.primary,
+                          : SizedBox(
+                            child: Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColors.primary,
+                                ),
                               ),
-                            ));
+                          ));
         },
-      );
+      );}
+else{
+  return Center(child: Container(child:Text('No Data Found',style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,color: AppColors.primary),),));
+}
     });
   }
 }

@@ -7,6 +7,8 @@ class AddcategoryInitial extends AddcategoryState {}
 class AddcategoryPickImageSuccess extends AddcategoryState {}
 class OnAddcategoryVaild extends AddcategoryState {
 }
+class OnUserDataVaild extends AddcategoryState {
+}
 class OnAddcategoryVaildFaild extends AddcategoryState {
 
 }

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/features/addcategorypage/cubit/addcategory_cubit.dart';
+import 'package:walaaprovider/features/addproduct/presentation/cubit/add_product_cubit.dart';
 import 'package:walaaprovider/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
@@ -70,6 +71,10 @@ class _CofeeState extends State<Cofee> {
         BlocProvider(
           create: (_) =>
               injector.serviceLocator<AddcategoryCubit>(),
+        ),
+        BlocProvider(
+          create: (_) =>
+              injector.serviceLocator<AddProductCubit>(),
         ),
       ],
       child:  MaterialApp(

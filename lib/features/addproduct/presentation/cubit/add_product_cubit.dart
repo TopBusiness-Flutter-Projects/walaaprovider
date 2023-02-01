@@ -1,12 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:walaaprovider/core/models/category_model.dart';
+import 'package:walaaprovider/core/models/product_model.dart';
 import 'package:walaaprovider/core/models/user_model.dart';
 import 'package:walaaprovider/core/preferences/preferences.dart';
 import 'package:walaaprovider/core/remote/handle_exeption.dart';
@@ -14,25 +15,28 @@ import 'package:walaaprovider/core/remote/service.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/appwidget.dart';
 import 'package:walaaprovider/core/utils/toast_message_method.dart';
-import 'package:walaaprovider/features/addcategorypage/model/add_category_model.dart';
+import 'package:walaaprovider/features/addproduct/presentation/model/add_product_model.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/menupage/cubit/menu_cubit.dart';
 
-part 'addcategory_state.dart';
+part 'add_product_state.dart';
 
-class AddcategoryCubit extends Cubit<AddcategoryState> {
+class AddProductCubit extends Cubit<AddProductState> {
   XFile? imageFile;
   String imagePath = '';
-  AddCategoryModel addCategoryModel = AddCategoryModel();
+  AddProductModel addProductModel = AddProductModel();
   UserModel? userModel;
   bool isValid = false;
+  List<CategoryModel> categoryList = [];
+
   TextEditingController controllerName_ar = TextEditingController();
   TextEditingController controllerName_en = TextEditingController();
+  TextEditingController controllerprice= TextEditingController();
   final ServiceApi serviceApi;
-
   String? message;
+  String? lang;
 
-  AddcategoryCubit(this.serviceApi) : super(AddcategoryInitial()) {
+  AddProductCubit(this.serviceApi) : super(AddProductInitial()) {
     getUserData();
     checkValidData();
   }
@@ -41,27 +45,29 @@ class AddcategoryCubit extends Cubit<AddcategoryState> {
     userModel = await Preferences.instance.getUserModel();
     emit(OnUserDataVaild());
   }
-
-  getSingleCategory(int cat_id, BuildContext context, String token) async {
+  setlang(String lang) {
+    this.lang = lang;
+  }
+  getSingleProduct(int cat_id, BuildContext context, String token) async {
     AppWidget.createProgressDialog(context, 'wait'.tr());
     print("Dlddkk${cat_id}");
 
     try {
-      final response = await serviceApi.getsingleCategory(cat_id,token);
+      final response = await serviceApi.getsingleProduct(cat_id,token);
       print("Dlddkk${response.data.name_en}");
       if (response.status.code == 200) {
         Navigator.pop(context);
 
-        emit(OncategoryLoaded(response.data));
+        emit(OnProductLoaded(response.data));
       } else {
         Navigator.pop(context);
-        emit(OncategoryError());
+        emit(OnProductError());
       }
     } on DioError catch (e) {
       Navigator.pop(context);
       print(" Error : ${e}");
       final errorMessage = DioExceptions.fromDioError(e).toString();
-      emit(OnAddcategoryError());
+      emit(OnAddProductError());
       throw errorMessage;
     }
   }
@@ -83,43 +89,45 @@ class AddcategoryCubit extends Cubit<AddcategoryState> {
       compressQuality: 90,
     );
     imagePath = croppedFile!.path;
-    addCategoryModel.image = imagePath;
+    addProductModel.image = imagePath;
 
-    emit(AddcategoryPickImageSuccess());
+    emit(AddProductPickImageSuccess());
     checkValidData();
   }
 
   Future<void> checkValidData() async {
-    bool vaild = await addCategoryModel.isDataValid();
+    bool vaild = await addProductModel.isDataValid();
     if (vaild) {
       isValid = true;
-      emit(OnAddcategoryVaild());
+      emit(OnAddProductVaild());
     } else {
       isValid = false;
 
-      emit(OnAddcategoryVaildFaild());
+      emit(OnAddProductVaildFaild());
     }
   }
 
-  addcategory(BuildContext context) async {
+  addProduct(BuildContext context) async {
     AppWidget.createProgressDialog(context, 'wait'.tr());
-    String lang = EasyLocalization.of(context)!.locale.languageCode;
 
     try {
-      final response = await serviceApi.addCategory(
-          addCategoryModel, userModel!.access_token);
+      final response = await serviceApi.addProduct(
+          addProductModel, userModel!.access_token);
 
       if (response.code == 200) {
         Navigator.pop(context);
-        addCategoryModel.name_en = '';
-        addCategoryModel.name_ar = '';
-        addCategoryModel.image = '';
+        addProductModel.name_en = '';
+        addProductModel.name_ar = '';
+        addProductModel.image = '';
         imagePath = '';
-        context.read<MenuCubit>().setlang(lang);
+        controllerName_ar.text='';
+        controllerName_en.text='';
+        controllerprice.text='';
+        context.read<MenuCubit>().setlang(lang!);
         context.read<MenuCubit>().getcategory(userModel);
         context.read<HomeCubit>().getcategory(userModel);
         toastMessage("sucess", AppColors.primary);
-
+        addProductModel.cat_id=0;
         Future.delayed(Duration(milliseconds: 400), () {
           Navigator.pop(context);
         });
@@ -128,29 +136,32 @@ class AddcategoryCubit extends Cubit<AddcategoryState> {
       Navigator.pop(context);
       print(" Error : ${e}");
       final errorMessage = DioExceptions.fromDioError(e).toString();
-      emit(OnAddcategoryError());
+      emit(OnAddProductError());
       throw errorMessage;
     }
   }
-  editcategory(BuildContext context,int cat_id) async {
+  editProduct(BuildContext context,int product_id) async {
     AppWidget.createProgressDialog(context, 'wait'.tr());
-    String lang = EasyLocalization.of(context)!.locale.languageCode;
 
     try {
-      final response = await serviceApi.editcategory(
-          addCategoryModel, userModel!.access_token,cat_id);
+      final response = await serviceApi.editProduct(
+          addProductModel, userModel!.access_token,product_id);
 
       if (response.code == 200) {
         Navigator.pop(context);
-        addCategoryModel.name_en = '';
-        addCategoryModel.name_ar = '';
-        addCategoryModel.image = '';
-        imagePath = '';
-        context.read<MenuCubit>().setlang(lang);
-        context.read<MenuCubit>().getcategory(userModel);
-        context.read<HomeCubit>().getcategory(userModel);
-        toastMessage("sucess", AppColors.primary);
+        addProductModel.name_en = '';
+        addProductModel.name_ar = '';
+        addProductModel.image = '';
+        controllerName_ar.text='';
+        controllerName_en.text='';
+        controllerprice.text='';
 
+        imagePath = '';
+        context.read<MenuCubit>().setlang(lang!);
+        context.read<MenuCubit>().getProduct(userModel,addProductModel.cat_id);
+        context.read<HomeCubit>().getProduct(userModel,addProductModel.cat_id);
+        toastMessage("sucess", AppColors.primary);
+        addProductModel.cat_id=0;
         Future.delayed(Duration(milliseconds: 400), () {
           Navigator.pop(context);
         });
@@ -159,9 +170,23 @@ class AddcategoryCubit extends Cubit<AddcategoryState> {
       Navigator.pop(context);
       print(" Error : ${e}");
       final errorMessage = DioExceptions.fromDioError(e).toString();
-      emit(OnAddcategoryError());
+      emit(OnAddProductError());
       throw errorMessage;
     }
   }
+  getcategory(UserModel? usermodel) async {
 
+    final response =
+    await serviceApi.getCategory(usermodel!.access_token, lang!);
+    if (response.status.code == 200) {
+      print(response.data);
+
+      categoryList = response.data!;
+      emit(AllCategoryLoaded(categoryList));
+
+    }else {
+      print(response.status.message);
+      emit(AllCategoryError());
+    }
+  }
 }
