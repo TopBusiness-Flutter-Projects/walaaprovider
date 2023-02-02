@@ -14,7 +14,7 @@ class CartCubit extends Cubit<CartState> {
   CartModel? cartModel;
   int itemCount = 1;
   int itemPrice = 1;
-  int totalPrice = 0;
+  double totalPrice = 0;
 
   getTotalPrice() async {
     cartModel = await Preferences.instance.getCart();

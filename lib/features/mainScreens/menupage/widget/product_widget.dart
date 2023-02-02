@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart' as translate;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,11 +9,11 @@ import 'package:walaaprovider/core/models/product_model.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/widgets/my_svg_widget.dart';
+import 'package:walaaprovider/features/mainScreens/menupage/model/cart_model.dart';
 
 import '../../../../core/preferences/preferences.dart';
 import '../../../../core/widgets/outline_button_widget.dart';
 import '../cubit/menu_cubit.dart';
-import '../model/cart_model.dart';
 
 class ProductWidget extends StatelessWidget {
   const ProductWidget({Key? key, required this.model}) : super(key: key);
@@ -255,7 +256,7 @@ class ProductWidget extends StatelessWidget {
                       children: [
                         Spacer(),
                         OutLineButtonWidget(
-                          text: 'confirm',
+                          text: translate.tr('confirm'),
                           borderColor: AppColors.success,
                           onclick: () {
                             Navigator.pop(context);
@@ -267,7 +268,7 @@ class ProductWidget extends StatelessWidget {
                         ),
                         Spacer(),
                         OutLineButtonWidget(
-                          text: 'cancel',
+                          text: translate.tr('cancel'),
                           borderColor: AppColors.error,
                           onclick: () {
                             Navigator.pop(context);

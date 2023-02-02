@@ -15,9 +15,7 @@ class MenuCubit extends Cubit<MenuState> {
   int productLength = 0;
   final ServiceApi serviceApi;
   late String lang;
-
   late UserModel userModel;
-
   int itemCount = 1;
   int itemPrice=1;
 

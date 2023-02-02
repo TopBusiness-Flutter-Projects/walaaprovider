@@ -8,6 +8,7 @@ import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/widgets/my_svg_widget.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/home_screen.dart';
 import 'package:walaaprovider/features/mainScreens/menupage/screens/menu_screen.dart';
+import 'package:walaaprovider/features/mainScreens/orderpage/presentation/screens/order_page.dart';
 import 'package:walaaprovider/features/mainScreens/profilepage/presentation/screens/profile.dart';
 
 import '../../mainScreens/cartPage/screens/cart_page.dart';
@@ -102,7 +103,7 @@ class _NavigationBottomState extends State<NavigationBottom> {
               if (bottomCubit.page == 2) {
                 return MenuScreen();
               } else if (bottomCubit.page == 1) {
-                return Container();
+                return OrderPage();
               } else if (bottomCubit.page == 3) {
                 return ProfileScreen();
               } else if (bottomCubit.page == 4) {

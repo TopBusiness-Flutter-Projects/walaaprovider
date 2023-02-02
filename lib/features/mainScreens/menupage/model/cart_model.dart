@@ -1,8 +1,9 @@
-import '../../../../core/models/product_model.dart';
+
+import 'package:walaaprovider/core/models/product_model.dart';
 
 class CartModel {
   String? phone = '';
-  int? totalPrice = 0;
+  double? totalPrice = 0.0;
   String? note = '';
   List<OrderDetails>? orderDetails = [];
   List<ProductModel>? productModel = [];

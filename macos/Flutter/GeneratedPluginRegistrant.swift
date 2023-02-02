@@ -5,6 +5,7 @@
 import FlutterMacOS
 import Foundation
 
+import ai_barcode
 import audio_session
 import firebase_auth
 import firebase_core
@@ -17,6 +18,7 @@ import url_launcher_macos
 import wakelock_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
+  AiBarcodePlugin.register(with: registry.registrar(forPlugin: "AiBarcodePlugin"))
   AudioSessionPlugin.register(with: registry.registrar(forPlugin: "AudioSessionPlugin"))
   FLTFirebaseAuthPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseAuthPlugin"))
   FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:walaaprovider/core/models/product_model.dart';
 import 'package:walaaprovider/core/models/user.dart';
 import 'package:walaaprovider/core/models/user_model.dart';
+import 'package:walaaprovider/features/mainScreens/menupage/model/cart_model.dart';
 
 import '../../features/mainScreens/cartPage/cubit/cart_cubit.dart';
-import '../../features/mainScreens/menupage/model/cart_model.dart';
-import '../models/product_model.dart';
 
 class Preferences {
   static final Preferences instance = Preferences._internal();
@@ -112,7 +112,7 @@ class Preferences {
     }
   }
 
-  changeProductCount(ProductModel model, int qty, int price,context) async {
+  changeProductCount(ProductModel model, int qty, double price,context) async {
     CartModel cartModel = await getCart();
     cartModel.productModel!.forEach(
       (element) {

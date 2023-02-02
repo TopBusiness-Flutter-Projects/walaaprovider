@@ -10,8 +10,10 @@ import 'package:walaaprovider/features/auth/register/presentation/cubit/register
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/menupage/cubit/menu_cubit.dart';
+import 'package:walaaprovider/features/mainScreens/orderpage/presentation/cubit/order_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/profilepage/presentation/cubit/profile_cubit.dart';
 import 'package:walaaprovider/features/navigation_bottom/cubit/navigator_bottom_cubit.dart';
+import 'package:walaaprovider/features/payment_with_qr_page/presentation/cubit/payment_cubit.dart';
 import 'package:walaaprovider/features/privacy_terms/presentation/cubit/settings_cubit.dart';
 import 'package:walaaprovider/features/splash/presentation/cubit/splash_cubit.dart';
 
@@ -101,6 +103,20 @@ Future<void> setup() async {
   serviceLocator.registerFactory(
         () =>
         AddProductCubit(
+            serviceLocator()
+
+        ),
+  );
+  serviceLocator.registerFactory(
+        () =>
+            OrderCubit(
+            serviceLocator()
+
+        ),
+  );
+  serviceLocator.registerFactory(
+        () =>
+            PaymentCubit(
             serviceLocator()
 
         ),

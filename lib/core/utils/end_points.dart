@@ -7,10 +7,12 @@ class EndPoints {
   static const String addcategoryUrl = '${baseUrl}provider/categories/store';
   static const String editcategoryUrl = '${baseUrl}provider/categories/update';
   static const String deletecategoryUrl = '${baseUrl}provider/categories/delete';
+  static const String confirmOrderUrl = '${baseUrl}provider/orders/complete-ordering';
   static const String addproductUrl = '${baseUrl}provider/products/store';
   static const String editproductUrl = '${baseUrl}provider/products/update';
   static const String deleteproductUrl = '${baseUrl}provider/products/delete';
   static const String categoryUrl = '${baseUrl}provider/categories/list';
+  static const String orderUrl = '${baseUrl}provider/orders/list';
   static const String productUrl = '${baseUrl}provider/products/list';
   static const String singlecategoryUrl = '${baseUrl}provider/categories/find';
   static const String singleproductUrl = '${baseUrl}provider/products/find';

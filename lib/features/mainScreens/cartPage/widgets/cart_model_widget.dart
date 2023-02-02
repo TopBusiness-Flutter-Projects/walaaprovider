@@ -20,7 +20,7 @@ class CartModelWidget extends StatefulWidget {
 }
 
 class _CartModelWidgetState extends State<CartModelWidget> {
-  int totalPrice = 0;
+  double totalPrice = 0;
 
   Future<void> changeItemCount(String type, context) async {
     if (type == '+') {
@@ -53,7 +53,7 @@ class _CartModelWidgetState extends State<CartModelWidget> {
 
   @override
   Widget build(BuildContext context) {
-    totalPrice = widget.model.quantity * widget.model.price!;
+    totalPrice = (widget.model.quantity * double.parse(widget.model.price!)) ;
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
         return SizedBox(

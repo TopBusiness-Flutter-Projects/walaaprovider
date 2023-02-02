@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/models/category_data_model.dart';
+import 'package:walaaprovider/core/models/order_data_model.dart';
 import 'package:walaaprovider/core/models/product_data_model.dart';
 import 'package:walaaprovider/core/models/settings.dart';
 import 'package:walaaprovider/core/models/single_category_data_model.dart';
@@ -72,6 +73,20 @@ class ServiceApi {
     print('Url : ${EndPoints.categoryUrl}');
     print('Response : \n ${response.data}');
     return CategoryDataModel.fromJson(response.data);
+  }
+  Future<OrderDataModel> getOrders(String token, String lan) async {
+    final response = await dio.get(
+      EndPoints.orderUrl,
+      options: Options(
+        headers: {
+          'Authorization': token,
+          'Accept-Language': lan,
+        },
+      ),
+    );
+    print('Url : ${EndPoints.orderUrl}');
+    print('Response : \n ${response.data}');
+    return OrderDataModel.fromJson(response.data);
   }
   Future<ProductDataModel> getProduct(String token, String lan,int category_id) async {
     final response = await dio.get(
@@ -277,6 +292,26 @@ class ServiceApi {
       options.headers = {'Authorization': user_token};
       dio.options = options;
       Response response = await dio.post(EndPoints.deleteproductUrl+"/${product_id}");
+      return StatusResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      print('Error=>${errorMessage}');
+
+      throw errorMessage;
+    }
+  }
+  Future<StatusResponse> confirmOrder(String user_token, int order_id,String user_id) async {
+    try {
+     var fields = FormData.fromMap({
+
+        "user_id":user_id,
+        "order_id":order_id
+
+      });
+      BaseOptions options = dio.options;
+      options.headers = {'Authorization': user_token};
+      dio.options = options;
+      Response response = await dio.post(EndPoints.confirmOrderUrl,data: fields);
       return StatusResponse.fromJson(response.data);
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();
