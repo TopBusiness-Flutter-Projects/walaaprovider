@@ -16,6 +16,7 @@ import 'package:walaaprovider/injector.dart' as injector;
 
 import 'core/utils/app_routes.dart';
 import 'features/auth/login/presentation/cubit/Login_cubit.dart';
+import 'features/mainScreens/cartPage/cubit/cart_cubit.dart';
 
 class Cofee extends StatefulWidget {
   Cofee({Key? key}) : super(key: key);
@@ -75,6 +76,10 @@ class _CofeeState extends State<Cofee> {
         BlocProvider(
           create: (_) =>
               injector.serviceLocator<AddProductCubit>(),
+        ),
+        BlocProvider(
+          create: (_) =>
+              injector.serviceLocator<CartCubit>(),
         ),
       ],
       child:  MaterialApp(

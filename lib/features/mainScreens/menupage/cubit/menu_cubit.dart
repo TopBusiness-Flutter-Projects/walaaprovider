@@ -58,7 +58,7 @@ class MenuCubit extends Cubit<MenuState> {
     if (response.status.code == 200) {
       print(response.data);
       categorLength = response.data.length;
-      categoryList = response.data!;
+      categoryList = response.data;
       emit(AllCategoryLoaded(categoryList));
       if (categoryList.length > 0) {
         getProduct(usermodel, categoryList.elementAt(0).id);

@@ -10,6 +10,7 @@ import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/widgets/my_svg_widget.dart';
 
 import '../../../../core/preferences/preferences.dart';
+import '../../../../core/widgets/outline_button_widget.dart';
 import '../cubit/menu_cubit.dart';
 import '../model/cart_model.dart';
 
@@ -21,7 +22,9 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
+        borderRadius: BorderRadius.all(
+          Radius.circular(15),
+        ),
         shape: BoxShape.rectangle,
         color: AppColors.color2,
       ),
@@ -72,7 +75,6 @@ class ProductWidget extends StatelessWidget {
                         onTap: () async {
                           Preferences pref = Preferences.instance;
                           CartModel cartModel = await pref.getCart();
-                          // pref.clearCartData();
                           print('============================================');
                           print(CartModel.toJson(cartModel));
                           print('============================================');
@@ -88,10 +90,7 @@ class ProductWidget extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () async {
-                          print(model.toJson());
-                          print('============================');
                           openDialog(model, context);
-                          // Preferences.instance.addItemToCart(model);
                         },
                         child: SizedBox(
                           width: 32,
@@ -253,47 +252,26 @@ class ProductWidget extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Spacer(),
-                        GestureDetector(
-                          onTap: () {
+                        OutLineButtonWidget(
+                          text: 'confirm',
+                          borderColor: AppColors.success,
+                          onclick: () {
                             Navigator.pop(context);
                             Preferences.instance.addItemToCart(
                               model,
                               cubit.itemCount,
                             );
                           },
-                          child: Container(
-                            width: 100,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: AppColors.success,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text('Confirm'),
-                            ),
-                          ),
                         ),
                         Spacer(),
-                        GestureDetector(
-                          onTap: () {
+                        OutLineButtonWidget(
+                          text: 'cancel',
+                          borderColor: AppColors.error,
+                          onclick: () {
                             Navigator.pop(context);
                           },
-                          child: Container(
-                            width: 100,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: AppColors.error,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text('Cancel'),
-                            ),
-                          ),
                         ),
                         Spacer(),
                       ],

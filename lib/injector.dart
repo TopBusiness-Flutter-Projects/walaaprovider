@@ -17,6 +17,7 @@ import 'package:walaaprovider/features/splash/presentation/cubit/splash_cubit.da
 
 import 'core/remote/service.dart';
 import 'features/auth/login/presentation/cubit/Login_cubit.dart';
+import 'features/mainScreens/cartPage/cubit/cart_cubit.dart';
 
 // import 'package:http/http.dart' as http;
 
@@ -118,6 +119,7 @@ Future<void> setup() async {
         ),
   );
   serviceLocator.registerFactory(() => NavigatorBottomCubit());
+  serviceLocator.registerFactory(() => CartCubit());
   //! External
   // Shared Preferences
   final sharedPreferences = await SharedPreferences.getInstance();

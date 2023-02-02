@@ -10,6 +10,7 @@ import 'package:walaaprovider/features/mainScreens/homepage/home_screen.dart';
 import 'package:walaaprovider/features/mainScreens/menupage/screens/menu_screen.dart';
 import 'package:walaaprovider/features/mainScreens/profilepage/presentation/screens/profile.dart';
 
+import '../../mainScreens/cartPage/screens/cart_page.dart';
 import '../cubit/navigator_bottom_cubit.dart';
 import '../widget/navigator_bottom_widget.dart';
 
@@ -21,16 +22,9 @@ class NavigationBottom extends StatefulWidget {
 }
 
 class _NavigationBottomState extends State<NavigationBottom> {
-  //
-  // shared() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   prefs.clear();
-  //   print('doooooooooooooooooooooooooooooooooooooooone');
-  // }
 
   @override
   void initState() {
-    // shared();
     super.initState();
   }
 
@@ -112,7 +106,7 @@ class _NavigationBottomState extends State<NavigationBottom> {
               } else if (bottomCubit.page == 3) {
                 return ProfileScreen();
               } else if (bottomCubit.page == 4) {
-                return Container();
+                return CartPage();
               } else {
                 return HomeScreen();
               }
