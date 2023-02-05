@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,11 +11,14 @@ import 'package:walaaprovider/core/models/single_category_data_model.dart';
 import 'package:walaaprovider/core/models/single_product_data_model.dart';
 import 'package:walaaprovider/core/models/status_resspons.dart';
 import 'package:walaaprovider/core/models/user_data_model.dart';
+import 'package:walaaprovider/core/models/user_list_data_model.dart';
 import 'package:walaaprovider/core/remote/handle_exeption.dart';
 import 'package:walaaprovider/features/addcategorypage/model/add_category_model.dart';
 import 'package:walaaprovider/features/addproduct/presentation/model/add_product_model.dart';
 import 'package:walaaprovider/features/auth/login/models/login_model.dart';
 import 'package:walaaprovider/features/auth/register/models/register_model.dart';
+import 'package:walaaprovider/features/mainScreens/cartPage/widgets/cart_model_widget.dart';
+import 'package:walaaprovider/features/mainScreens/menupage/model/cart_model.dart';
 
 import '../utils/end_points.dart';
 import 'package:walaaprovider/injector.dart' as injector;
@@ -21,11 +26,12 @@ import 'package:walaaprovider/injector.dart' as injector;
 class ServiceApi {
   final Dio dio;
 
-  ServiceApi(this.dio){
+  ServiceApi(this.dio) {
     if (kDebugMode) {
       dio.interceptors.add(injector.serviceLocator<LogInterceptor>());
     }
   }
+
   Future<UserDataModel> userLogin(LoginModel model) async {
     Response response = await dio.post(
       EndPoints.loginUrl,
@@ -41,17 +47,16 @@ class ServiceApi {
   }
 
   Future<UserDataModel> userRegister(RegisterModel registerModel) async {
-
     Response response = await dio.post(
       EndPoints.registerUrl,
       data: {
-
-        "name":registerModel.first_name+registerModel.last_name,
-        "role_id":registerModel.role_id,
-        "location":registerModel.location,
+        "name": registerModel.first_name + registerModel.last_name,
+        "role_id": registerModel.role_id,
+        "location": registerModel.location,
         "phone": registerModel.phone,
         "phone_code": registerModel.phone_code,
-        "password": registerModel.password, "phone": registerModel.phone,
+        "password": registerModel.password,
+        "phone": registerModel.phone,
         "phone_code": registerModel.phone_code,
         "password": registerModel.password,
       },
@@ -60,6 +65,7 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return UserDataModel.fromJson(response.data);
   }
+
   Future<CategoryDataModel> getCategory(String token, String lan) async {
     final response = await dio.get(
       EndPoints.categoryUrl,
@@ -74,6 +80,7 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return CategoryDataModel.fromJson(response.data);
   }
+
   Future<OrderDataModel> getOrders(String token, String lan) async {
     final response = await dio.get(
       EndPoints.orderUrl,
@@ -88,10 +95,11 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return OrderDataModel.fromJson(response.data);
   }
-  Future<ProductDataModel> getProduct(String token, String lan,int category_id) async {
-    final response = await dio.get(
-      EndPoints.productUrl+"/${category_id}",
 
+  Future<ProductDataModel> getProduct(
+      String token, String lan, int category_id) async {
+    final response = await dio.get(
+      EndPoints.productUrl + "/${category_id}",
       options: Options(
         headers: {
           'Authorization': token,
@@ -103,6 +111,7 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return ProductDataModel.fromJson(response.data);
   }
+
   Future<SettingModel> getsetting() async {
     final response = await dio.get(
       EndPoints.settingUrl,
@@ -118,21 +127,19 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return SettingModel.fromJson(response.data);
   }
-  Future<StatusResponse> addCategory(AddCategoryModel addCategoryModel,String token) async {
+
+  Future<StatusResponse> addCategory(
+      AddCategoryModel addCategoryModel, String token) async {
     var fields = FormData.fromMap({});
     fields = FormData.fromMap({
-      "name_ar":addCategoryModel.name_ar,
-      "name_en":addCategoryModel.name_en,
+      "name_ar": addCategoryModel.name_ar,
+      "name_en": addCategoryModel.name_en,
       "image": await MultipartFile.fromFile(addCategoryModel.image)
-
     });
     Response response = await dio.post(
       EndPoints.addcategoryUrl,
-
       options: Options(
-        headers: {
-          'Authorization': token
-        },
+        headers: {'Authorization': token},
       ),
       data: fields,
     );
@@ -144,10 +151,11 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return StatusResponse.fromJson(response.data);
   }
-  Future<SingleCategoryDataModel> getsingleCategory(int id,String token) async {
-    final response = await dio.get(
-      EndPoints.singlecategoryUrl+"/${id}",
 
+  Future<SingleCategoryDataModel> getsingleCategory(
+      int id, String token) async {
+    final response = await dio.get(
+      EndPoints.singlecategoryUrl + "/${id}",
       options: Options(
         headers: {
           'Authorization': token,
@@ -158,28 +166,26 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return SingleCategoryDataModel.fromJson(response.data);
   }
-  Future<StatusResponse> editcategory(AddCategoryModel addCategoryModel,String token,int cate_id) async {
+
+  Future<StatusResponse> editcategory(
+      AddCategoryModel addCategoryModel, String token, int cate_id) async {
     var fields = FormData.fromMap({});
-    if(addCategoryModel.image.contains("http")){
+    if (addCategoryModel.image.contains("http")) {
       fields = FormData.fromMap({
-        "name_ar":addCategoryModel.name_ar,
-        "name_en":addCategoryModel.name_en,
-
+        "name_ar": addCategoryModel.name_ar,
+        "name_en": addCategoryModel.name_en,
       });
-    }else{
-    fields = FormData.fromMap({
-      "name_ar":addCategoryModel.name_ar,
-      "name_en":addCategoryModel.name_en,
-      "image": await MultipartFile.fromFile(addCategoryModel.image)
-
-    });}
+    } else {
+      fields = FormData.fromMap({
+        "name_ar": addCategoryModel.name_ar,
+        "name_en": addCategoryModel.name_en,
+        "image": await MultipartFile.fromFile(addCategoryModel.image)
+      });
+    }
     Response response = await dio.post(
-      EndPoints.editcategoryUrl+"/${cate_id}",
-
+      EndPoints.editcategoryUrl + "/${cate_id}",
       options: Options(
-        headers: {
-          'Authorization': token
-        },
+        headers: {'Authorization': token},
       ),
       data: fields,
     );
@@ -191,23 +197,21 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return StatusResponse.fromJson(response.data);
   }
-  Future<StatusResponse> addProduct(AddProductModel addProductModel,String token) async {
+
+  Future<StatusResponse> addProduct(
+      AddProductModel addProductModel, String token) async {
     var fields = FormData.fromMap({});
     fields = FormData.fromMap({
-      "name_ar":addProductModel.name_ar,
-      "name_en":addProductModel.name_en,
-      "price":addProductModel.price,
-      "category_id":addProductModel.cat_id,
+      "name_ar": addProductModel.name_ar,
+      "name_en": addProductModel.name_en,
+      "price": addProductModel.price,
+      "category_id": addProductModel.cat_id,
       "image": await MultipartFile.fromFile(addProductModel.image)
-
     });
     Response response = await dio.post(
       EndPoints.addproductUrl,
-
       options: Options(
-        headers: {
-          'Authorization': token
-        },
+        headers: {'Authorization': token},
       ),
       data: fields,
     );
@@ -219,10 +223,10 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return StatusResponse.fromJson(response.data);
   }
-  Future<SingleProductDataModel> getsingleProduct(int id,String token) async {
-    final response = await dio.get(
-      EndPoints.singleproductUrl+"/${id}",
 
+  Future<SingleProductDataModel> getsingleProduct(int id, String token) async {
+    final response = await dio.get(
+      EndPoints.singleproductUrl + "/${id}",
       options: Options(
         headers: {
           'Authorization': token,
@@ -233,34 +237,30 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return SingleProductDataModel.fromJson(response.data);
   }
-  Future<StatusResponse> editProduct(AddProductModel addProductModel,String token,int product_id) async {
+
+  Future<StatusResponse> editProduct(
+      AddProductModel addProductModel, String token, int product_id) async {
     var fields = FormData.fromMap({});
-    if(addProductModel.image.contains("http")){
+    if (addProductModel.image.contains("http")) {
       fields = FormData.fromMap({
-        "name_ar":addProductModel.name_ar,
-        "name_en":addProductModel.name_en,
-        "price":addProductModel.price,
-        "category_id":addProductModel.cat_id
+        "name_ar": addProductModel.name_ar,
+        "name_en": addProductModel.name_en,
+        "price": addProductModel.price,
+        "category_id": addProductModel.cat_id
       });
-    }else{
-
+    } else {
       fields = FormData.fromMap({
-      "name_ar":addProductModel.name_ar,
-      "name_en":addProductModel.name_en,
-      "price":addProductModel.price,
-      "category_id":addProductModel.cat_id,
-      "image": await MultipartFile.fromFile(addProductModel.image)
-
-
-
-      });}
+        "name_ar": addProductModel.name_ar,
+        "name_en": addProductModel.name_en,
+        "price": addProductModel.price,
+        "category_id": addProductModel.cat_id,
+        "image": await MultipartFile.fromFile(addProductModel.image)
+      });
+    }
     Response response = await dio.post(
-      EndPoints.editproductUrl+"/${product_id}",
-
+      EndPoints.editproductUrl + "/${product_id}",
       options: Options(
-        headers: {
-          'Authorization': token
-        },
+        headers: {'Authorization': token},
       ),
       data: fields,
     );
@@ -272,12 +272,14 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return StatusResponse.fromJson(response.data);
   }
+
   Future<StatusResponse> deleteCategory(String user_token, int cat_id) async {
     try {
       BaseOptions options = dio.options;
       options.headers = {'Authorization': user_token};
       dio.options = options;
-      Response response = await dio.post(EndPoints.deletecategoryUrl+"/${cat_id}");
+      Response response =
+          await dio.post(EndPoints.deletecategoryUrl + "/${cat_id}");
       return StatusResponse.fromJson(response.data);
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();
@@ -286,12 +288,15 @@ class ServiceApi {
       throw errorMessage;
     }
   }
-  Future<StatusResponse> deleteProduct(String user_token, int product_id) async {
+
+  Future<StatusResponse> deleteProduct(
+      String user_token, int product_id) async {
     try {
       BaseOptions options = dio.options;
       options.headers = {'Authorization': user_token};
       dio.options = options;
-      Response response = await dio.post(EndPoints.deleteproductUrl+"/${product_id}");
+      Response response =
+          await dio.post(EndPoints.deleteproductUrl + "/${product_id}");
       return StatusResponse.fromJson(response.data);
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();
@@ -300,18 +305,16 @@ class ServiceApi {
       throw errorMessage;
     }
   }
-  Future<StatusResponse> confirmOrder(String user_token, int order_id,String user_id) async {
+
+  Future<StatusResponse> confirmOrder(
+      String user_token, int order_id, String user_id) async {
     try {
-     var fields = FormData.fromMap({
-
-        "user_id":user_id,
-        "order_id":order_id
-
-      });
+      var fields = FormData.fromMap({"user_id": user_id, "order_id": order_id});
       BaseOptions options = dio.options;
       options.headers = {'Authorization': user_token};
       dio.options = options;
-      Response response = await dio.post(EndPoints.confirmOrderUrl,data: fields);
+      Response response =
+          await dio.post(EndPoints.confirmOrderUrl, data: fields);
       return StatusResponse.fromJson(response.data);
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();
@@ -319,6 +322,39 @@ class ServiceApi {
 
       throw errorMessage;
     }
+  }
+
+  Future<UserListDataModel> getClients(String search_key) async {
+    final response = await dio.get(
+      EndPoints.clientsUrl,
+      queryParameters: {"search_key": search_key},
+      // options: Options(
+      //   headers: {
+      //     'Authorization': token,
+      //     'Accept-Language': lan,
+      //   },
+      // ),
+    );
+    print('Url : ${EndPoints.productUrl}');
+    print('Response : \n ${response.data}');
+    return UserListDataModel.fromJson(response.data);
+  }
+  Future<StatusResponse> sendOrder(CartModel model,String token) async {
+
+    Response response = await dio.post(
+      EndPoints.sendOrderUrl,
+      options: Options(
+        headers: {
+          'Authorization': token,
+
+        },
+      ),
+      data: CartModel.toJson(model),
+
+    );
+    print('Url : ${EndPoints.sendOrderUrl}');
+    print('Response : \n ${response.data}');
+    return StatusResponse.fromJson(response.data);
   }
 
 }

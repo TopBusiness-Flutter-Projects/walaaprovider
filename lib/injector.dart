@@ -135,7 +135,7 @@ Future<void> setup() async {
         ),
   );
   serviceLocator.registerFactory(() => NavigatorBottomCubit());
-  serviceLocator.registerFactory(() => CartCubit());
+  serviceLocator.registerFactory(() => CartCubit(serviceLocator()));
   //! External
   // Shared Preferences
   final sharedPreferences = await SharedPreferences.getInstance();

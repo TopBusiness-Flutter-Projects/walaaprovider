@@ -34,11 +34,12 @@ class AddcategoryCubit extends Cubit<AddcategoryState> {
 
   AddcategoryCubit(this.serviceApi) : super(AddcategoryInitial()) {
     getUserData();
-    checkValidData();
+ //   checkValidData();
   }
 
   getUserData() async {
     userModel = await Preferences.instance.getUserModel();
+  //  print("dldldl${userModel!.access_token}");
     emit(OnUserDataVaild());
   }
 

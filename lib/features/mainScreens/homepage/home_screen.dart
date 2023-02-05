@@ -7,6 +7,7 @@ import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/widget/category_list.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/widget/product_list.dart';
+import 'package:walaaprovider/features/mainScreens/menupage/cubit/menu_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     String lang = EasyLocalization.of(context)!.locale.languageCode;
     context.read<HomeCubit>().setlang(lang);
+    context.read<MenuCubit>().setlang(lang);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {

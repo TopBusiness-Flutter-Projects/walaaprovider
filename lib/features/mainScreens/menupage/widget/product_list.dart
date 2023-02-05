@@ -72,7 +72,7 @@ class _ProductListState extends State<ProductList> {
           return Center(
             child: Container(
               child: Text(
-                'No Data Found',
+                'no_data_found',
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.normal,

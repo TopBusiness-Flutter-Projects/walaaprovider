@@ -112,7 +112,7 @@ class Preferences {
     }
   }
 
-  changeProductCount(ProductModel model, int qty, double price,context) async {
+  changeProductCount(ProductModel model, int qty, int price,context) async {
     CartModel cartModel = await getCart();
     cartModel.productModel!.forEach(
       (element) {

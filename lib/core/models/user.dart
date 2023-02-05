@@ -17,12 +17,12 @@ class User {
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? 0;
-    name = json['name'] ?? '' as String;
-    phone = json['phone'] ?? '' as String;
+    name = json['name'] ?? '';
+    phone = json['phone'] ?? '';
     email = json['email'] != null ? json['email'] as String : "";
     image = json['image'] != null ? json['image'] as String : "";
-    location = json['location'] ?? '' as String;
-    userType = json['user_type'] ?? 0 as int;
+    location = json['location'] ?? '';
+    userType = json['user_type'] ?? 0;
     status = json['status'] != null ? json['status'] as int : 0;
     balance = json['balance'] != null ? json['balance'] as int : 0;
   }

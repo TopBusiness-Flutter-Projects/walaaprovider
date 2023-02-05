@@ -146,7 +146,7 @@ class ProductWidget extends StatelessWidget {
 
   openDialog(ProductModel model, BuildContext context) {
     MenuCubit cubit = context.read<MenuCubit>();
-    cubit.itemPrice = model.price!;
+    cubit.itemPrice = model.price! as int;
     cubit.itemCount = 1;
     showDialog(
       context: context,

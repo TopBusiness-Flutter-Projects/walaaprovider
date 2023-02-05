@@ -3,7 +3,7 @@ class ProductModel {
   String? name;
   String? name_ar;
   String? name_en;
-  dynamic? price;
+  int? price;
   String? image;
   int quantity = 1;
 

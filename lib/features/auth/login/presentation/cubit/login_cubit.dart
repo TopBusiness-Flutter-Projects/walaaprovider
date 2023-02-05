@@ -46,35 +46,31 @@ class LoginCubit extends Cubit<LoginState> {
 
       if (response.status.code == 200) {
         Navigator.pop(context);
-        Preferences.instance.setUser(response.userModel).then((value) =>  Future.delayed(Duration(milliseconds: 100), () {
-
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            Routes.NavigationBottomRoute,
-            ModalRoute.withName(Routes.loginRoute),
-          );
-        }));
-
-
-
+        Preferences.instance
+            .setUser(response.userModel)
+            .then((value) => Future.delayed(Duration(milliseconds: 100), () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    Routes.NavigationBottomRoute,
+                    ModalRoute.withName(Routes.loginRoute),
+                  );
+                }));
       } else if (response.status.code == 406) {
         Navigator.pop(context);
         Fluttertoast.showToast(
-            msg: "invaild pass".tr(),  // message
+            msg: "invaild pass".tr(), // message
             toastLength: Toast.LENGTH_SHORT, // length
-            gravity: ToastGravity.BOTTOM,    // location
-            timeInSecForIosWeb: 1               // duration
-        );
-      }
-
-      else if (response.status.code == 422) {
+            gravity: ToastGravity.BOTTOM, // location
+            timeInSecForIosWeb: 1 // duration
+            );
+      } else if (response.status.code == 422) {
         Navigator.pop(context);
         Fluttertoast.showToast(
-            msg: "invaild phone".tr(),  // message
+            msg: "invaild phone".tr(), // message
             toastLength: Toast.LENGTH_SHORT, // length
-            gravity: ToastGravity.BOTTOM,    // location
-            timeInSecForIosWeb: 1               // duration
-        );
+            gravity: ToastGravity.BOTTOM, // location
+            timeInSecForIosWeb: 1 // duration
+            );
       }
     } on DioError catch (e) {
       Navigator.pop(context);

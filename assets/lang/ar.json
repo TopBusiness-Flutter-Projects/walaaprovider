@@ -43,7 +43,11 @@
   "date": "التاريخ",
   "confirm": "تاكيد",
   "cancel": "الغاء",
-  "total_price": "السعر الكلى"
+  "total_price": "السعر الكلى",
+  "add_category_image": "اضف صورة الفئه",
+  "editcategory": "تعديل الفئة",
+  "search_country": "ابحث عن الدولة",
+  "no_data_found": "لا يوجد بيانات لعرضها"
 
 
 }

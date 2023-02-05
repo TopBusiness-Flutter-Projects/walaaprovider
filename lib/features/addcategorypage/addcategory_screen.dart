@@ -9,18 +9,29 @@ import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/utils/toast_message_method.dart';
 import 'package:walaaprovider/core/widgets/custom_button.dart';
 import 'package:walaaprovider/core/widgets/network_image.dart';
+import 'package:walaaprovider/features/addcategorypage/addcategory_screen.dart';
 import 'package:walaaprovider/features/addcategorypage/cubit/addcategory_cubit.dart';
+import 'package:walaaprovider/features/addcategorypage/model/add_category_model.dart';
 
-class AddCategory extends StatelessWidget {
-  final CategoryModel categoryModel;
-  GlobalKey<FormState> formKey = GlobalKey();
+class AddCategory extends StatefulWidget {
+  late CategoryModel categoryModel;
 
   AddCategory({Key? key, required this.categoryModel}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    print("sssss${categoryModel.id}");
+  State<AddCategory> createState() => _AddCategoryState();
+}
 
+class _AddCategoryState extends State<AddCategory> {
+  GlobalKey<FormState> formKey = GlobalKey();
+
+  @override
+  Widget build(BuildContext context) {
+    print("sssss${widget.categoryModel.id}");
+    context.read<AddcategoryCubit>().getUserData();
+    if (widget.categoryModel.id == 0) {
+      context.read<AddcategoryCubit>().checkValidData();
+    }
     return Scaffold(
         backgroundColor: AppColors.white,
         appBar: AppBar(
@@ -28,7 +39,15 @@ class AddCategory extends StatelessWidget {
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => {
+                context.read<AddcategoryCubit>().controllerName_en.text = "",
+                context.read<AddcategoryCubit>().controllerName_ar.text = '',
+                context.read<AddcategoryCubit>().imagePath = "",
+                widget.categoryModel = CategoryModel.name(0, '', ''),
+                context.read<AddcategoryCubit>().addCategoryModel =
+                    AddCategoryModel(),
+                Navigator.pop(context)
+              },
               padding: EdgeInsets.only(right: 16, left: 16),
               icon: Icon(
                 Icons.arrow_forward_outlined,
@@ -40,7 +59,9 @@ class AddCategory extends StatelessWidget {
           title: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
             child: Text(
-              categoryModel.id==0?'addcategory'.tr():"editcategory".tr(),
+              widget.categoryModel.id == 0
+                  ? 'addcategory'.tr()
+                  : "editcategory".tr(),
               style: TextStyle(
                 color: AppColors.primary,
                 fontWeight: FontWeight.bold,
@@ -52,10 +73,15 @@ class AddCategory extends StatelessWidget {
         ),
         body: BlocListener<AddcategoryCubit, AddcategoryState>(
             listener: (context, state) {
-              if(state is OnUserDataVaild){
-                context.read<AddcategoryCubit>().getSingleCategory(categoryModel.id,context,context.read<AddcategoryCubit>().userModel!.access_token);
-
-              }
+          if (state is OnUserDataVaild) {
+            print("Dldlldl${widget.categoryModel.id}");
+            if (widget.categoryModel.id != 0) {
+              context.read<AddcategoryCubit>().getSingleCategory(
+                  widget.categoryModel.id,
+                  context,
+                  context.read<AddcategoryCubit>().userModel!.access_token);
+            }
+          }
           if (state is OnAddcategoryError) {
             toastMessage(
               context.read<AddcategoryCubit>().message,
@@ -70,19 +96,18 @@ class AddCategory extends StatelessWidget {
           if (state is OnAddcategoryVaild) {
             formKey.currentState!.validate();
           }
-
         }, child: BlocBuilder<AddcategoryCubit, AddcategoryState>(
                 builder: (context, state) {
           AddcategoryCubit cubit = context.read<AddcategoryCubit>();
-          if(state is OncategoryLoaded){
-            CategoryModel categoryModel=state.data;
+          if (state is OncategoryLoaded) {
+            CategoryModel categoryModel = state.data;
             print("object${categoryModel.name_en}");
-            cubit.addCategoryModel.image=categoryModel.image;
-            cubit.addCategoryModel.name_ar=categoryModel.name_ar;
-            cubit.addCategoryModel.name_en=categoryModel.name_en;
-            cubit.controllerName_ar.text=categoryModel.name_ar;
-            cubit.controllerName_en.text=categoryModel.name_en;
-           cubit.checkValidData();
+            cubit.addCategoryModel.image = categoryModel.image;
+            cubit.addCategoryModel.name_ar = categoryModel.name_ar;
+            cubit.addCategoryModel.name_en = categoryModel.name_en;
+            cubit.controllerName_ar.text = categoryModel.name_ar;
+            cubit.controllerName_en.text = categoryModel.name_en;
+            cubit.checkValidData();
           }
           return SafeArea(
               child: Form(
@@ -101,15 +126,19 @@ class AddCategory extends StatelessWidget {
                                 child: CircleAvatar(
                                   backgroundColor: AppColors.white,
                                   child: ClipOval(
-                                    child: categoryModel.id != 0
+                                    child: widget.categoryModel.id != 0
                                         ? cubit.imagePath.isEmpty
-                                            ? ManageNetworkImage(
-                                                imageUrl: cubit
-                                                    .addCategoryModel.image,
-                                                width: 140,
-                                                height: 140,
-                                                borderRadius: 140,
-                                              )
+                                            ? cubit.addCategoryModel.image
+                                                    .isNotEmpty
+                                                ? ManageNetworkImage(
+                                                    imageUrl: cubit
+                                                        .addCategoryModel.image,
+                                                    width: 140,
+                                                    height: 140,
+                                                    borderRadius: 140,
+                                                  )
+                                                : Image.asset(
+                                                    ImageAssets.mugImage)
                                             : Image.file(
                                                 File(
                                                   cubit.imagePath,
@@ -318,19 +347,20 @@ class AddCategory extends StatelessWidget {
                           ),
                           CustomButton(
                             textcolor: AppColors.color1,
-                            text:categoryModel.id==0?'addcategory'.tr():"editcategory".tr(),
-
+                            text: widget.categoryModel.id == 0
+                                ? 'addcategory'.tr()
+                                : "editcategory".tr(),
                             color: context.read<AddcategoryCubit>().isValid
                                 ? AppColors.buttonBackground
                                 : AppColors.gray,
                             onClick: () {
                               if (formKey.currentState!.validate()) {
-                               if(categoryModel.id
-                               ==0){
-                                cubit.addcategory(context);}
-                               else {
-                                 cubit.editcategory(context,categoryModel.id);
-                               }
+                                if (widget.categoryModel.id == 0) {
+                                  cubit.addcategory(context);
+                                } else {
+                                  cubit.editcategory(
+                                      context, widget.categoryModel.id);
+                                }
                                 // context
                                 //     .read<AddcategoryCubit>()
                                 //     .userRegister(context);

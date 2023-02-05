@@ -12,7 +12,7 @@ class OrderModel {
   OrderModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     totalPrice = json['total_price'];
-    note = json['note'];
+    note = json['note']??'';
     userData = User.fromJson(json['user_data']);
     if (json['order_details'] != null) {
       orderDetails = [];

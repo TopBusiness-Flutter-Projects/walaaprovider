@@ -21,7 +21,7 @@ class AddCategoryModel {
       return true;
     } else {
       if (image.isEmpty) {
-        toastMessage("Add Category image", AppColors.primary);
+        toastMessage("add_category_image".tr(), AppColors.primary);
       }
       //print("object${name_en}");
       if (name_ar.isEmpty) {

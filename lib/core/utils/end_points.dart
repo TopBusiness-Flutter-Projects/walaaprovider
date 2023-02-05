@@ -3,6 +3,7 @@ class EndPoints {
   static const String contactUsUrl = '${baseUrl}auth/contact-us';
   static const String appSettingsUrl = '${baseUrl}setting/show';
   static const String loginUrl = '${baseUrl}provider/auth/login';
+  static const String sendOrderUrl = '${baseUrl}provider/orders/store';
   static const String registerUrl = '${baseUrl}provider/auth/register';
   static const String addcategoryUrl = '${baseUrl}provider/categories/store';
   static const String editcategoryUrl = '${baseUrl}provider/categories/update';
@@ -14,6 +15,7 @@ class EndPoints {
   static const String categoryUrl = '${baseUrl}provider/categories/list';
   static const String orderUrl = '${baseUrl}provider/orders/list';
   static const String productUrl = '${baseUrl}provider/products/list';
+  static const String clientsUrl = '${baseUrl}search';
   static const String singlecategoryUrl = '${baseUrl}provider/categories/find';
   static const String singleproductUrl = '${baseUrl}provider/products/find';
   static const String settingUrl = '${baseUrl}setting';

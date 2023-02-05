@@ -1,9 +1,11 @@
 
 import 'package:walaaprovider/core/models/status_resspons.dart';
+import 'package:walaaprovider/core/models/user.dart';
 import 'package:walaaprovider/core/models/user_model.dart';
 
 class UserDataModel {
   late UserModel userModel;
+
   late StatusResponse status;
   UserDataModel();
 

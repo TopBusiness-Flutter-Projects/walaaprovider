@@ -43,8 +43,9 @@
   "date": "Date",
   "confirm": "Confirm",
   "cancel": "Cancel",
-  "total_price": "Total Price"
-
-
-
+  "total_price": "Total Price",
+  "search_country": "Search For Country",
+  "add_category_image": "Add Category Image",
+  "editcategory": "Edit Category",
+  "no_data_found": "No Data Found"
 }

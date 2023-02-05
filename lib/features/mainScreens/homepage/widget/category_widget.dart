@@ -6,6 +6,8 @@ import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/utils/circle_network_image.dart';
 import 'package:walaaprovider/core/widgets/my_svg_widget.dart';
+import 'package:walaaprovider/features/addcategorypage/cubit/addcategory_cubit.dart';
+import 'package:walaaprovider/features/addcategorypage/model/add_category_model.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
 
 class CategoryWidget extends StatelessWidget {
@@ -51,6 +53,13 @@ final int index;
                       color: AppColors.onBoardingColor,
                     ),
                     onTap: () {
+                      if( context.read<AddcategoryCubit>().controllerName_en.text.isNotEmpty){
+                      context.read<AddcategoryCubit>().controllerName_en.text = "";
+                      context.read<AddcategoryCubit>().controllerName_ar.text = '';
+                      context.read<AddcategoryCubit>().imagePath = "";
+
+                      //  widget.categoryModel = CategoryModel.name(0, '', '');
+                      context.read<AddcategoryCubit>().addCategoryModel = AddCategoryModel();}
                       Navigator.pushNamed(context, Routes.addCategoryRoute,arguments: model);
 
                     },

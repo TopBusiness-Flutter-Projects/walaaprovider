@@ -82,7 +82,8 @@ class LoginScreen extends StatelessWidget {
                               Expanded(
                                 child: InternationalPhoneNumberInput(
                                   locale: lang,
-
+                                  searchBoxDecoration:
+                                      InputDecoration(labelText: "search_country".tr()),
                                   errorMessage: context
                                       .read<LoginCubit>()
                                       .loginModel

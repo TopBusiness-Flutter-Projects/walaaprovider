@@ -2,16 +2,18 @@ import 'package:easy_localization/easy_localization.dart' as tr;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:walaaprovider/core/models/user.dart';
 import 'package:walaaprovider/core/preferences/preferences.dart';
 import 'package:walaaprovider/core/widgets/brown_line_widget.dart';
 import 'package:walaaprovider/core/widgets/show_loading_indicator.dart';
 import 'package:walaaprovider/features/mainScreens/cartPage/cubit/cart_cubit.dart';
+import 'package:walaaprovider/features/mainScreens/menupage/model/cart_model.dart';
 
 import '../../../../core/models/product_model.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/widgets/outline_button_widget.dart';
 import '../../menupage/cubit/menu_cubit.dart';
-import '../../menupage/model/cart_model.dart';
 import '../widgets/cart_model_widget.dart';
 
 class CartPage extends StatefulWidget {
@@ -23,6 +25,10 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   CartModel? cartModel;
+
+  TextEditingController _typeAheadController = TextEditingController();
+
+  TextEditingController _typenameController = TextEditingController();
 
   @override
   void initState() {
@@ -43,11 +49,15 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       body: cartModel == null
           ? ShowLoadingIndicator()
-          : RefreshIndicator(
+          :
+
+      RefreshIndicator(
               onRefresh: () async {
                 getAllProductInCart(context);
               },
-              child: ListView(
+              child:
+              cartModel!.productModel!.isNotEmpty?
+              ListView(
                 children: [
                   Column(
                     children: [
@@ -145,7 +155,8 @@ class _CartPageState extends State<CartPage> {
                     ],
                   )
                 ],
-              ),
+              ):
+        Center(child: Text('no_data_found'.tr())),
             ),
     );
   }
@@ -170,119 +181,156 @@ class _CartPageState extends State<CartPage> {
               height: null,
               child: Form(
                 key: formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('order'.tr()),
-                        IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: Icon(
-                            Icons.close,
-                            color: AppColors.primary,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('order'.tr()),
+                          IconButton(
+                            onPressed: () => {
+                              Navigator.pop(context),
+                              this._typenameController.text = "",
+                              this._typeAheadController.text = ""
+                            },
+                            icon: Icon(
+                              Icons.close,
+                              color: AppColors.primary,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    TextFormField(
-                      maxLines: 1,
-                      cursorColor: AppColors.primary,
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
-                      onChanged: (data) {},
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'field_required'.tr();
-                        } else {
-                          return null;
-                        }
-                      },
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'first_name'.tr(),
-                          hintStyle: TextStyle(
-                              color: AppColors.primary,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                    BrownLineWidget(),
-                    SizedBox(height: 8),
-                    TextFormField(
-                      maxLines: 1,
-                      cursorColor: AppColors.primary,
-                      keyboardType: TextInputType.phone,
-                      textInputAction: TextInputAction.done,
-                      onChanged: (data) {},
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'field_required'.tr();
-                        } else {
-                          return null;
-                        }
-                      },
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'phone'.tr(),
-                          hintStyle: TextStyle(
-                              color: AppColors.primary,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                    BrownLineWidget(),
-                    SizedBox(height: 32),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('total_price'.tr()),
-                        SizedBox(width: 22),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: AppColors.primary,
-                              borderRadius: BorderRadius.circular(8)),
-                          width: 90,
-                          height: 45,
-                          child: Center(
-                            child: Text(
-                              '${context.read<CartCubit>().totalPrice}',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.white,
+                        ],
+                      ),
+                      TextFormField(
+                        maxLines: 1,
+                        cursorColor: AppColors.primary,
+                        keyboardType: TextInputType.text,
+                        controller: _typenameController,
+                        textInputAction: TextInputAction.next,
+                        onChanged: (data) {},
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'field_required'.tr();
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'first_name'.tr(),
+                            hintStyle: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                      BrownLineWidget(),
+                      SizedBox(height: 8),
+                      TypeAheadFormField(
+                        textFieldConfiguration: TextFieldConfiguration(
+                            controller: this._typeAheadController,
+                            keyboardType: TextInputType.phone,
+                            decoration: InputDecoration(
+                                // Text field Decorations goes here
+                                hintText: 'phone'.tr(),
+
+                                //   prefixIcon: Icon(Icons.edit),
+                                border: InputBorder.none)),
+                        suggestionsCallback: (pattern) {
+                          if (pattern.length > 7) {
+                            return context
+                                .read<CartCubit>()
+                                .getSuggestions(pattern);
+                          } else {
+                            return [];
+                          }
+                        },
+                        itemBuilder: (context, dynamic suggestion) {
+                          //TODO: replace <T> with your return type
+
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(suggestion['phone']),
+                          );
+                        },
+                        transitionBuilder:
+                            (context, suggestionsBox, controller) {
+                          return suggestionsBox;
+                        },
+                        onSuggestionSelected: (dynamic suggestion) {
+                          //TODO: replace <T> with your return type
+                          this._typeAheadController.text = suggestion['phone'];
+                          this._typenameController.text = suggestion['name'];
+                        },
+                        onSaved: (value) {
+                          //  _transaction.name = value;
+                        },
+                      ),
+                      BrownLineWidget(),
+                      SizedBox(height: 32),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('total_price'.tr()),
+                          SizedBox(width: 22),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: AppColors.primary,
+                                borderRadius: BorderRadius.circular(8)),
+                            width: 90,
+                            height: 45,
+                            child: Center(
+                              child: Text(
+                                '${context.read<CartCubit>().totalPrice}',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('date'.tr()),
-                        SizedBox(width: 22),
-                        Text(
-                          date,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.primary,
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('date'.tr()),
+                          SizedBox(width: 22),
+                          Text(
+                            date,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.primary,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30),
-                    OutLineButtonWidget(
-                      text: 'confirm',
-                      borderColor: AppColors.success,
-                      onclick: () {
-                        if (formKey.currentState!.validate()) {
-                          Navigator.pop(context);
-                        }
-                      },
-                    )
-                  ],
+                        ],
+                      ),
+                      SizedBox(height: 30),
+                      OutLineButtonWidget(
+                        text: 'confirm',
+                        borderColor: AppColors.success,
+                        onclick: () {
+                          if (formKey.currentState!.validate()) {
+                            this.cartModel!.phone =
+                                this._typeAheadController.text;
+                            this._typenameController.text = "";
+                            this._typeAheadController.text = "";
+                            String lang = EasyLocalization.of(context)!
+                                .locale
+                                .languageCode;
+
+                            Navigator.pop(context);
+                            context
+                                .read<CartCubit>()
+                                .sendorder(this.cartModel!, this.context, lang);
+                          }
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
             );

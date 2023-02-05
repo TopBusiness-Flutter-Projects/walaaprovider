@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:walaaprovider/core/models/product_model.dart';
 
-import '../../../../core/models/product_model.dart';
 import '../../../../core/preferences/preferences.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../cubit/cart_cubit.dart';
@@ -20,7 +20,7 @@ class CartModelWidget extends StatefulWidget {
 }
 
 class _CartModelWidgetState extends State<CartModelWidget> {
-  double totalPrice = 0;
+  int totalPrice = 0;
 
   Future<void> changeItemCount(String type, context) async {
     if (type == '+') {
@@ -53,7 +53,7 @@ class _CartModelWidgetState extends State<CartModelWidget> {
 
   @override
   Widget build(BuildContext context) {
-    totalPrice = (widget.model.quantity * double.parse(widget.model.price!)) ;
+    totalPrice = (widget.model.quantity * widget.model.price!) ;
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
         return SizedBox(

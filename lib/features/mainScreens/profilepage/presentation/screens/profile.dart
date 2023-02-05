@@ -10,6 +10,8 @@ import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/widgets/network_image.dart';
 import 'package:walaaprovider/core/widgets/show_loading_indicator.dart';
+import 'package:walaaprovider/features/addcategorypage/cubit/addcategory_cubit.dart';
+import 'package:walaaprovider/features/addcategorypage/model/add_category_model.dart';
 import 'package:walaaprovider/features/auth/register/presentation/screens/register.dart';
 import 'package:walaaprovider/features/splash/presentation/screens/splash_screen.dart';
 
@@ -183,6 +185,12 @@ class ProfileScreen extends StatelessWidget {
                         image: ImageAssets.addIcon,
                         imageColor: AppColors.buttonBackground,
                         onclick: () {
+                          context.read<AddcategoryCubit>().controllerName_en.text = "";
+                          context.read<AddcategoryCubit>().controllerName_ar.text = '';
+                          context.read<AddcategoryCubit>().imagePath = "";
+
+                        //  widget.categoryModel = CategoryModel.name(0, '', '');
+                          context.read<AddcategoryCubit>().addCategoryModel = AddCategoryModel();
                           Navigator.pushNamed(context, Routes.addCategoryRoute,arguments: CategoryModel.name(0, '', ''));
                         },
 

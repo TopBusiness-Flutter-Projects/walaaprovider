@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/core/models/product_model.dart';
@@ -68,7 +69,7 @@ if(homeCubit.productLength>0){
         },
       );}
 else{
-  return Center(child: Container(child:Text('No Data Found',style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,color: AppColors.primary),),));
+  return Center(child: Container(child:Text('no_data_found'.tr(),style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,color: AppColors.primary),),));
 }
     });
   }

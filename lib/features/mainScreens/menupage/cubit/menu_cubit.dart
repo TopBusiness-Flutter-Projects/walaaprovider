@@ -22,13 +22,13 @@ class MenuCubit extends Cubit<MenuState> {
   changeItemCount(String type,int price) {
     if (type == '+') {
       itemCount++;
-      itemPrice = itemPrice + price;
+      itemPrice = (itemPrice + price) ;
       print(itemPrice);
       emit(ChangeItemCount());
     } else {
       if (itemCount > 1) {
         itemCount--;
-        itemPrice = itemPrice  - price;
+        itemPrice = (itemPrice  - price) ;
         print(itemPrice);
         emit(ChangeItemCount());
       }
