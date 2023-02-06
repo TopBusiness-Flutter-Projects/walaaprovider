@@ -8,6 +8,7 @@ import 'package:walaaprovider/features/auth/register/presentation/screens/regist
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/screens/verfiication_screen.dart';
 import 'package:walaaprovider/features/navigation_bottom/screens/navigation_bottom.dart';
+import 'package:walaaprovider/features/payment_screen/payment_page.dart';
 import 'package:walaaprovider/features/payment_with_qr_page/presentation/screens/payment_with_qr.dart';
 import 'package:walaaprovider/features/privacy_terms/presentation/screen/privacy&terms.dart';
 import 'package:walaaprovider/features/scan/presentation/screens/scan_page.dart';
@@ -20,6 +21,7 @@ class Routes {
   static const String initialRoute = '/';
   static const String loginRoute = '/loginPage';
   static const String registerRoute = '/registerPage';
+  static const String paymentRoute = '/paymentRoute';
   static const String verficationRoute = '/verficationPage';
   static const String termsprivacyRoute = '/termsprivacyPage';
   static const String addCategoryRoute = '/addCategoryRoute';
@@ -45,6 +47,12 @@ class AppRoutes {
         case Routes.registerRoute:
         return MaterialPageRoute(
           builder: (context) =>  RegisterScreen(),
+        );
+        case Routes.paymentRoute:
+          String url = settings.arguments as String;
+
+          return MaterialPageRoute(
+          builder: (context) =>  paymetPage(url:url),
         );
         case Routes.verficationRoute:
           String phone = settings.arguments as String;

@@ -3,6 +3,9 @@ class EndPoints {
   static const String contactUsUrl = '${baseUrl}auth/contact-us';
   static const String appSettingsUrl = '${baseUrl}setting/show';
   static const String loginUrl = '${baseUrl}provider/auth/login';
+  static const String deleteAccountUrl = '${baseUrl}client/auth/delete-account';
+  static const String chargeWalletUrl = '${baseUrl}paytap/store';
+  static const String profileUrl = '${baseUrl}provider/auth/my-profile';
   static const String sendOrderUrl = '${baseUrl}provider/orders/store';
   static const String registerUrl = '${baseUrl}provider/auth/register';
   static const String addcategoryUrl = '${baseUrl}provider/categories/store';

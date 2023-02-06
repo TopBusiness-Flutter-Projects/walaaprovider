@@ -47,5 +47,6 @@
   "search_country": "Search For Country",
   "add_category_image": "Add Category Image",
   "editcategory": "Edit Category",
-  "no_data_found": "No Data Found"
+  "no_data_found": "No Data Found",
+  "waring_delete_account_message": "Are You Sure You Want To Delete Your Account ??"
 }

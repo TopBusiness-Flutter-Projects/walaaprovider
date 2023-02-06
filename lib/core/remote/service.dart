@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walaaprovider/core/models/category_data_model.dart';
 import 'package:walaaprovider/core/models/order_data_model.dart';
 import 'package:walaaprovider/core/models/product_data_model.dart';
+import 'package:walaaprovider/core/models/recharge_wallet_model.dart';
 import 'package:walaaprovider/core/models/settings.dart';
 import 'package:walaaprovider/core/models/single_category_data_model.dart';
 import 'package:walaaprovider/core/models/single_product_data_model.dart';
@@ -130,6 +131,7 @@ class ServiceApi {
 
   Future<StatusResponse> addCategory(
       AddCategoryModel addCategoryModel, String token) async {
+    print("shshshs${token}");
     var fields = FormData.fromMap({});
     fields = FormData.fromMap({
       "name_ar": addCategoryModel.name_ar,
@@ -355,6 +357,56 @@ class ServiceApi {
     print('Url : ${EndPoints.sendOrderUrl}');
     print('Response : \n ${response.data}');
     return StatusResponse.fromJson(response.data);
+  }
+  Future<StatusResponse> deleteAccount(String token) async {
+
+    Response response = await dio.post(
+      EndPoints.deleteAccountUrl,
+      options: Options(
+        headers: {
+          'Authorization': token,
+
+        },
+      )
+
+
+    );
+    print('Url : ${EndPoints.deleteAccountUrl}');
+    print('Response : \n ${response.data}');
+    return StatusResponse.fromJson(response.data);
+  }
+  Future<RechargeWalletModel> chargeWallet(String token,double amount) async {
+
+    Response response = await dio.get(
+
+        EndPoints.chargeWalletUrl,
+        options: Options(
+          headers: {
+            'Authorization': token,
+
+          },
+        )
+        ,queryParameters: {"amount":amount}
+
+
+    );
+    print('Url : ${EndPoints.chargeWalletUrl}');
+    print('Response : \n ${response.data}');
+    return RechargeWalletModel.fromJson(response.data);
+  }
+  Future<UserDataModel> getProfileByToken(String token) async {
+    try {
+      print('77777777777');
+      BaseOptions options = dio.options;
+      options.headers = {'Authorization': token};
+      dio.options = options;
+      Response response = await dio.get(EndPoints.profileUrl);
+      print(response.data);
+      return UserDataModel.fromJson(response.data);
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      throw errorMessage;
+    }
   }
 
 }

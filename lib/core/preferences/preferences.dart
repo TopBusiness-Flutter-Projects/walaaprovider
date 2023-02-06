@@ -50,6 +50,7 @@ class Preferences {
   clearUserData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.remove('user');
+
   }
 
   clearCartData() async {

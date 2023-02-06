@@ -39,6 +39,9 @@ class Data {
     required this.privacyEn,
     this.createdAt,
     this.updatedAt,
+    required this.whatsapp,
+    required this.instagram
+
   });
 
   int id;
@@ -48,6 +51,8 @@ class Data {
   String termsEn;
   String privacyAr;
   String privacyEn;
+  String instagram;
+  String whatsapp;
   dynamic createdAt;
   dynamic updatedAt;
 
@@ -61,6 +66,8 @@ class Data {
     privacyEn: json["privacy_en"],
     createdAt: json["created_at"],
     updatedAt: json["updated_at"],
+    whatsapp: json["whatsapp"],
+    instagram: json["instagram"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -73,5 +80,7 @@ class Data {
     "privacy_en": privacyEn,
     "created_at": createdAt,
     "updated_at": updatedAt,
+    "whatsapp": whatsapp,
+    "instagram": instagram,
   };
 }

@@ -13,6 +13,7 @@ import 'package:walaaprovider/features/mainScreens/menupage/cubit/menu_cubit.dar
 import 'package:walaaprovider/features/mainScreens/orderpage/presentation/cubit/order_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/profilepage/presentation/cubit/profile_cubit.dart';
 import 'package:walaaprovider/features/navigation_bottom/cubit/navigator_bottom_cubit.dart';
+import 'package:walaaprovider/features/payment_screen/payment_page.dart';
 import 'package:walaaprovider/features/payment_with_qr_page/presentation/cubit/payment_cubit.dart';
 import 'package:walaaprovider/features/privacy_terms/presentation/cubit/settings_cubit.dart';
 import 'package:walaaprovider/features/splash/presentation/cubit/splash_cubit.dart';
@@ -83,7 +84,7 @@ Future<void> setup() async {
   serviceLocator.registerFactory(
         () =>
         ProfileCubit(
-
+            serviceLocator()
         ),
   );
   serviceLocator.registerFactory(
@@ -93,6 +94,7 @@ Future<void> setup() async {
 
         ),
   );
+
   serviceLocator.registerFactory(
         () =>
         SettingsCubit(
