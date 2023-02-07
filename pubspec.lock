@@ -169,6 +169,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.1"
+  country_codes:
+    dependency: "direct main"
+    description:
+      name: country_codes
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.0"
   country_picker:
     dependency: "direct main"
     description:
@@ -1265,6 +1272,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.5"
+  whatsapp:
+    dependency: "direct main"
+    description:
+      name: whatsapp
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   whatsapp_unilink:
     dependency: "direct main"
     description:

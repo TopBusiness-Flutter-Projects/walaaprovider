@@ -16,6 +16,7 @@ import 'package:walaaprovider/core/models/user_list_data_model.dart';
 import 'package:walaaprovider/core/remote/handle_exeption.dart';
 import 'package:walaaprovider/features/addcategorypage/model/add_category_model.dart';
 import 'package:walaaprovider/features/addproduct/presentation/model/add_product_model.dart';
+import 'package:walaaprovider/features/auth/editprofile/models/edit_profile_model.dart';
 import 'package:walaaprovider/features/auth/login/models/login_model.dart';
 import 'package:walaaprovider/features/auth/register/models/register_model.dart';
 import 'package:walaaprovider/features/mainScreens/cartPage/widgets/cart_model_widget.dart';
@@ -51,7 +52,7 @@ class ServiceApi {
     Response response = await dio.post(
       EndPoints.registerUrl,
       data: {
-        "name": registerModel.first_name + registerModel.last_name,
+        "name": registerModel.first_name + " " + registerModel.last_name,
         "role_id": registerModel.role_id,
         "location": registerModel.location,
         "phone": registerModel.phone,
@@ -59,9 +60,49 @@ class ServiceApi {
         "password": registerModel.password,
         "phone": registerModel.phone,
         "phone_code": registerModel.phone_code,
-        "password": registerModel.password,
       },
     );
+    print('Url : ${EndPoints.loginUrl}');
+    print('Response : \n ${response.data}');
+    return UserDataModel.fromJson(response.data);
+  }
+
+  Future<UserDataModel> userEditProfile(
+      EditProfileModel editProfileModel, String token) async {
+    var fields = FormData.fromMap({});
+    if (editProfileModel.image.isEmpty ||
+        editProfileModel.image.contains("http")) {
+      fields = FormData.fromMap({
+        "name": editProfileModel.first_name + " " + editProfileModel.last_name,
+        "role_id": editProfileModel.role_id,
+        "location": editProfileModel.location,
+        "phone": editProfileModel.phone,
+        "phone_code": editProfileModel.phone_code,
+        "phone": editProfileModel.phone,
+        "phone_code": editProfileModel.phone_code,
+      });
+    } else {
+      fields = FormData.fromMap({
+        "name": editProfileModel.first_name + " " + editProfileModel.last_name,
+        "role_id": editProfileModel.role_id,
+        "location": editProfileModel.location,
+        "phone": editProfileModel.phone,
+        "phone_code": editProfileModel.phone_code,
+        "phone": editProfileModel.phone,
+        "phone_code": editProfileModel.phone_code,
+        "image":await MultipartFile.fromFile(editProfileModel.image)
+      });
+    }
+    if (editProfileModel.password.isNotEmpty) {
+      fields.fields.add(MapEntry("password", editProfileModel.password));
+    }
+
+    Response response = await dio.post(EndPoints.editprofileUrl,
+        options: Options(
+          headers: {'Authorization': token},
+        ),
+        data: fields);
+
     print('Url : ${EndPoints.loginUrl}');
     print('Response : \n ${response.data}');
     return UserDataModel.fromJson(response.data);
@@ -341,59 +382,47 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return UserListDataModel.fromJson(response.data);
   }
-  Future<StatusResponse> sendOrder(CartModel model,String token) async {
 
+  Future<StatusResponse> sendOrder(CartModel model, String token) async {
     Response response = await dio.post(
       EndPoints.sendOrderUrl,
       options: Options(
         headers: {
           'Authorization': token,
-
         },
       ),
       data: CartModel.toJson(model),
-
     );
     print('Url : ${EndPoints.sendOrderUrl}');
     print('Response : \n ${response.data}');
     return StatusResponse.fromJson(response.data);
   }
+
   Future<StatusResponse> deleteAccount(String token) async {
-
-    Response response = await dio.post(
-      EndPoints.deleteAccountUrl,
-      options: Options(
-        headers: {
-          'Authorization': token,
-
-        },
-      )
-
-
-    );
+    Response response = await dio.post(EndPoints.deleteAccountUrl,
+        options: Options(
+          headers: {
+            'Authorization': token,
+          },
+        ));
     print('Url : ${EndPoints.deleteAccountUrl}');
     print('Response : \n ${response.data}');
     return StatusResponse.fromJson(response.data);
   }
-  Future<RechargeWalletModel> chargeWallet(String token,double amount) async {
 
-    Response response = await dio.get(
-
-        EndPoints.chargeWalletUrl,
+  Future<RechargeWalletModel> chargeWallet(String token, double amount) async {
+    Response response = await dio.get(EndPoints.chargeWalletUrl,
         options: Options(
           headers: {
             'Authorization': token,
-
           },
-        )
-        ,queryParameters: {"amount":amount}
-
-
-    );
+        ),
+        queryParameters: {"amount": amount});
     print('Url : ${EndPoints.chargeWalletUrl}');
     print('Response : \n ${response.data}');
     return RechargeWalletModel.fromJson(response.data);
   }
+
   Future<UserDataModel> getProfileByToken(String token) async {
     try {
       print('77777777777');
@@ -408,5 +437,4 @@ class ServiceApi {
       throw errorMessage;
     }
   }
-
 }

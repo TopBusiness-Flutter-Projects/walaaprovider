@@ -11,7 +11,13 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+<queries>
+    <intent>
+        <action android:name="android.intent.action.VIEW"/>
+        <data android:scheme="tel"/>
 
+    </intent>
+</queries>
     <application
         android:label="walaaprovider"
         android:name="${applicationName}"

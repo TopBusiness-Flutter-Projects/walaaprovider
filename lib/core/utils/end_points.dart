@@ -8,6 +8,7 @@ class EndPoints {
   static const String profileUrl = '${baseUrl}provider/auth/my-profile';
   static const String sendOrderUrl = '${baseUrl}provider/orders/store';
   static const String registerUrl = '${baseUrl}provider/auth/register';
+  static const String editprofileUrl = '${baseUrl}provider/auth/update-profile';
   static const String addcategoryUrl = '${baseUrl}provider/categories/store';
   static const String editcategoryUrl = '${baseUrl}provider/categories/update';
   static const String deletecategoryUrl = '${baseUrl}provider/categories/delete';

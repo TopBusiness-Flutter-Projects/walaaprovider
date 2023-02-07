@@ -4,6 +4,7 @@ import 'package:walaaprovider/core/models/order_model.dart';
 import 'package:walaaprovider/core/models/product_model.dart';
 import 'package:walaaprovider/features/addcategorypage/addcategory_screen.dart';
 import 'package:walaaprovider/features/addproduct/presentation/screens/addproduct_screen.dart';
+import 'package:walaaprovider/features/auth/editprofile/presentation/screens/editprofile.dart';
 import 'package:walaaprovider/features/auth/register/presentation/screens/register.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/screens/verfiication_screen.dart';
@@ -21,6 +22,7 @@ class Routes {
   static const String initialRoute = '/';
   static const String loginRoute = '/loginPage';
   static const String registerRoute = '/registerPage';
+  static const String editprofileRoute = '/editprofileage';
   static const String paymentRoute = '/paymentRoute';
   static const String verficationRoute = '/verficationPage';
   static const String termsprivacyRoute = '/termsprivacyPage';
@@ -47,6 +49,10 @@ class AppRoutes {
         case Routes.registerRoute:
         return MaterialPageRoute(
           builder: (context) =>  RegisterScreen(),
+        );
+        case Routes.editprofileRoute:
+        return MaterialPageRoute(
+          builder: (context) =>  EditProfileScreen(),
         );
         case Routes.paymentRoute:
           String url = settings.arguments as String;

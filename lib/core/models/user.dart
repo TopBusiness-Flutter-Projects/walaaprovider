@@ -4,6 +4,7 @@ class User {
   late int id;
   late String name = '';
   late String phone = '';
+  late String phone_code = '';
   late String email = '';
   late String location = '';
   late String image = '';
@@ -19,6 +20,7 @@ class User {
     id = json['id'] ?? 0;
     name = json['name'] ?? '';
     phone = json['phone'] ?? '';
+    phone_code = json['phone_code'] ?? '';
     email = json['email'] != null ? json['email'] as String : "";
     image = json['image'] != null ? json['image'] as String : "";
     location = json['location'] ?? '';
@@ -33,6 +35,7 @@ class User {
       'id': user.id,
       'name': user.name,
       'phone': user.phone,
+      'phone_code': user.phone_code,
       'email': user.email,
       'image': user.image,
       'location': user.location,
