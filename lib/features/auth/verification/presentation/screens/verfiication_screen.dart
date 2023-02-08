@@ -4,11 +4,14 @@ import 'package:easy_localization/easy_localization.dart' as translate;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:walaaprovider/core/models/user_model.dart';
+import 'package:walaaprovider/core/preferences/preferences.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/utils/toast_message_method.dart';
 import 'package:walaaprovider/core/widgets/custom_button.dart';
+import 'package:walaaprovider/features/auth/newpassword/model/new_password_model.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
 import '../widgets/header_title.dart';
 
@@ -52,7 +55,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
   Widget build(BuildContext context) {
     errorController = StreamController<ErrorAnimationType>();
     context.read<VerficationCubit>().phoneController.text = phone;
-   // context..read<VerficationCubit>().sendSmsCode();
+    // context..read<VerficationCubit>().sendSmsCode();
     String lang = translate.EasyLocalization.of(context)!.locale.languageCode;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground,
@@ -61,17 +64,28 @@ class _VerificationScreenState extends State<VerificationScreen> {
         child: BlocBuilder<VerficationCubit, VerficationState>(
           builder: (context, state) {
             if (state is CheckCodeSuccessfully) {
-              Future.delayed(const Duration(milliseconds: 500), () {
+              Future.delayed(const Duration(milliseconds: 500), () async {
                 toastMessage(
                   'Success',
                   context,
                   color: AppColors.success,
                 );
-                Navigator.pushNamedAndRemoveUntil(
+                UserModel userModel = await Preferences.instance.getUserModel();
+                if (userModel.user.isLoggedIn) {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      Routes.NavigationBottomRoute,
+                      ModalRoute.withName(Routes.verficationRoute));
+                } else {
+
+                  Navigator.pushNamedAndRemoveUntil(
                     context,
-                    Routes.NavigationBottomRoute,
-                    ModalRoute.withName(Routes.verficationRoute));
+                    Routes.newpassRoute,
+                    ModalRoute.withName(Routes.loginRoute),
+                    arguments: context.read<VerficationCubit>().model
+                  );                }
               });
+
               // return const ShowLoadingIndicator();
             }
             return Column(

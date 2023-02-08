@@ -18,6 +18,7 @@ class EditProfileModel {
   String error_first_name = '';
   String error_last_name = '';
   String error_location = '';
+  bool vaild = false;
 
   Future<bool> isDataValid() async {
     error_phone = '';
@@ -27,10 +28,11 @@ class EditProfileModel {
     error_last_name = '';
     error_location = '';
 
-    bool vaild = false;
+    vaild = false;
     if (phone.isNotEmpty) {
       print("dddd${phone_code + phone}");
       vaild = await PhoneNumberUtil().validate(phone_code + phone);
+      print("dddd${vaild}");
     }
     if (vaild &&
         (password.isEmpty ||
@@ -42,10 +44,13 @@ class EditProfileModel {
         location.isNotEmpty) {
       return true;
     } else {
+      print("0e0e0488488484");
+      print(phone_code + phone);
+
       if (!vaild) {
         error_phone = 'invaild phone'.tr();
       }
-      if (password.isNotEmpty&&password.length < 6) {
+      if (password.isNotEmpty && password.length < 6) {
         error_password = 'invaild pass'.tr();
       }
       if (password != confirm_password) {

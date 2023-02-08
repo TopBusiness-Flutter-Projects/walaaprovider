@@ -166,7 +166,7 @@ context.read<AddProductCubit>().setlang(lang);
                                         title: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 5),
-                                          child: Text('Choose'),
+                                          child: Text('Choose'.tr()),
                                         ),
                                         contentPadding: EdgeInsets.zero,
                                         content: SizedBox(
@@ -182,7 +182,7 @@ context.read<AddProductCubit>().setlang(lang);
                                                   context
                                                       .read<AddProductCubit>()
                                                       .pickImage(
-                                                        type: 'camera',
+                                                        type: 'camera'.tr(),
                                                       );
                                                   Navigator.of(context).pop();
                                                 },
@@ -239,7 +239,7 @@ context.read<AddProductCubit>().setlang(lang);
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: Text('Cancel'))
+                                              child: Text('Cancel'.tr()))
                                         ],
                                       ),
                                     );

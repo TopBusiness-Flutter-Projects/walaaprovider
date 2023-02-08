@@ -8,7 +8,7 @@ class User {
   late String email = '';
   late String location = '';
   late String image = '';
-  late int userType;
+  late dynamic userType;
   late int status;
   late int balance;
   late bool isLoggedIn = false;
@@ -24,7 +24,7 @@ class User {
     email = json['email'] != null ? json['email'] as String : "";
     image = json['image'] != null ? json['image'] as String : "";
     location = json['location'] ?? '';
-    userType = json['user_type'] ?? 0;
+    userType = json['user_type'] != null ? json['user_type'] :0;
     status = json['status'] != null ? json['status'] as int : 0;
     balance = json['balance'] != null ? json['balance'] as int : 0;
   }

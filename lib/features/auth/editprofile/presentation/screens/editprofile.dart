@@ -314,7 +314,7 @@ class EditProfileScreen extends StatelessWidget {
 
                                   errorMessage: editProfileCubit
                                       .editProfileModel.error_phone,
-                                  isEnabled: true,
+                                  isEnabled: false,
 
                                   onInputChanged: (PhoneNumber number) {
                                     print("sssss${number.phoneNumber}");
@@ -330,16 +330,27 @@ class EditProfileScreen extends StatelessWidget {
                                   },
 
                                   onInputValidated: (bool value) {
-                                    print("sssss${value}");
+                                    print("ssssffffs${value}");
+                                    if(!value&&editProfileCubit.editProfileModel.vaild){
+                                      editProfileCubit
+                                          .checkValidEditProfileData();
+                                    }
                                   },
                                   autoFocusSearch: true,
 
                                   initialValue: PhoneNumber(
+
                                       isoCode: editProfileCubit
                                               .editProfileModel.code.isNotEmpty
                                           ? editProfileCubit
                                               .editProfileModel.code
-                                          : "SA"),
+                                          : "SA"
+
+                                  ,
+                                  ),
+                                  validator: (p0) {
+                                    return editProfileCubit.editProfileModel.vaild?null:editProfileCubit.editProfileModel.error_phone;
+                                  },
                                   textFieldController: editProfileCubit.controllerPhone,
                                   selectorConfig: SelectorConfig(
                                     selectorType:
@@ -524,6 +535,7 @@ class EditProfileScreen extends StatelessWidget {
                               ? AppColors.buttonBackground
                               : AppColors.gray,
                           onClick: () {
+
                             print("dddd${formKey.currentState!.validate()}");
                             if (formKey.currentState!.validate()) {
                               editProfileCubit.userEditProfile(context);

@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:walaaprovider/features/auth/newpassword/model/new_password_model.dart';
 
 part 'verfication_state.dart';
 
 class VerficationCubit extends Cubit<VerficationState> {
   VerficationCubit() : super(VerficationInitial());
+  NewPasswordModel model = NewPasswordModel();
 
 
   TextEditingController phoneController = TextEditingController();

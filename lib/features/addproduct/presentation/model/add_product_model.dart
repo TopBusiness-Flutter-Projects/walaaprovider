@@ -24,10 +24,10 @@ class AddProductModel {
       return true;
     } else {
       if (image.isEmpty) {
-        toastMessage("Add Category image", AppColors.primary);
+        toastMessage("Select Add Product image".tr(), AppColors.primary);
       }
       if (cat_id==0) {
-        toastMessage("Select Category ", AppColors.primary);
+        toastMessage("Select Category".tr(), AppColors.primary);
       }
       //print("object${name_en}");
       if (name_ar.isEmpty) {

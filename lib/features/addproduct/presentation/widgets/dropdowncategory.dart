@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/core/models/category_model.dart';
@@ -30,7 +31,7 @@ class _DropDownCategoryState extends State<DropDownCategory> {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
 
-                  'Select Category',
+                  'Select Category'.tr(),
                   style: TextStyle(
                     fontSize: 14,
 

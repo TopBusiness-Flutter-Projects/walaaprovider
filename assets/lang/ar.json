@@ -37,6 +37,10 @@
   "balance": "الرصيد",
   "sr": "ر.س",
   "addcategory": "اضف فئة",
+  "Select Category": "اختر الفئة",
+  "Select Add Product image": "اضف صورة المنتج",
+  "addProduct": "اضافة منتج",
+  "editProduct": "تعديل المنتج",
   "name_ar": "الاسم بالعربى",
   "name_en": "الاسم بالانجليزى",
   "pass_equal": "يجب ان تساوى كلمة المرور",
@@ -47,6 +51,11 @@
   "add_category_image": "اضف صورة الفئه",
   "editcategory": "تعديل الفئة",
   "search_country": "ابحث عن الدولة",
+  "addBalance": "اضافة رصيد",
+  "Balance": "رصيد",
   "no_data_found": "لا يوجد بيانات لعرضها",
-  "waring_delete_account_message": "هل انت متاكد من حذف حسابك ؟؟"
+  "waring_delete_account_message": "هل انت متاكد من حذف حسابك ؟؟",
+  "verification_title_text": "الرجاء إدخال رمز التحقق الخاص بك",
+  "verification_desc_text": "لقد أرسلنا رمز التحقق إلى رقم هاتفك المسجل"
+
 }

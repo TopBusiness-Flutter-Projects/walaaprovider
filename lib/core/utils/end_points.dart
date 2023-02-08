@@ -20,6 +20,7 @@ class EndPoints {
   static const String orderUrl = '${baseUrl}provider/orders/list';
   static const String productUrl = '${baseUrl}provider/products/list';
   static const String clientsUrl = '${baseUrl}search';
+  static const String forgotpasswordUrl = '${baseUrl}provider/auth/profile-by-phone';
   static const String singlecategoryUrl = '${baseUrl}provider/categories/find';
   static const String singleproductUrl = '${baseUrl}provider/products/find';
   static const String settingUrl = '${baseUrl}setting';

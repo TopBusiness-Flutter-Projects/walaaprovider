@@ -11,6 +11,7 @@ import 'package:walaaprovider/core/models/user_model.dart';
 import 'package:walaaprovider/core/preferences/preferences.dart';
 import 'package:walaaprovider/core/remote/handle_exeption.dart';
 import 'package:walaaprovider/core/remote/service.dart';
+import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/appwidget.dart';
 import 'package:walaaprovider/features/auth/editprofile/models/edit_profile_model.dart';
 import 'package:walaaprovider/features/mainScreens/profilepage/presentation/cubit/profile_cubit.dart';
@@ -32,6 +33,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   late UserModel userModel;
 
   EditProfileCubit(this.serviceApi) : super(EditProfileInitial()) {
+
     checkValidEditProfileData();
     getUserData().then((value) => updateData(value));
   }
@@ -76,8 +78,10 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
     try {
       final response = await serviceApi.userEditProfile(editProfileModel,userModel.access_token);
-
-      if (response.status.code == 200) {
+print("ddddd")
+;
+print(response);
+if (response.status.code == 200) {
         Navigator.pop(context);
         response.userModel.access_token=userModel.access_token;
         Preferences.instance.setUser(response.userModel).then((value) =>{
@@ -124,23 +128,26 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
   updateData(UserModel? value) async {
     PhoneNumber number = await PhoneNumber.getRegionInfoFromPhoneNumber(value!.user.phone_code+value.user.phone);
-    String parsableNumber = number.parseNumber();
+print("objectssss");
+print(number.isoCode);
+    editProfileModel
+      ..image=value.user.image
+      ..first_name=value.user.name
+      ..last_name=value.user.name
+      ..location=value.user.location
+      ..phone=value.user.phone
+      ..phone_code=value.user.phone_code
+      ..code=number.isoCode!
+    ;
+
 
     controllerFirstName.text = value.user.name;
     controllerLastName.text = value.user.name;
     controllerlocation.text = value.user.location;
     controllerPhone.text = value.user.phone;
-    editProfileModel
-    ..image=value.user.image
-    ..first_name=value.user.name
-    ..last_name=value.user.name
-    ..location=value.user.location
-    ..phone=value.user.phone
-    ..phone_code=value.user.phone_code
-    ..code=number.isoCode!
-    ;
-    print("ddd${editProfileModel.phone}");
-    print("ddd${number.isoCode}");
+
+//    print("ddd${editProfileModel.phone}");
+  //  print("ddd${number.isoCode}");
     checkValidEditProfileData();
 
   }

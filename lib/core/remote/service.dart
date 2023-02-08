@@ -18,6 +18,7 @@ import 'package:walaaprovider/features/addcategorypage/model/add_category_model.
 import 'package:walaaprovider/features/addproduct/presentation/model/add_product_model.dart';
 import 'package:walaaprovider/features/auth/editprofile/models/edit_profile_model.dart';
 import 'package:walaaprovider/features/auth/login/models/login_model.dart';
+import 'package:walaaprovider/features/auth/newpassword/model/new_password_model.dart';
 import 'package:walaaprovider/features/auth/register/models/register_model.dart';
 import 'package:walaaprovider/features/mainScreens/cartPage/widgets/cart_model_widget.dart';
 import 'package:walaaprovider/features/mainScreens/menupage/model/cart_model.dart';
@@ -90,7 +91,7 @@ class ServiceApi {
         "phone_code": editProfileModel.phone_code,
         "phone": editProfileModel.phone,
         "phone_code": editProfileModel.phone_code,
-        "image":await MultipartFile.fromFile(editProfileModel.image)
+        "image": await MultipartFile.fromFile(editProfileModel.image)
       });
     }
     if (editProfileModel.password.isNotEmpty) {
@@ -378,9 +379,43 @@ class ServiceApi {
       //   },
       // ),
     );
-    print('Url : ${EndPoints.productUrl}');
+    print('Url : ${EndPoints.clientsUrl}');
     print('Response : \n ${response.data}');
     return UserListDataModel.fromJson(response.data);
+  }
+
+  Future<UserDataModel> getClient(String search_key) async {
+    final response = await dio.get(
+      EndPoints.forgotpasswordUrl,
+      queryParameters: {"phone": search_key},
+      // options: Options(
+      //   headers: {
+      //     'Authorization': token,
+      //     'Accept-Language': lan,
+      //   },
+      // ),
+    );
+    print('Url : ${EndPoints.forgotpasswordUrl}');
+    print('Response : \n ${response.data}');
+    return UserDataModel.fromJson(response.data);
+  }
+
+  Future<UserDataModel> newpassword(NewPasswordModel model) async {
+    var fields = FormData.fromMap({});
+    fields = FormData.fromMap({
+      'password': model.password,
+      'phone': model.phone
+
+    });
+    Response response = await dio.post(EndPoints.editprofileUrl,
+        options: Options(
+          headers: {'Authorization': model.token},
+        ),
+        data: fields);
+
+    print('Url : ${EndPoints.editprofileUrl}');
+    print('Response : \n ${response.data}');
+    return UserDataModel.fromJson(response.data);
   }
 
   Future<StatusResponse> sendOrder(CartModel model, String token) async {

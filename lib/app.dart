@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/features/addcategorypage/cubit/addcategory_cubit.dart';
 import 'package:walaaprovider/features/addproduct/presentation/cubit/add_product_cubit.dart';
 import 'package:walaaprovider/features/auth/editprofile/presentation/cubit/edit_profile_cubit.dart';
+import 'package:walaaprovider/features/auth/newpassword/cubit/new_password_cubit.dart';
 import 'package:walaaprovider/features/auth/register/presentation/cubit/register_cubit.dart';
 import 'package:walaaprovider/features/auth/verification/presentation/cubit/verfication_cubit.dart';
+import 'package:walaaprovider/features/forgotpassword/cubit/forgot_password_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/menupage/cubit/menu_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/orderpage/presentation/cubit/order_cubit.dart';
@@ -96,13 +98,21 @@ class _CofeeState extends State<Cofee> {
           create: (_) =>
               injector.serviceLocator<EditProfileCubit>(),
         ),
+        BlocProvider(
+          create: (_) =>
+              injector.serviceLocator<ForgotPasswordCubit>(),
+        ),
+        BlocProvider(
+          create: (_) =>
+              injector.serviceLocator<NewPasswordCubit>(),
+        ),
       ],
       child:  MaterialApp(
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,
-        title: 'appName'.tr(),
+        title: 'appname'.tr(),
         onGenerateRoute: AppRoutes.onGenerateRoute,
 
     ));
