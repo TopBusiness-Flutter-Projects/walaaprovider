@@ -16,10 +16,10 @@ part 'payment_state.dart';
 class PaymentCubit extends Cubit<PaymentState> {
   final ServiceApi serviceApi;
 
-   UserModel? userModel;
+  UserModel? userModel;
 
   PaymentCubit(this.serviceApi) : super(PaymentInitial()) {
-    getUserData().then((value) => userModel=value!);
+    getUserData().then((value) => userModel = value!);
   }
 
   Future<UserModel?> getUserData() async {
@@ -29,7 +29,9 @@ class PaymentCubit extends Cubit<PaymentState> {
 
   confirmOrder(OrderModel model, String user_id, BuildContext context) async {
     try {
-
+      if (userModel == null) {
+        userModel = await Preferences.instance.getUserModel();
+      }
       StatusResponse response = await serviceApi.confirmOrder(
           userModel!.access_token, model.id, user_id);
       if (response.code == 200) {
@@ -38,7 +40,6 @@ class PaymentCubit extends Cubit<PaymentState> {
         Navigator.pop(context);
       } else {
         toastMessage(response.message, AppColors.primary);
-
       }
     } catch (e) {
       toastMessage(e.toString(), AppColors.primary);
