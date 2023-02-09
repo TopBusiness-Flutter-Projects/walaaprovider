@@ -198,7 +198,7 @@ context.read<AddProductCubit>().setlang(lang);
                                                           size: 45,
                                                           color:
                                                               AppColors.gray),
-                                                      Text('camera')
+                                                      Text('camera'.tr())
                                                     ],
                                                   ),
                                                 ),
@@ -225,7 +225,7 @@ context.read<AddProductCubit>().setlang(lang);
                                                           size: 45,
                                                           color:
                                                               AppColors.gray),
-                                                      Text('Gallery')
+                                                      Text('Gallery'.tr())
                                                     ],
                                                   ),
                                                 ),
@@ -239,7 +239,7 @@ context.read<AddProductCubit>().setlang(lang);
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: Text('Cancel'.tr()))
+                                              child: Text('cancel'.tr()))
                                         ],
                                       ),
                                     );

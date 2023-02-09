@@ -367,7 +367,23 @@ class ServiceApi {
       throw errorMessage;
     }
   }
+  Future<StatusResponse> cancelOrder(
+      String user_token, int order_id) async {
+    try {
+      var fields = FormData.fromMap({ "order_id": order_id});
+      BaseOptions options = dio.options;
+      options.headers = {'Authorization': user_token};
+      dio.options = options;
+      Response response =
+      await dio.post(EndPoints.cancelOrderUrl, data: fields);
+      return StatusResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      print('Error=>${errorMessage}');
 
+      throw errorMessage;
+    }
+  }
   Future<UserListDataModel> getClients(String search_key) async {
     final response = await dio.get(
       EndPoints.clientsUrl,

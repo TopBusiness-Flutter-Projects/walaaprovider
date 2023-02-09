@@ -13,6 +13,7 @@ class EndPoints {
   static const String editcategoryUrl = '${baseUrl}provider/categories/update';
   static const String deletecategoryUrl = '${baseUrl}provider/categories/delete';
   static const String confirmOrderUrl = '${baseUrl}provider/orders/complete-ordering';
+  static const String cancelOrderUrl = '${baseUrl}provider/orders/cancel-order';
   static const String addproductUrl = '${baseUrl}provider/products/store';
   static const String editproductUrl = '${baseUrl}provider/products/update';
   static const String deleteproductUrl = '${baseUrl}provider/products/delete';

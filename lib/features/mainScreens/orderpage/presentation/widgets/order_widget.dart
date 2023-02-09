@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/core/models/order_model.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/widgets/outline_button_widget.dart';
+import 'package:walaaprovider/features/mainScreens/orderpage/presentation/cubit/order_cubit.dart';
 
 class OrderItem extends StatelessWidget {
   final OrderModel orderModel;
@@ -66,7 +68,8 @@ Navigator.pushNamed(context, Routes.paymentqrRoute,arguments:orderModel );
                   text:'cancel'.tr(),
                   borderColor: AppColors.error,
                   onclick: () {
-                    Navigator.pop(context);
+                    context.read<OrderCubit>().caneclOrder(orderModel,context);
+                  //  Navigator.pop(context);
                   },
                 ),
                 Spacer(),

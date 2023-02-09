@@ -204,7 +204,7 @@ class _AddCategoryState extends State<AddCategory> {
                                                           size: 45,
                                                           color:
                                                               AppColors.gray),
-                                                      Text('camera')
+                                                      Text('camera'.tr())
                                                     ],
                                                   ),
                                                 ),
@@ -231,7 +231,7 @@ class _AddCategoryState extends State<AddCategory> {
                                                           size: 45,
                                                           color:
                                                               AppColors.gray),
-                                                      Text('Gallery')
+                                                      Text('Gallery'.tr())
                                                     ],
                                                   ),
                                                 ),
@@ -245,7 +245,7 @@ class _AddCategoryState extends State<AddCategory> {
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: Text('Cancel'))
+                                              child: Text('cancel').tr())
                                         ],
                                       ),
                                     );

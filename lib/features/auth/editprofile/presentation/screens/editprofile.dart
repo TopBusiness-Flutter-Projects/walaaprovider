@@ -155,7 +155,7 @@ class EditProfileScreen extends StatelessWidget {
                                                     Icon(Icons.camera_alt,
                                                         size: 45,
                                                         color: AppColors.gray),
-                                                    Text('camera')
+                                                    Text('camera'.tr())
                                                   ],
                                                 ),
                                               ),
@@ -178,7 +178,7 @@ class EditProfileScreen extends StatelessWidget {
                                                     Icon(Icons.photo,
                                                         size: 45,
                                                         color: AppColors.gray),
-                                                    Text('Gallery')
+                                                    Text('Gallery'.tr())
                                                   ],
                                                 ),
                                               ),
@@ -192,7 +192,7 @@ class EditProfileScreen extends StatelessWidget {
                                             onPressed: () {
                                               Navigator.pop(context);
                                             },
-                                            child: Text('Cancel'))
+                                            child: Text('cancel'.tr()))
                                       ],
                                     ),
                                   );
