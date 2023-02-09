@@ -63,7 +63,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Navigator.pushNamed(context, Routes.paymentRoute,
                       arguments: state.data.data!.payment_url)
                   .then((value) =>
-                      {context.read<ProfileCubit>().onGetProfileData()});
+                      {
+                        _textFieldController.text="",
+                        context.read<ProfileCubit>().onGetProfileData()});
             }
           },
           child: BlocBuilder<ProfileCubit, ProfileState>(

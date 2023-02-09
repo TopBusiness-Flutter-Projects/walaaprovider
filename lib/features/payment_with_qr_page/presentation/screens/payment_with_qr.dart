@@ -113,7 +113,7 @@ class _PaymentWithQrPageState extends State<PaymentWithQrPage> {
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.QR);
-     // print("sss${barcodeScanRes}");
+      print("sss${barcodeScanRes}");
       context.read<PaymentCubit>().confirmOrder(widget.orderModel, barcodeScanRes,context);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';

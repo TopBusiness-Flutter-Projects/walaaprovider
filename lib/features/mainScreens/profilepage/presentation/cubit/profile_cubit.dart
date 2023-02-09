@@ -103,7 +103,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       if (response.code == 200) {
         Navigator.pop(context);
         emit(OnUrlPayLoaded(response));
-      } else {
+      }
+      else {
         Navigator.pop(context);
         toastMessage(response.message, context);
       }
