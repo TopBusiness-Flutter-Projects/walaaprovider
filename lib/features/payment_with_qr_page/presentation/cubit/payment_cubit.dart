@@ -10,6 +10,7 @@ import 'package:walaaprovider/core/remote/service.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/toast_message_method.dart';
 import 'package:walaaprovider/features/mainScreens/orderpage/presentation/cubit/order_cubit.dart';
+import 'package:walaaprovider/features/mainScreens/profilepage/presentation/cubit/profile_cubit.dart';
 
 part 'payment_state.dart';
 
@@ -37,6 +38,8 @@ class PaymentCubit extends Cubit<PaymentState> {
       if (response.code == 200) {
         // Fluttertoast.showToast(msg: 'deleted'.tr(),fontSize: 15.0,backgroundColor: AppColors.black,gravity: ToastGravity.SNACKBAR,textColor: AppColors.white);
         context.read<OrderCubit>().getorders(userModel);
+        context.read<ProfileCubit>().userModel=userModel;
+        context.read<ProfileCubit>().onGetProfileData();
         Navigator.pop(context);
       } else {
         toastMessage(response.message, AppColors.primary);
