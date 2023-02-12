@@ -76,7 +76,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       context,
                       Routes.NavigationBottomRoute,
                       ModalRoute.withName(Routes.verficationRoute));
-                } else {
+                }
+                else {
 
                   Navigator.pushNamedAndRemoveUntil(
                     context,
@@ -187,25 +188,25 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         textcolor: AppColors.color1,
                       ),
                       const SizedBox(height: 12),
-                      Align(
-                        alignment: lang == 'en'
-                            ? Alignment.centerRight
-                            : Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width / 8),
-                          child: TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            style: TextButton.styleFrom(
-                              foregroundColor: AppColors.primary, // Text Color
-                            ),
-                            child: Text(
-                              translate.tr('back_btn'),
-                            ),
-                          ),
-                        ),
-                      )
+                      // Align(
+                      //   alignment: lang == 'en'
+                      //       ? Alignment.centerRight
+                      //       : Alignment.centerLeft,
+                      //   child: Padding(
+                      //     padding: EdgeInsets.symmetric(
+                      //         horizontal:
+                      //             MediaQuery.of(context).size.width / 8),
+                      //     child: TextButton(
+                      //       onPressed: () => Navigator.pop(context),
+                      //       style: TextButton.styleFrom(
+                      //         foregroundColor: AppColors.primary, // Text Color
+                      //       ),
+                      //       child: Text(
+                      //         translate.tr('back_btn'),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),

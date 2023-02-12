@@ -20,6 +20,7 @@ import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/appwidget.dart';
 import 'package:walaaprovider/core/utils/toast_message_method.dart';
 import 'package:walaaprovider/features/splash/presentation/screens/splash_screen.dart';
+import 'package:walaaprovider/features/auth/login/presentation/screens/login.dart';
 
 part 'profile_state.dart';
 
@@ -80,10 +81,10 @@ class ProfileCubit extends Cubit<ProfileState> {
             type: PageTransitionType.fade,
             alignment: Alignment.center,
             duration: const Duration(milliseconds: 1300),
-            child: SplashScreen(),
+            child: LoginScreen(),
           ),
           ModalRoute.withName(
-            Routes.loginRoute,
+            Routes.initialRoute,
           ),
         );
       } else {
