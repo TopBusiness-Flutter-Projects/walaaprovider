@@ -74,6 +74,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         // context.read<OrderCubit>().getorders(userModel);
         //   Navigator.pop(context);
         toastMessage('sucess'.tr(), AppColors.primary);
+        Preferences.instance.clearUserData();
 
         Navigator.pushAndRemoveUntil(
           context,
