@@ -37,7 +37,7 @@ context.read<VerficationCubit>().model.phone=state.user.user.phone;
                 context,
                 Routes.verficationRoute,
                 ModalRoute.withName(Routes.forgotpassRoute),
-                arguments: state.user.user.phone_code+state.user.user.phone
+                arguments: [state.user.user.phone_code+state.user.user.phone,null]
             );
             // Navigator.pushReplacementNamed(
             //     context, AppConstant.checkcodePasswordRoute,arguments: cubit.email);

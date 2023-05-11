@@ -39,7 +39,9 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
             msg: 'invaild phone'.tr(), // message
             toastLength: Toast.LENGTH_SHORT, // length
             gravity: ToastGravity.BOTTOM, // location
-            timeInSecForIosWeb: 1 // duration
+            timeInSecForIosWeb: 1 ,
+
+          // duration
             );
 
         print("errorCode=>${response.status}");

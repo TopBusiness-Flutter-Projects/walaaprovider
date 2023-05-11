@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart' as translate;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:walaaprovider/core/models/order_model.dart';
 import 'package:walaaprovider/core/models/user_model.dart';
 import 'package:walaaprovider/core/preferences/preferences.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
@@ -16,8 +17,10 @@ import 'package:walaaprovider/features/auth/verification/presentation/cubit/verf
 import '../widgets/header_title.dart';
 
 class VerificationScreen extends StatefulWidget {
-  const VerificationScreen({Key? key, required this.phone}) : super(key: key);
+  const VerificationScreen({Key? key, required this.phone, required this.orderModel})
+      : super(key: key);
   final String phone;
+  final OrderModel orderModel;
 
   @override
   State<VerificationScreen> createState() =>
@@ -72,19 +75,22 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 );
                 UserModel userModel = await Preferences.instance.getUserModel();
                 if (userModel.user.isLoggedIn) {
+                  if(widget.orderModel==null){
                   Navigator.pushNamedAndRemoveUntil(
                       context,
                       Routes.NavigationBottomRoute,
-                      ModalRoute.withName(Routes.verficationRoute));
-                }
-                else {
+                      ModalRoute.withName(Routes.verficationRoute));}
+                  else{
+context.read<VerficationCubit>().confirmOrder(widget.orderModel,widget.orderModel.userData.id.toString(),context);
 
+                  }
+                } else {
                   Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    Routes.newpassRoute,
-                    ModalRoute.withName(Routes.loginRoute),
-                    arguments: context.read<VerficationCubit>().model
-                  );                }
+                      context,
+                      Routes.newpassRoute,
+                      ModalRoute.withName(Routes.loginRoute),
+                      arguments: context.read<VerficationCubit>().model);
+                }
               });
 
               // return const ShowLoadingIndicator();

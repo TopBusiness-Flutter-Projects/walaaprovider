@@ -76,12 +76,11 @@ class AppRoutes {
           builder: (context) => paymetPage(url: url),
         );
       case Routes.verficationRoute:
-        String phone = settings.arguments as String;
+        List<dynamic> data = settings.arguments as List<dynamic>;
 
         return MaterialPageRoute(
-          builder: (context) => VerificationScreen(
-            phone: phone,
-          ),
+          builder: (context) =>
+              VerificationScreen(phone: data[0], orderModel: data[1]),
         );
       case Routes.NavigationBottomRoute:
         return MaterialPageRoute(

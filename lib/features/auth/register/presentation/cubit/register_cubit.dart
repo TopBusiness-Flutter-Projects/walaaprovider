@@ -57,7 +57,7 @@ class RegisterCubit extends Cubit<RegisterState> {
                     context,
                     Routes.verficationRoute,
                     ModalRoute.withName(Routes.registerRoute),
-                    arguments: registerModel.phone_code+registerModel.phone
+                    arguments: [registerModel.phone_code+registerModel.phone,null]
                 )));
 
 

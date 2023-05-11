@@ -157,7 +157,7 @@ Future<void> setup() async {
   serviceLocator.registerFactory(
         () =>
         VerficationCubit(
-          // serviceLocator(),
+           serviceLocator(),
         ),
   );
   serviceLocator.registerFactory(() => NavigatorBottomCubit());
