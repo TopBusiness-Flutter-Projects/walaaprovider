@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
          // if(context.read<AddProductCubit>().userModel!=null){
           context.read<AddProductCubit>().
           addProductModel.name_en = '';
+          context.read<AddProductCubit>().addProductModel.cat_id=0;
           context.read<AddProductCubit>(). addProductModel.name_ar = '';
           context.read<AddProductCubit>().addProductModel.image = '';
           context.read<AddProductCubit>().imagePath = '';
