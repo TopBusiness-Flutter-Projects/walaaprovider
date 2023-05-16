@@ -6,7 +6,7 @@ class ProductModel {
   int? price;
   String? image;
   int quantity = 1;
-
+  int? price_after_discount;
   int? category_id;
 
   ProductModel({this.id, this.name, this.price, this.image, this.quantity = 1});
@@ -18,6 +18,7 @@ class ProductModel {
     name_ar = json['name_ar'] ?? "";
     name_en = json['name_en'] ?? "";
     price = json['price'];
+    price_after_discount = json['price_after_discount']??0;
     image = json['image'];
     quantity = json['quantity'] ?? 1;
   }
@@ -32,6 +33,7 @@ class ProductModel {
     ProductModel['price'] = this.price;
     ProductModel['image'] = this.image;
     ProductModel['quantity'] = this.quantity;
+    ProductModel['price_after_discount'] = this.price_after_discount;
     return ProductModel;
   }
 }

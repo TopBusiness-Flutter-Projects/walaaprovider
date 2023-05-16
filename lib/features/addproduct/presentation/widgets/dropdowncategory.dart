@@ -86,7 +86,13 @@ class _DropDownCategoryState extends State<DropDownCategory> {
         }
       },
     );
-  }
+  }else{
+      categoryModel.id=0;
+      setState(() {
+        categoryModel;
+      });
+
+    }
 
   }
 

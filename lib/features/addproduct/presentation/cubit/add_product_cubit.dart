@@ -31,6 +31,7 @@ class AddProductCubit extends Cubit<AddProductState> {
 
   TextEditingController controllerName_ar = TextEditingController();
   TextEditingController controllerName_en = TextEditingController();
+  TextEditingController controllerpriceafter = TextEditingController();
   TextEditingController controllerprice= TextEditingController();
   final ServiceApi serviceApi;
   String? message;
@@ -123,6 +124,7 @@ class AddProductCubit extends Cubit<AddProductState> {
         controllerName_ar.text='';
         controllerName_en.text='';
         controllerprice.text='';
+        controllerpriceafter.text='';
         context.read<MenuCubit>().setlang(lang!);
         context.read<MenuCubit>().getcategory(userModel);
         context.read<HomeCubit>().getcategory(userModel);
@@ -155,6 +157,7 @@ class AddProductCubit extends Cubit<AddProductState> {
         controllerName_ar.text='';
         controllerName_en.text='';
         controllerprice.text='';
+        controllerpriceafter.text='';
 
         imagePath = '';
         context.read<MenuCubit>().setlang(lang!);

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/core/models/product_model.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/app_routes.dart';
+import 'package:walaaprovider/features/addproduct/presentation/cubit/add_product_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/widget/category_list.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/widget/product_list.dart';
@@ -25,6 +26,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+         // if(context.read<AddProductCubit>().userModel!=null){
+          context.read<AddProductCubit>().
+          addProductModel.name_en = '';
+          context.read<AddProductCubit>(). addProductModel.name_ar = '';
+          context.read<AddProductCubit>().addProductModel.image = '';
+          context.read<AddProductCubit>().imagePath = '';
+          context.read<AddProductCubit>().controllerName_ar.text='';
+          context.read<AddProductCubit>().controllerName_en.text='';
+          context.read<AddProductCubit>().controllerprice.text='';
+          context.read<AddProductCubit>().controllerpriceafter.text='';
+          context.read<AddProductCubit>().getcategory(context.read<HomeCubit>().userModel);
+
           Navigator.pushNamed(context, Routes.addProductRoute,arguments: ProductModel(id: 0,image: ''));
 
         },

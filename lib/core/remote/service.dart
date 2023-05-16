@@ -249,6 +249,7 @@ class ServiceApi {
       "name_ar": addProductModel.name_ar,
       "name_en": addProductModel.name_en,
       "price": addProductModel.price,
+      "price_after_discount": addProductModel.price_after_discount,
       "category_id": addProductModel.cat_id,
       "image": await MultipartFile.fromFile(addProductModel.image)
     });

@@ -6,6 +6,7 @@ import 'package:walaaprovider/core/utils/app_colors.dart';
 import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:walaaprovider/core/widgets/my_svg_widget.dart';
+import 'package:walaaprovider/features/addproduct/presentation/cubit/add_product_cubit.dart';
 import 'package:walaaprovider/features/mainScreens/homepage/cubit/home_cubit.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -85,9 +86,28 @@ class ProductWidget extends StatelessWidget {
                               color: AppColors.onBoardingColor,
                             ),
                             onTap: () {
-                              Navigator.pushNamed(
+                              // context.read<AddProductCubit>().addProductModel.image = model.image!;
+                              // context.read<AddProductCubit>().addProductModel.name_ar = model.name_ar!;
+                              // context.read<AddProductCubit>().addProductModel.name_en = model.name_en!;
+                              // context.read<AddProductCubit>().addProductModel.cat_id = model.category_id!;
+                              // context.read<AddProductCubit>().addProductModel.price = model.price.toString();
+                              // context.read<AddProductCubit>().controllerName_ar.text = model.name_ar!;
+                              // context.read<AddProductCubit>().controllerprice.text = model.price.toString();
+                              // context.read<AddProductCubit>().controllerName_en.text = model.name_en!;
+                              // context.read<AddProductCubit>().controllerpriceafter.text = model.price_after_discount==0?'':model.price_after_discount!.toString();
+                              // context.read<AddProductCubit>().getUserData();
+                               context.read<AddProductCubit>().getSingleProduct(
+                                   model.id!,
+                                   context,
+                                   context
+                                       .read<HomeCubit>()
+                                       .userModel
+                                       .access_token);
+
+
+                             Future.delayed(Duration(seconds: 1)).then((value) => Navigator.pushNamed(
                                   context, Routes.addProductRoute,
-                                  arguments: model);
+                                  arguments: model));
                             },
                           ),
                           InkWell(
@@ -115,17 +135,47 @@ class ProductWidget extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Container(
-                  height: 30,
+height: 30,
                   width: 30,
                   decoration: BoxDecoration(
                       shape: BoxShape.circle, color: AppColors.onBoardingColor),
                   child: Center(
-                    child: Text(
+                   child: Text(
+                    model.price_after_discount==0? model.price.toString():model.price_after_discount.toString(),
+                     style: TextStyle(
+                       color: AppColors.white,
+                       fontWeight: FontWeight.bold,
+                       fontSize: 14,
+                     ),
+                   ),
+                      ),
+                ),
+              ))  ,
+          Positioned(
+              left: 0,
+              bottom: 60,
+              child: Visibility(
+                visible:  model.price_after_discount==0?false:true,
+
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Container(
+height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.onBoardingColor),
+                    child: Center(
+                      child: Text(
                       model.price.toString(),
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
+
+                        style: TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                         decorationColor: AppColors.error,
+
+                          color: AppColors.error,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),

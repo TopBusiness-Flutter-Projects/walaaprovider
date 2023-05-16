@@ -10,17 +10,20 @@ class AddProductModel {
   String name_ar = '';
   String name_en = '';
   String price = '';
+  String price_after_discount = '';
   int cat_id=0;
   String error_name_ar = '';
   String error_name_en = '';
   String error_price = '';
+  String error_price_after = '';
 
   bool isDataValid() {
     error_name_ar = '';
     error_name_en = '';
     error_price = '';
+    error_price_after = '';
     //  print('data=>${projectName+"__"+details+"__"+feasibilityStudy+"__"+consultantTypes.length.toString()}');
-    if (image.isNotEmpty && name_ar.isNotEmpty && name_en.isNotEmpty&&cat_id!=0&&price.isNotEmpty) {
+    if (image.isNotEmpty && name_ar.isNotEmpty && name_en.isNotEmpty&&cat_id!=0&&price.isNotEmpty&&(price_after_discount.isEmpty||(int.parse(price)>int.parse(price_after_discount)))) {
       return true;
     } else {
       if (image.isEmpty) {
@@ -39,6 +42,12 @@ class AddProductModel {
       if(price.isEmpty){
         error_price = "field_required".tr();
 
+      }
+      if(price_after_discount.isNotEmpty){
+        if(int.parse(price)<=int.parse(price_after_discount)){
+          error_price_after = "price_must_big_than".tr();
+
+        }
       }
       return false;
     }

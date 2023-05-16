@@ -93,7 +93,7 @@ class Preferences {
           cartModel.productModel![index].quantity =
               cartModel.productModel![index].quantity + qty;
           cartModel.totalPrice = (cartModel.totalPrice! +
-              (qty * cartModel.productModel![index].price!));
+              (qty * (cartModel.productModel![index].price_after_discount==0?cartModel.productModel![index].price!:cartModel.productModel![index].price_after_discount!)));
           setCart(cartModel);
           isNew = false;
         }
@@ -101,7 +101,7 @@ class Preferences {
     );
     if (isNew) {
       model.quantity = qty;
-      cartModel.totalPrice = (cartModel.totalPrice! + (qty * model.price!));
+      cartModel.totalPrice = (cartModel.totalPrice! + (qty * (model.price_after_discount==0?model.price!:model.price_after_discount!)));
       cartModel.productModel!.add(model);
       cartModel.orderDetails!.add(
         OrderDetails(
@@ -135,7 +135,7 @@ class Preferences {
         cartModel.orderDetails!.removeAt(i);
         cartModel.productModel!.removeAt(i);
         cartModel.totalPrice =
-            cartModel.totalPrice! - (model.price! * model.quantity);
+            cartModel.totalPrice! - ((model.price_after_discount==0?model.price!:model.price_after_discount!) * model.quantity);
         setCart(cartModel);
         break;
       }

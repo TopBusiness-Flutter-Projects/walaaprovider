@@ -104,6 +104,7 @@ context.read<AddProductCubit>().setlang(lang);
             cubit.controllerName_ar.text = productModel.name_ar!;
             cubit.controllerprice.text = productModel.price.toString();
             cubit.controllerName_en.text = productModel.name_en!;
+            cubit.controllerpriceafter.text = productModel.price_after_discount==0?'':productModel.price_after_discount!.toString();
             cubit.checkValidData();
             cubit.getcategory(cubit.userModel);
           }
@@ -389,6 +390,42 @@ context.read<AddProductCubit>().setlang(lang);
                               thickness: 3,
                             ),
                           ),
+                          Container(
+                            width: MediaQuery.of(context).size.width - 50,
+                            child: TextFormField(
+                              maxLines: 1,
+                              controller: cubit.controllerpriceafter,
+                              cursorColor: AppColors.primary,
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              onChanged: (data) {
+                                cubit.addProductModel.price_after_discount = data;
+                                cubit.checkValidData();
+                              },
+                              validator: (value) {
+                                return cubit
+                                    .addProductModel.error_price_after.isNotEmpty
+                                    ? cubit.addProductModel.error_price_after
+                                    : null;
+                              },
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'price_after'.tr(),
+                                  hintStyle: TextStyle(
+                                      color: AppColors.primary,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Divider(
+                              color: AppColors.color2,
+                              height: 3,
+                              thickness: 3,
+                            ),
+                          ),
                           SizedBox(
                             height: 100,
                           ),
@@ -423,4 +460,10 @@ context.read<AddProductCubit>().setlang(lang);
                   )));
         })));
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 }

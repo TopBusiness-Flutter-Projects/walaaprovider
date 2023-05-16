@@ -28,7 +28,7 @@ class _CartModelWidgetState extends State<CartModelWidget> {
       Preferences.instance.changeProductCount(
         widget.model,
         widget.model.quantity,
-        widget.model.price!,
+        widget.model.price_after_discount==0?widget.model.price!:widget.model.price_after_discount!,
         context,
       );
       setState(() {});
@@ -38,7 +38,8 @@ class _CartModelWidgetState extends State<CartModelWidget> {
         Preferences.instance.changeProductCount(
           widget.model,
           widget.model.quantity,
-          -(widget.model.price)!,
+          -(widget.model.price_after_discount==0?widget.model.price!:widget.model.price_after_discount!
+          ),
           context,
         );
         setState(() {});
@@ -53,7 +54,8 @@ class _CartModelWidgetState extends State<CartModelWidget> {
 
   @override
   Widget build(BuildContext context) {
-    totalPrice = (widget.model.quantity * widget.model.price!) ;
+    totalPrice = (widget.model.quantity * (widget.model.price_after_discount==0?widget.model.price!:widget.model.price_after_discount!
+    )) ;
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
         return SizedBox(

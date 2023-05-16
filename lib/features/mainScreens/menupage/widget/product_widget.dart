@@ -116,30 +116,57 @@ class ProductWidget extends StatelessWidget {
             ),
           ),
           Positioned(
-            right: 0,
-            bottom: 35,
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.onBoardingColor,
-                ),
-                child: Center(
-                  child: Text(
-                    model.price.toString(),
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
+              right: 0,
+              bottom: 60,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: AppColors.onBoardingColor),
+                  child: Center(
+                    child: Text(
+                      model.price_after_discount == 0
+                          ? model.price.toString()
+                          : model.price_after_discount.toString(),
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-          ),
+              )),
+          Positioned(
+              left: 0,
+              bottom: 60,
+              child: Visibility(
+                visible: model.price_after_discount == 0 ? false : true,
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.onBoardingColor),
+                    child: Center(
+                      child: Text(
+                        model.price.toString(),
+                        style: TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          decorationColor: AppColors.error,
+                          color: AppColors.error,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )),
         ],
       ),
     );
@@ -147,7 +174,9 @@ class ProductWidget extends StatelessWidget {
 
   openDialog(ProductModel model, BuildContext context) {
     MenuCubit cubit = context.read<MenuCubit>();
-    cubit.itemPrice = model.price! as int;
+    cubit.itemPrice = model.price_after_discount == 0
+        ? model.price! as int
+        : model.price_after_discount as int;
     cubit.itemCount = 1;
     showDialog(
       context: context,
@@ -219,7 +248,7 @@ class ProductWidget extends StatelessWidget {
                                       children: [
                                         InkWell(
                                           onTap: () => cubit.changeItemCount(
-                                              '+', model.price!),
+                                              '+', model.price_after_discount==0?model.price!:model.price_after_discount!),
                                           child: Icon(
                                             Icons.add,
                                             color: AppColors.white,
@@ -235,7 +264,7 @@ class ProductWidget extends StatelessWidget {
                                         InkWell(
                                           onTap: () => cubit.changeItemCount(
                                             '-',
-                                            model.price!,
+                                            model.price_after_discount==0?model.price!:model.price_after_discount!,
                                           ),
                                           child: Icon(
                                             Icons.remove,

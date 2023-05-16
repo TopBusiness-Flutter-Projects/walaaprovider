@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+// import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/core/models/order_model.dart';
 import 'package:walaaprovider/core/utils/app_colors.dart';
@@ -9,7 +9,7 @@ import 'package:walaaprovider/core/utils/app_routes.dart';
 import 'package:walaaprovider/core/utils/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+// import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:walaaprovider/features/payment_with_qr_page/presentation/cubit/payment_cubit.dart';
 
 class PaymentWithQrPage extends StatefulWidget {
@@ -75,7 +75,7 @@ class _PaymentWithQrPageState extends State<PaymentWithQrPage> {
                           InkWell(
                             onTap: () {
                               // Navigator.pushNamed(context, Routes.qrRoute );
-                              scanQR();
+                              //scanQR();
                             },
                             child: Image.asset(
                               ImageAssets.qrImage,
@@ -107,25 +107,25 @@ class _PaymentWithQrPageState extends State<PaymentWithQrPage> {
     );
   }
 
-  Future<void> scanQR() async {
-    String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.QR);
-      print("sss${barcodeScanRes}");
-      context.read<PaymentCubit>().confirmOrder(widget.orderModel, barcodeScanRes,context);
-    } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    // setState(() {
-    //   _scanBarcode = barcodeScanRes;
-    // });
-  }
+  // Future<void> scanQR() async {
+  //   String barcodeScanRes;
+  //   // Platform messages may fail, so we use a try/catch PlatformException.
+  //   try {
+  //     barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+  //         '#ff6666', 'Cancel', true, ScanMode.QR);
+  //     print("sss${barcodeScanRes}");
+  //     context.read<PaymentCubit>().confirmOrder(widget.orderModel, barcodeScanRes,context);
+  //   } on PlatformException {
+  //     barcodeScanRes = 'Failed to get platform version.';
+  //   }
+  //
+  //   // If the widget was removed from the tree while the asynchronous platform
+  //   // message was in flight, we want to discard the reply rather than calling
+  //   // setState to update our non-existent appearance.
+  //   if (!mounted) return;
+  //
+  //   // setState(() {
+  //   //   _scanBarcode = barcodeScanRes;
+  //   // });
+  // }
 }
