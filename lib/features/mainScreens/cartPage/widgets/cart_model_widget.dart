@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walaaprovider/core/models/product_model.dart';
-
+import 'package:easy_localization/easy_localization.dart' as tr;
 import '../../../../core/preferences/preferences.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../cubit/cart_cubit.dart';
@@ -105,7 +105,7 @@ class _CartModelWidgetState extends State<CartModelWidget> {
                                 ),
                                 SizedBox(height: 8),
                                 Text(
-                                  '${totalPrice} SAR',
+                                  '${totalPrice} '+tr.tr('sr'),
                                   style: TextStyle(
                                     color: AppColors.primary,
                                   ),

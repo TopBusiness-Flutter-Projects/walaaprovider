@@ -188,8 +188,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: 'balance'.tr() +
                                 " , " +
                                 profileCubit.userModel!.user.balance
-                                    .toString() +
-                                "sr".tr(),
+                                    .toString()
+                               ,
                             image: ImageAssets.walletIcon,
                             imageColor: AppColors.buttonBackground,
                             onclick: () async {
