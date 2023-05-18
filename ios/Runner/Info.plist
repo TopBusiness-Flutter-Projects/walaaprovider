@@ -20,19 +20,19 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
-	<key>CFBundleSignature</key>
+	<key>CFBundleSignature</key><key>CFBundleURLTypes</key>
+                                	<array>
+                                		<dict>
+                                			<key>CFBundleTypeRole</key>
+                                			<string>Editor</string>
+                                			<key>CFBundleURLSchemes</key>
+                                			<array>
+                                				<string>app-1-1044862267047-ios-c92a79ea28ac38cd3b7582</string>
+                                			</array>
+                                		</dict>
+                                	</array>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>app-1-1044862267047-ios-c92a79ea28ac38cd3b7582</string>
-			</array>
-		</dict>
-	</array>
+
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
