@@ -17,7 +17,7 @@ import 'package:walaaprovider/features/auth/verification/presentation/cubit/verf
 import '../widgets/header_title.dart';
 
 class VerificationScreen extends StatefulWidget {
-  const VerificationScreen({Key? key, required this.phone, required this.orderModel})
+  const VerificationScreen({Key? key, required this.phone,required this.orderModel})
       : super(key: key);
   final String phone;
   final OrderModel orderModel;
@@ -75,7 +75,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 );
                 UserModel userModel = await Preferences.instance.getUserModel();
                 if (userModel.user.isLoggedIn) {
-                  if(widget.orderModel==null){
+                  if(widget.orderModel.id==0){
                   Navigator.pushNamedAndRemoveUntil(
                       context,
                       Routes.NavigationBottomRoute,

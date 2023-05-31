@@ -12,17 +12,17 @@ class LoginModel {
   Future<bool> isDataValid() async {
     error_phone = '';
     error_password = '';
-    bool vaild = false;
+    bool vaild = true;
     if (phone.isNotEmpty) {
       print("dddd${phone}");
-      vaild = await PhoneNumberUtil().validate(phone_code+phone);
+    //  vaild = await PhoneNumberUtil().validate(phone_code+phone);
     }
     if (vaild && password.isNotEmpty && password.length >= 6) {
       return true;
     } else {
-      if (!vaild) {
-        error_phone = 'invaild phone'.tr();
-      }
+      // if (!vaild) {
+      //   error_phone = 'invaild phone'.tr();
+      // }
       if (password.isEmpty) {
         error_password = 'field_required'.tr();
       }

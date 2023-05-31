@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:group_radio_button/group_radio_button.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:walaaprovider/core/utils/appwidget.dart';
 
@@ -14,10 +15,19 @@ import '../../../../../core/widgets/show_loading_indicator.dart';
 import '../cubit/register_cubit.dart';
 import '../cubit/register_state.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
 
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   GlobalKey<FormState> formKey = GlobalKey();
+
+  String _verticalGroupValue = "cafe".tr();
+
+  final _status = ["cafe".tr(), "restuarant".tr()];
 
   @override
   Widget build(BuildContext context) {
@@ -80,37 +90,34 @@ class RegisterScreen extends StatelessWidget {
                           height: 23,
                         ),
                         Container(
-                          
                           child: Row(
                             children: [
-
                               SizedBox(width: 25),
                               Expanded(
                                 child: TextFormField(
                                   maxLines: 1,
                                   cursorColor: AppColors.primary,
                                   keyboardType: TextInputType.text,
-
                                   textInputAction: TextInputAction.next,
                                   onChanged: (data) {
                                     context
                                         .read<RegisterCubit>()
-                                        .registerModel
-                                        .first_name = data;
+                                        .registerModel.
+                                        name = data;
                                     context
                                         .read<RegisterCubit>()
                                         .checkValidRegisterData();
                                   },
                                   validator: (value) {
                                     return context
-                                        .read<RegisterCubit>()
-                                        .registerModel
-                                        .error_first_name
-                                        .isNotEmpty
+                                            .read<RegisterCubit>()
+                                            .registerModel
+                                            .error_name
+                                            .isNotEmpty
                                         ? context
-                                        .read<RegisterCubit>()
-                                        .registerModel
-                                        .error_first_name
+                                            .read<RegisterCubit>()
+                                            .registerModel
+                                            .error_name
                                         : null;
                                   },
                                   decoration: InputDecoration(
@@ -133,64 +140,10 @@ class RegisterScreen extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          
-                          child: Row(
-                            children: [
 
-                              SizedBox(width: 25),
-                              Expanded(
-                                child: TextFormField(
-                                  maxLines: 1,
-                                  cursorColor: AppColors.primary,
-                                  keyboardType: TextInputType.text,
-
-                                  textInputAction: TextInputAction.next,
-                                  onChanged: (data) {
-                                    context
-                                        .read<RegisterCubit>()
-                                        .registerModel
-                                        .last_name = data;
-                                    context
-                                        .read<RegisterCubit>()
-                                        .checkValidRegisterData();
-                                  },
-                                  validator: (value) {
-                                    return context
-                                        .read<RegisterCubit>()
-                                        .registerModel
-                                        .error_last_name
-                                        .isNotEmpty
-                                        ? context
-                                        .read<RegisterCubit>()
-                                        .registerModel
-                                        .error_last_name
-                                        : null;
-                                  },
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'last_name'.tr(),
-                                      hintStyle: TextStyle(
-                                          color: AppColors.primary,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          color: AppColors.color2,
-                          height: 3,
-                          thickness: 3,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
                         Container(
                           child: Row(
                             children: [
-
                               Expanded(
                                 child: InternationalPhoneNumberInput(
                                   locale: lang,
@@ -280,17 +233,14 @@ class RegisterScreen extends StatelessWidget {
                           height: 20,
                         ),
                         Container(
-                          
                           child: Row(
                             children: [
-
                               SizedBox(width: 25),
                               Expanded(
                                 child: TextFormField(
                                   maxLines: 1,
                                   cursorColor: AppColors.primary,
                                   keyboardType: TextInputType.text,
-
                                   textInputAction: TextInputAction.next,
                                   onChanged: (data) {
                                     context
@@ -303,14 +253,14 @@ class RegisterScreen extends StatelessWidget {
                                   },
                                   validator: (value) {
                                     return context
-                                        .read<RegisterCubit>()
-                                        .registerModel
-                                        .error_location
-                                        .isNotEmpty
+                                            .read<RegisterCubit>()
+                                            .registerModel
+                                            .error_location
+                                            .isNotEmpty
                                         ? context
-                                        .read<RegisterCubit>()
-                                        .registerModel
-                                        .error_location
+                                            .read<RegisterCubit>()
+                                            .registerModel
+                                            .error_location
                                         : null;
                                   },
                                   decoration: InputDecoration(
@@ -334,10 +284,8 @@ class RegisterScreen extends StatelessWidget {
                           height: 20,
                         ),
                         Container(
-                          
                           child: Row(
                             children: [
-
                               SizedBox(width: 25),
                               Expanded(
                                 child: TextFormField(
@@ -389,10 +337,8 @@ class RegisterScreen extends StatelessWidget {
                           height: 20,
                         ),
                         Container(
-                          
                           child: Row(
                             children: [
-
                               SizedBox(width: 25),
                               Expanded(
                                 child: TextFormField(
@@ -443,6 +389,64 @@ class RegisterScreen extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
+                        Container(
+
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  title: Row(
+                                    children: [
+                                      Radio(
+                                        groupValue: _verticalGroupValue=='cafe'.tr()?_verticalGroupValue:"",
+                                        value: 'cafe'.tr(),
+                                        onChanged: (value) => setState(() {
+                                          print("value");
+                                          _verticalGroupValue = value ?? '';
+
+                                          print(value);
+                                          context
+                                                  .read<RegisterCubit>()
+                                                  .registerModel.provider_id=
+                                                2;
+                                        }),
+                                      ),
+                                      Text('cafe'.tr()),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListTile(
+                                    title: Row(
+                                  children: [
+                                    Radio(
+
+                                      groupValue: _verticalGroupValue=='restuarant'.tr()?_verticalGroupValue:"",
+                                      value: 'restuarant'.tr(),
+
+                                      onChanged: (value) => setState(() {
+                                        print("value");
+                                        _verticalGroupValue = value ?? '';
+
+                                        print(value);
+                                        context
+                                                .read<RegisterCubit>()
+                                                .registerModel
+                                                .provider_id =
+                                         1;
+                                      }),
+                                    ),
+                                    Text('restuarant'.tr()),
+                                  ],
+                                )),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20),
                         CustomButton(
                           textcolor: AppColors.color1,
                           text: 'sign_up'.tr(),
@@ -460,6 +464,8 @@ class RegisterScreen extends StatelessWidget {
                           paddingHorizontal: 60,
                           borderRadius: 80,
                         ),
+                        SizedBox(height: 20),
+
                       ],
                     ),
                   ),

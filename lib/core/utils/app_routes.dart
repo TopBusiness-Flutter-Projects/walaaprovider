@@ -80,7 +80,7 @@ class AppRoutes {
 
         return MaterialPageRoute(
           builder: (context) =>
-              VerificationScreen(phone: data[0], orderModel: data[1]),
+              VerificationScreen(phone: data[0], orderModel: data[1]??OrderModel()),
         );
       case Routes.NavigationBottomRoute:
         return MaterialPageRoute(

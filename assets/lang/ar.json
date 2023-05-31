@@ -1,5 +1,5 @@
 {
-  "appname": "ولاء",
+  "appname": "تاست",
   "phone": "رقم الجوال",
   "password": "كلمة المرور",
   "confirm_password": "تأكيد كلمة المرور",
@@ -66,6 +66,8 @@
   "verification_title_text": "الرجاء إدخال رمز التحقق الخاص بك",
   "verification_desc_text": "لقد أرسلنا رمز التحقق إلى رقم هاتفك المسجل",
   "will_deducted": "سيتم خصم",
+  "restuarant": "مطعم",
+  "cafe": "قهوة",
   "your_account": "من حسابك"
 
 }

@@ -9,8 +9,10 @@ class OrderModel {
   late List<OrderDetailsModel> orderDetails;
   late String dataTime;
 
+  OrderModel();
+
   OrderModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id']??0;
     totalPrice = json['total_price'];
     note = json['note']??'';
     userData = User.fromJson(json['user_data']);

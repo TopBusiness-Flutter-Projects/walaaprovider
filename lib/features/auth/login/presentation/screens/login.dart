@@ -82,8 +82,9 @@ class LoginScreen extends StatelessWidget {
                               Expanded(
                                 child: InternationalPhoneNumberInput(
                                   locale: lang,
-                                  searchBoxDecoration:
-                                      InputDecoration(labelText: "search_country".tr()),
+                                  searchBoxDecoration: InputDecoration(
+                                    labelText: "search_country".tr(),
+                                  ),
                                   errorMessage: context
                                       .read<LoginCubit>()
                                       .loginModel
@@ -97,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                                             .loginModel
                                             .phone =
                                         number.phoneNumber!
-                                            .replaceAll(number.dialCode!, "")!;
+                                            .replaceAll(number.dialCode!, "");
                                     context
                                       ..read<LoginCubit>().loginModel.code =
                                           number.isoCode!;

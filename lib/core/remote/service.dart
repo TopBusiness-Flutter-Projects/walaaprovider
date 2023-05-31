@@ -53,14 +53,14 @@ class ServiceApi {
     Response response = await dio.post(
       EndPoints.registerUrl,
       data: {
-        "name": registerModel.first_name + " " + registerModel.last_name,
+        "name": registerModel.name ,
         "role_id": registerModel.role_id,
         "location": registerModel.location,
         "phone": registerModel.phone,
         "phone_code": registerModel.phone_code,
         "password": registerModel.password,
-        "phone": registerModel.phone,
-        "phone_code": registerModel.phone_code,
+        "provider_type": registerModel.provider_id,
+
       },
     );
     print('Url : ${EndPoints.loginUrl}');

@@ -1,5 +1,5 @@
 {
-  "appname": "Walaa",
+  "appname": "Taste",
   "phone": "Phone Number",
   "password": "Password",
   "confirm_password": "Confirm Password",
@@ -66,5 +66,7 @@
   "verification_title_text": "Please enter your verification code",
   "verification_desc_text": "you have sent a verification code to your registered phone number",
   "will_deducted": "will be deducted",
+  "restuarant": "Restaurant",
+  "cafe": "Cafe",
   "your_account": "from your account"
 }
