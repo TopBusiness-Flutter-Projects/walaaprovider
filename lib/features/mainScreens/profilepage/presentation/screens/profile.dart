@@ -193,13 +193,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             image: ImageAssets.walletIcon,
                             imageColor: AppColors.buttonBackground,
                             onclick: () async {
-                              var resultLabel =
-                                  await _showTextInputDialog(context);
-                              if (resultLabel != null) {
-                                print("D;dldlldl${resultLabel}");
-                                profileCubit.onRechargeWallet(
-                                    double.parse(resultLabel), context);
-                              }
+                              // var resultLabel =
+                              //     await _showTextInputDialog(context);
+                              // if (resultLabel != null) {
+                              //   print("D;dldlldl${resultLabel}");
+                              //   profileCubit.onRechargeWallet(
+                              //       double.parse(resultLabel), context);
+                              // }
                             },
 
                             //     Navigator.push(
