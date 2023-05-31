@@ -88,8 +88,8 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/cofee_logo.png"
-  adaptive_icon_foreground: "assets/images/glamor_logo.png"
+  image_path: "assets/images/walaa_logo.png"
+  adaptive_icon_foreground: "assets/images/walaa_logo.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
