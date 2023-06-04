@@ -8,6 +8,7 @@ import 'package:walaaprovider/features/mainScreens/menupage/model/cart_model.dar
 
 import '../../features/mainScreens/cartPage/cubit/cart_cubit.dart';
 
+
 class Preferences {
   static final Preferences instance = Preferences._internal();
 
