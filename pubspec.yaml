@@ -71,6 +71,7 @@ dependencies:
   another_xlider: ^3.0.1
   chewie: ^1.5.0
   wakelock: ^0.6.2
+  firebase_crashlytics: ^3.3.4
   wakelock_windows: ^0.2.1
   win32: ^3.0.0
   scrollable_clean_calendar: ^1.4.1
