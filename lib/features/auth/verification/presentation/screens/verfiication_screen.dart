@@ -75,7 +75,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 );
                 UserModel userModel = await Preferences.instance.getUserModel();
                 if (userModel.user.isLoggedIn) {
-                  if(widget.orderModel.id==0){
+                  if(widget.orderModel==null||widget.orderModel.id==0){
                   Navigator.pushNamedAndRemoveUntil(
                       context,
                       Routes.NavigationBottomRoute,

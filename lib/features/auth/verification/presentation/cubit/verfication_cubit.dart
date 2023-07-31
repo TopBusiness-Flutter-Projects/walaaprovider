@@ -36,6 +36,7 @@ class VerficationCubit extends Cubit<VerficationState> {
   int? resendToken;
 
   sendSmsCode() async {
+    print(phoneController.text);
     emit(SendCodeLoading());
     _mAuth.setSettings(forceRecaptchaFlow: true);
     _mAuth.verifyPhoneNumber(

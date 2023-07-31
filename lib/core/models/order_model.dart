@@ -2,7 +2,7 @@ import 'package:walaaprovider/core/models/order_detials_model.dart';
 import 'package:walaaprovider/core/models/user.dart';
 
 class OrderModel {
-  late int id;
+   int id=0;
   late dynamic totalPrice;
   late String note;
   late User userData;

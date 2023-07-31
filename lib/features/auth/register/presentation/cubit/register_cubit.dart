@@ -48,7 +48,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       if (response.status.code == 200) {
         Navigator.pop(context);
         Preferences.instance.setUser(response.userModel).then((value) =>
-            Future.delayed(Duration(milliseconds: 400), () {
+            Future.delayed(Duration(milliseconds: 10), () {
               context.read<VerficationCubit>().phoneController.text=registerModel.phone_code+registerModel.phone;
               context.read<VerficationCubit>().sendSmsCode();
 
