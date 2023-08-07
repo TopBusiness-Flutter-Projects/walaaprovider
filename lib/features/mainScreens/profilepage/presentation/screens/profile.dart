@@ -148,7 +148,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      'welcome'.tr() + " " + ('appname'.tr()),
+                                      'welcome'.tr() + " " +
+              (context.read<ProfileCubit>()!.userModel !=null?
+                                      context.read<ProfileCubit>().userModel!.user.name:""),
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
