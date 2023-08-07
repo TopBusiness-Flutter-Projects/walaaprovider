@@ -68,5 +68,8 @@
   "will_deducted": "will be deducted",
   "restuarant": "Restaurant",
   "cafe": "Cafe",
-  "your_account": "from your account"
+  "your_account": "from your account",
+  "get_start": "Get Start",
+  "must_two_name": "Must be two name"
+
 }

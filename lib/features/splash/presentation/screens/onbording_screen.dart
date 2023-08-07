@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
@@ -65,7 +66,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                       right: 0,
                       left: 0,
                       child: CustomButton(
-                        text: 'Get Started',
+                        text: 'get_start'.tr(),
                         onClick: () =>setFirstInstall(),
                         color: AppColors.buttonBackground,
                         paddingHorizontal: 130,

@@ -23,6 +23,16 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context
+        .read<RegisterCubit>()
+        .registerModel.provider_id=
+    2;
+  }
+
   GlobalKey<FormState> formKey = GlobalKey();
 
   String _verticalGroupValue = "cafe".tr();
