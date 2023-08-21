@@ -130,15 +130,15 @@ class _OrderItemState extends State<OrderItem> {
                         text: 'confirm'.tr(),
                         borderColor: AppColors.success,
                         onclick: () {
-                          Future.delayed(Duration(milliseconds: 400), () {
-                            context.read<VerficationCubit>().phoneController.text=widget.orderModel.userData.phone_code+widget.orderModel.userData.phone;
-                            context.read<VerficationCubit>().sendSmsCode();
-
-                          })
-                          .then((value) => {
-                            Navigator.pop(context),
-                            Navigator.pushNamed(context, Routes.verficationRoute,arguments:[widget.orderModel.userData.phone_code+widget.orderModel.userData.phone,widget.orderModel] )
-                          });
+                          // Future.delayed(Duration(milliseconds: 400), () {
+                          //   context.read<VerficationCubit>().phoneController.text=widget.orderModel.userData.phone_code+widget.orderModel.userData.phone;
+                          //   context.read<VerficationCubit>().sendSmsCode();
+                          //
+                          // })
+                          // .then((value) => {
+                          //   Navigator.pop(context),
+                          //   Navigator.pushNamed(context, Routes.verficationRoute,arguments:[widget.orderModel.userData.phone_code+widget.orderModel.userData.phone,widget.orderModel] )
+                          // });
                         },
                       ),
                       Spacer(),

@@ -47,18 +47,22 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       if (response.status.code == 200) {
         Navigator.pop(context);
+        //Routes.verficationRoute,
+    // .then((value) =>
+    // Future.delayed(Duration(milliseconds: 10), () {
+    // context.read<VerficationCubit>().phoneController.text=registerModel.phone_code+registerModel.phone;
+    // context.read<VerficationCubit>().sendSmsCode();
+    //
+    // })
         Preferences.instance.setUser(response.userModel).then((value) =>
-            Future.delayed(Duration(milliseconds: 10), () {
-              context.read<VerficationCubit>().phoneController.text=registerModel.phone_code+registerModel.phone;
-              context.read<VerficationCubit>().sendSmsCode();
-
-            }).then((value) =>
-                Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    Routes.verficationRoute,
-                    ModalRoute.withName(Routes.registerRoute),
-                    arguments: [registerModel.phone_code+registerModel.phone,null]
-                )));
+            Navigator.of(context)
+                .pushReplacementNamed(Routes.NavigationBottomRoute));
+                // Navigator.pushNamedAndRemoveUntil(
+                //     context,
+                //     Routes.NavigationBottomRoute,
+                //     ModalRoute.withName(Routes.registerRoute),
+                //     arguments: [res.phone_code+registerModel.phone,null]
+                // ));
 
 
 
