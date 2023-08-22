@@ -130,6 +130,7 @@ class _OrderItemState extends State<OrderItem> {
                         text: 'confirm'.tr(),
                         borderColor: AppColors.success,
                         onclick: () {
+                          context.read<OrderCubit>().confirmOrder(widget.orderModel,widget.orderModel.userData.id.toString(), context);
                           // Future.delayed(Duration(milliseconds: 400), () {
                           //   context.read<VerficationCubit>().phoneController.text=widget.orderModel.userData.phone_code+widget.orderModel.userData.phone;
                           //   context.read<VerficationCubit>().sendSmsCode();
