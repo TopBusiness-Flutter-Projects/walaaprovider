@@ -160,7 +160,7 @@ Future<void> setup() async {
            serviceLocator(),
         ),
   );
-  serviceLocator.registerFactory(() => NavigatorBottomCubit());
+  serviceLocator.registerFactory(() => NavigatorBottomCubit(serviceLocator()));
   serviceLocator.registerFactory(() => CartCubit(serviceLocator()));
   //! External
   // Shared Preferences

@@ -13,6 +13,7 @@ import 'package:walaaprovider/core/models/single_product_data_model.dart';
 import 'package:walaaprovider/core/models/status_resspons.dart';
 import 'package:walaaprovider/core/models/user_data_model.dart';
 import 'package:walaaprovider/core/models/user_list_data_model.dart';
+import 'package:walaaprovider/core/models/user_model.dart';
 import 'package:walaaprovider/core/remote/handle_exeption.dart';
 import 'package:walaaprovider/features/addcategorypage/model/add_category_model.dart';
 import 'package:walaaprovider/features/addproduct/presentation/model/add_product_model.dart';
@@ -23,6 +24,7 @@ import 'package:walaaprovider/features/auth/register/models/register_model.dart'
 import 'package:walaaprovider/features/mainScreens/cartPage/widgets/cart_model_widget.dart';
 import 'package:walaaprovider/features/mainScreens/menupage/model/cart_model.dart';
 
+import '../preferences/preferences.dart';
 import '../utils/end_points.dart';
 import 'package:walaaprovider/injector.dart' as injector;
 
@@ -74,7 +76,7 @@ class ServiceApi {
     if (editProfileModel.image.isEmpty ||
         editProfileModel.image.contains("http")) {
       fields = FormData.fromMap({
-        "name": editProfileModel.first_name + " " + editProfileModel.last_name,
+        "name": editProfileModel.first_name,
         "role_id": editProfileModel.role_id,
         "location": editProfileModel.location,
         "phone": editProfileModel.phone,
@@ -84,7 +86,7 @@ class ServiceApi {
       });
     } else {
       fields = FormData.fromMap({
-        "name": editProfileModel.first_name + " " + editProfileModel.last_name,
+        "name": editProfileModel.first_name ,
         "role_id": editProfileModel.role_id,
         "location": editProfileModel.location,
         "phone": editProfileModel.phone,
@@ -210,7 +212,28 @@ class ServiceApi {
     print('Response : \n ${response.data}');
     return SingleCategoryDataModel.fromJson(response.data);
   }
+  Future< StatusResponse> addDeviceToken(
+      String devicetoken,String softwareType,) async {
+    UserModel userModel=await Preferences.instance.getUserModel();
 
+      final response = await dio.post(
+        EndPoints.tokenUrl,
+        options: Options(
+          headers: {
+            'Authorization': userModel.access_token,
+          },
+        ),
+        data: {
+          "software_type" :softwareType,
+          "phone_token":devicetoken,
+          "client_id":userModel.user.id
+        },
+      );
+      //print('Url : ${EndPoints.sendOrderUrl}');
+      // print('Response : \n ${response.data}');
+      return StatusResponse.fromJson(response.data);
+
+  }
   Future<StatusResponse> editcategory(
       AddCategoryModel addCategoryModel, String token, int cate_id) async {
     var fields = FormData.fromMap({});

@@ -7,6 +7,8 @@ class EndPoints {
   static const String chargeWalletUrl = '${baseUrl}paytap/store';
   static const String profileUrl = '${baseUrl}provider/auth/my-profile';
   static const String sendOrderUrl = '${baseUrl}provider/orders/store';
+  static const String tokenUrl = '${baseUrl}addFirebaseNotification';
+
   static const String registerUrl = '${baseUrl}provider/auth/register';
   static const String editprofileUrl = '${baseUrl}provider/auth/update-profile';
   static const String addcategoryUrl = '${baseUrl}provider/categories/store';

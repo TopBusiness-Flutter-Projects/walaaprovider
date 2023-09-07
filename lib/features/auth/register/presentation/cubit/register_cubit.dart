@@ -19,6 +19,8 @@ import '../../../../../core/remote/service.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/toast_message_method.dart';
 
+import '../../../../mainScreens/profilepage/presentation/cubit/profile_cubit.dart';
+import '../../../../navigation_bottom/cubit/navigator_bottom_cubit.dart';
 import 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
@@ -54,9 +56,12 @@ class RegisterCubit extends Cubit<RegisterState> {
     // context.read<VerficationCubit>().sendSmsCode();
     //
     // })
-        Preferences.instance.setUser(response.userModel).then((value) =>
+        Preferences.instance.setUser(response.userModel).then((value) =>{
+            context.read<ProfileCubit>().getUserData(),
+          context.read<NavigatorBottomCubit>().getDeviceToken(),
+
             Navigator.of(context)
-                .pushReplacementNamed(Routes.NavigationBottomRoute));
+                .pushReplacementNamed(Routes.NavigationBottomRoute)});
                 // Navigator.pushNamedAndRemoveUntil(
                 //     context,
                 //     Routes.NavigationBottomRoute,

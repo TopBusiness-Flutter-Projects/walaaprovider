@@ -18,6 +18,8 @@ import '../../../../../core/remote/service.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/toast_message_method.dart';
 
+import '../../../../mainScreens/profilepage/presentation/cubit/profile_cubit.dart';
+import '../../../../navigation_bottom/cubit/navigator_bottom_cubit.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -49,7 +51,11 @@ class LoginCubit extends Cubit<LoginState> {
         Preferences.instance
             .setUser(response.userModel)
             .then((value) => Future.delayed(Duration(milliseconds: 100), () {
-                  Navigator.pushNamedAndRemoveUntil(
+          context.read<ProfileCubit>().getUserData();
+          context.read<NavigatorBottomCubit>().getDeviceToken();
+
+
+          Navigator.pushNamedAndRemoveUntil(
                     context,
                     Routes.NavigationBottomRoute,
                     ModalRoute.withName(Routes.loginRoute),

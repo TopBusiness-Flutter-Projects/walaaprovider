@@ -15,7 +15,6 @@ class RegisterModel {
   String error_password = '';
   String error_confirm_password = '';
   String error_name = '';
-  String error_last_name = '';
   String error_location = '';
   Future<bool> isDataValid() async {
     error_phone = '';
@@ -30,7 +29,7 @@ class RegisterModel {
       print("dddd${phone}");
    //   vaild = await PhoneNumberUtil().validate(phone_code + phone);
     }
-    if (vaild && password.isNotEmpty && password.length >= 6&&password==confirm_password&&name.isNotEmpty&&(name.split(" ").length==2&&name.split(" ")[1].length>0)&&location.isNotEmpty) {
+    if (vaild && password.isNotEmpty && password.length >= 6&&password==confirm_password&&name.isNotEmpty&&location.isNotEmpty) {
       return true;
     } else {
       if (!vaild) {
@@ -51,10 +50,7 @@ class RegisterModel {
       if(name.isEmpty){
         error_name='field_required'.tr();
       }
-      else if(name.split(" ").length!=2||name.split(" ")[1].length==0){
-        error_name='must_two_name'.tr();
 
-      }
      
       if(location.isEmpty){
         print("dldldl${location}");

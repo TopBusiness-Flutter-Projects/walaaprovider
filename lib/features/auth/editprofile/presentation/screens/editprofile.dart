@@ -242,7 +242,7 @@ class EditProfileScreen extends StatelessWidget {
                                   },
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: 'first_name'.tr(),
+                                      hintText: 'name'.tr(),
                                       hintStyle: TextStyle(
                                           color: AppColors.primary,
                                           fontSize: 14.0,
@@ -260,51 +260,51 @@ class EditProfileScreen extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          child: Row(
-                            children: [
-                              SizedBox(width: 25),
-                              Expanded(
-                                child: TextFormField(
-                                  maxLines: 1,
-                                  cursorColor: AppColors.primary,
-                                  keyboardType: TextInputType.text,
-                                  textInputAction: TextInputAction.next,
-                                  controller: editProfileCubit.controllerLastName,
-
-                                  onChanged: (data) {
-                                    editProfileCubit
-                                        .editProfileModel.last_name = data;
-                                    editProfileCubit
-                                        .checkValidEditProfileData();
-                                  },
-                                  validator: (value) {
-                                    return editProfileCubit.editProfileModel
-                                            .error_last_name.isNotEmpty
-                                        ? editProfileCubit
-                                            .editProfileModel.error_last_name
-                                        : null;
-                                  },
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'last_name'.tr(),
-                                      hintStyle: TextStyle(
-                                          color: AppColors.primary,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          color: AppColors.color2,
-                          height: 3,
-                          thickness: 3,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        // Container(
+                        //   child: Row(
+                        //     children: [
+                        //       SizedBox(width: 25),
+                        //       Expanded(
+                        //         child: TextFormField(
+                        //           maxLines: 1,
+                        //           cursorColor: AppColors.primary,
+                        //           keyboardType: TextInputType.text,
+                        //           textInputAction: TextInputAction.next,
+                        //           controller: editProfileCubit.controllerLastName,
+                        //
+                        //           onChanged: (data) {
+                        //             editProfileCubit
+                        //                 .editProfileModel.last_name = data;
+                        //             editProfileCubit
+                        //                 .checkValidEditProfileData();
+                        //           },
+                        //           validator: (value) {
+                        //             return editProfileCubit.editProfileModel
+                        //                     .error_last_name.isNotEmpty
+                        //                 ? editProfileCubit
+                        //                     .editProfileModel.error_last_name
+                        //                 : null;
+                        //           },
+                        //           decoration: InputDecoration(
+                        //               border: InputBorder.none,
+                        //               hintText: 'last_name'.tr(),
+                        //               hintStyle: TextStyle(
+                        //                   color: AppColors.primary,
+                        //                   fontSize: 14.0,
+                        //                   fontWeight: FontWeight.bold)),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        // Divider(
+                        //   color: AppColors.color2,
+                        //   height: 3,
+                        //   thickness: 3,
+                        // ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
                         Container(
                           child: Row(
                             children: [

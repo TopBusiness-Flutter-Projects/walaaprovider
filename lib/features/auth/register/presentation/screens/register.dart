@@ -132,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   },
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: 'first_name'.tr(),
+                                      hintText: 'name'.tr(),
                                       hintStyle: TextStyle(
                                           color: AppColors.primary,
                                           fontSize: 14.0,

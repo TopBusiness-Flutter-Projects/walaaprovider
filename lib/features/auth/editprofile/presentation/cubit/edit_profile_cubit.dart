@@ -132,8 +132,7 @@ print("objectssss");
 print(number.isoCode);
     editProfileModel
       ..image=value.user.image
-      ..first_name=value.user.name.split(" ")[0]
-      ..last_name=value.user.name.split(" ")[1]
+      ..first_name=value.user.name
       ..location=value.user.location
       ..phone=value.user.phone
       ..phone_code=value.user.phone_code

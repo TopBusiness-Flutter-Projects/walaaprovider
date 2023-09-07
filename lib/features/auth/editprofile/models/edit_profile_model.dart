@@ -3,7 +3,6 @@ import 'package:phone_number/phone_number.dart';
 
 class EditProfileModel {
   String first_name = '';
-  String last_name = '';
   int role_id = 1;
   String location = '';
   String phone = '';
@@ -16,7 +15,6 @@ class EditProfileModel {
   String error_password = '';
   String error_confirm_password = '';
   String error_first_name = '';
-  String error_last_name = '';
   String error_location = '';
   bool vaild = false;
 
@@ -25,7 +23,6 @@ class EditProfileModel {
     error_password = '';
     error_confirm_password = '';
     error_first_name = '';
-    error_last_name = '';
     error_location = '';
 
     vaild = false;
@@ -40,7 +37,6 @@ class EditProfileModel {
                 password.length >= 6 &&
                 password == confirm_password)) &&
         first_name.isNotEmpty &&
-        last_name.isNotEmpty &&
         location.isNotEmpty) {
       return true;
     } else {
@@ -59,9 +55,7 @@ class EditProfileModel {
       if (first_name.isEmpty) {
         error_first_name = 'field_required'.tr();
       }
-      if (last_name.isEmpty) {
-        error_last_name = 'field_required'.tr();
-      }
+
       if (location.isEmpty) {
         print("dldldl${location}");
 
