@@ -1,7 +1,8 @@
 
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as trans;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:walaaprovider/features/addcategorypage/cubit/addcategory_cubit.dart';
 import 'package:walaaprovider/features/addproduct/presentation/cubit/add_product_cubit.dart';
 import 'package:walaaprovider/features/auth/editprofile/presentation/cubit/edit_profile_cubit.dart';
@@ -35,6 +36,7 @@ class _CofeeState extends State<Cofee> {
 
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
       providers: [
 
@@ -107,12 +109,12 @@ class _CofeeState extends State<Cofee> {
               injector.serviceLocator<NewPasswordCubit>(),
         ),
       ],
-      child:  MaterialApp(
+      child:  GetMaterialApp(
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,
-        title: 'appname'.tr(),
+        title: trans.tr('appname'),
         onGenerateRoute: AppRoutes.onGenerateRoute,
 
     ));
