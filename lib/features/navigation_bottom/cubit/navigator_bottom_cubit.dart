@@ -48,6 +48,7 @@ class NavigatorBottomCubit extends Cubit<NavigatorBottomState> {
       softwareType="ios";
     }
     final response=await api.addDeviceToken(token!, softwareType);
-
+// print("llllll");
+// print(token);
   }
 }

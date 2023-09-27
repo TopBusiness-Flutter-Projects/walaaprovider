@@ -23,48 +23,53 @@ class _OrderListState extends State<OrderList> {
         //  OrderCubit().getProduct(context.read<OrderCubit>().userModel,OrderCubit().OrderList.elementAt(0).id);
         //
         // }
-        return SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              ...List.generate(
-                orderCubit.odersize,
-                (index) => state is AllOrderLoading
-                    ? SizedBox(
-                        width: MediaQuery.of(context).size.width - 70,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.primary,
-                          ),
-                        ),
-                      )
-                    : state is AllOrderError
-                        ? Center(
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.refresh),
-                            ),
-                          )
-                        : orderCubit.orderList.isNotEmpty
-                            ? InkWell(
-                                onTap: () {
+        return RefreshIndicator(
 
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: OrderItem(
-                                    orderModel: orderCubit.orderList
-                                        .elementAt(index),
+          onRefresh: () async{
+            orderCubit.getorders(orderCubit.userModel);
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ...List.generate(
+                  orderCubit.odersize,
+                  (index) => state is AllOrderLoading
+                      ? SizedBox(
+                          width: MediaQuery.of(context).size.width - 70,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.primary,
+                            ),
+                          ),
+                        )
+                      : state is AllOrderError
+                          ? Center(
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.refresh),
+                              ),
+                            )
+                          : orderCubit.orderList.isNotEmpty
+                              ? InkWell(
+                                  onTap: () {
+
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: OrderItem(
+                                      orderModel: orderCubit.orderList
+                                          .elementAt(index),
+                                    ),
+                                  ),
+                                )
+                              : Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.primary,
                                   ),
                                 ),
-                              )
-                            : Center(
-                                child: CircularProgressIndicator(
-                                  color: AppColors.primary,
-                                ),
-                              ),
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         );
       },
